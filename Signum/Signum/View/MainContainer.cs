@@ -13,11 +13,9 @@ namespace Signum.View
     public partial class MainContainer : UserControl
     {
 
-        public Panel LeftPanel => _outerSplitContanier.Panel1;
+        public Panel LeftPanel => _outerSplitContainer.Panel1;
 
-        public Panel CenterPanel => _innerSplitContainer.Panel1;
-
-        public Panel RightPanel => _innerSplitContainer.Panel2;
+        public Panel RightPanel => _outerSplitContainer.Panel2;
 
         public MainContainer()
         {
