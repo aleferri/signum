@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class Informazione: IInformazione
+    class InformazioneDataOra : IInformazione
     {
-
-        private string _value;
-
-        public string Valore => _value;
-
         public T accept<T>(IValutatoreInformazione<T> valutatore)
         {
             return valutatore.visit(this);
