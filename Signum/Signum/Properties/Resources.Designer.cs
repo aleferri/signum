@@ -83,6 +83,16 @@ namespace Signum.Properties {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap carica1 {
+            get {
+                object obj = ResourceManager.GetObject("carica1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap leftArrow {
             get {
                 object obj = ResourceManager.GetObject("leftArrow", resourceCulture);
