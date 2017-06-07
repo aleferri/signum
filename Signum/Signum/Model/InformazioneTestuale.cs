@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class Informazione: IInformazione
+    class InformazioneTestuale: IInformazione
     {
 
         private string _value;

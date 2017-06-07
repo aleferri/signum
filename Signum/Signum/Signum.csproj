@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Model\IElemento.cs" />
     <Compile Include="Model\IInformazione.cs" />
-    <Compile Include="Model\Informazione.cs" />
+    <Compile Include="Model\InformazioneTestuale.cs" />
     <Compile Include="Model\InformazioneDataOra.cs" />
     <Compile Include="Model\IValutatoreInformazione.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />

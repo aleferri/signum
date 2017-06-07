@@ -8,7 +8,7 @@ namespace Signum.Model
 {
     class ValutatoreInformazione : IValutatoreInformazione<string>
     {
-        public string visit(Informazione info)
+        public string visit(InformazioneTestuale info)
         {
             return info.Valore;
         }

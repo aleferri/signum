@@ -8,7 +8,7 @@ namespace Signum.Model
 {
     interface IValutatoreInformazione<T>
     {
-        T visit(Informazione info);
+        T visit(InformazioneTestuale info);
 
         T visit(InformazioneDataOra info);
     }
