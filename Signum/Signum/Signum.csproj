@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\BellaForm.cs" />
     <Compile Include="View\MainContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
