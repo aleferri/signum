@@ -9,9 +9,7 @@ namespace Signum.Model
     interface IElemento
     {
 
-        int Durata { get; }
-
-        Informazione InfomazioneAssociata { get; }
+        IInformazione InfomazioneAssociata { get; }
 
     }
 }
