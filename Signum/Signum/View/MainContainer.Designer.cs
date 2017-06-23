@@ -29,18 +29,19 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this._outerSplitContainer = new System.Windows.Forms.SplitContainer();
-            this._leftArrowButton = new System.Windows.Forms.ToolStripButton();
-            this._rightArrowButton = new System.Windows.Forms.ToolStripButton();
-            this._nuovoToolstripButton = new System.Windows.Forms.ToolStripButton();
-            this._salvaTooltipButton = new System.Windows.Forms.ToolStripButton();
+            this._fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._nuovoProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apriProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salvaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this._leftArrowButton = new System.Windows.Forms.ToolStripButton();
+            this._rightArrowButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this._nuovoToolstripButton = new System.Windows.Forms.ToolStripButton();
+            this._salvaTooltipButton = new System.Windows.Forms.ToolStripButton();
+            this._outerSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._cambiaModelloDiRiferimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).BeginInit();
@@ -50,28 +51,52 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this._fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(898, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // _fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._nuovoProgettoToolStripMenuItem,
             this.apriProgettoToolStripMenuItem,
+            this.salvaToolStripMenuItem,
             this.toolStripSeparator2,
-            this.salvaToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this._cambiaModelloDiRiferimentoToolStripMenuItem});
+            this._fileToolStripMenuItem.Name = "_fileToolStripMenuItem";
+            this._fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this._fileToolStripMenuItem.Text = "File";
+            // 
+            // _nuovoProgettoToolStripMenuItem
+            // 
+            this._nuovoProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.new1;
+            this._nuovoProgettoToolStripMenuItem.Name = "_nuovoProgettoToolStripMenuItem";
+            this._nuovoProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this._nuovoProgettoToolStripMenuItem.Text = "Nuovo Progetto";
+            this._nuovoProgettoToolStripMenuItem.ToolTipText = "Crea un nuovo progetto";
+            // 
+            // apriProgettoToolStripMenuItem
+            // 
+            this.apriProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.carica1;
+            this.apriProgettoToolStripMenuItem.Name = "apriProgettoToolStripMenuItem";
+            this.apriProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.apriProgettoToolStripMenuItem.Text = "Apri progetto";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(156, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
+            // salvaToolStripMenuItem
+            // 
+            this.salvaToolStripMenuItem.Image = global::Signum.Properties.Resources.salva1;
+            this.salvaToolStripMenuItem.Name = "salvaToolStripMenuItem";
+            this.salvaToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.salvaToolStripMenuItem.Text = "Salva...";
+            this.salvaToolStripMenuItem.ToolTipText = "Salva le modifiche correnti";
             // 
             // toolStrip1
             // 
@@ -87,10 +112,46 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // _leftArrowButton
+            // 
+            this._leftArrowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._leftArrowButton.Image = global::Signum.Properties.Resources.leftArrow;
+            this._leftArrowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._leftArrowButton.Name = "_leftArrowButton";
+            this._leftArrowButton.Size = new System.Drawing.Size(23, 22);
+            this._leftArrowButton.Text = "Torna indietro di un passo";
+            // 
+            // _rightArrowButton
+            // 
+            this._rightArrowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._rightArrowButton.Image = global::Signum.Properties.Resources.rightArrow;
+            this._rightArrowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._rightArrowButton.Name = "_rightArrowButton";
+            this._rightArrowButton.Size = new System.Drawing.Size(23, 22);
+            this._rightArrowButton.Text = "Avanza di un passo";
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // _nuovoToolstripButton
+            // 
+            this._nuovoToolstripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._nuovoToolstripButton.Image = global::Signum.Properties.Resources.new1;
+            this._nuovoToolstripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._nuovoToolstripButton.Name = "_nuovoToolstripButton";
+            this._nuovoToolstripButton.Size = new System.Drawing.Size(23, 22);
+            this._nuovoToolstripButton.Text = "Salva";
+            // 
+            // _salvaTooltipButton
+            // 
+            this._salvaTooltipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._salvaTooltipButton.Image = global::Signum.Properties.Resources.salva1;
+            this._salvaTooltipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._salvaTooltipButton.Name = "_salvaTooltipButton";
+            this._salvaTooltipButton.Size = new System.Drawing.Size(23, 22);
+            this._salvaTooltipButton.Text = "Salva";
             // 
             // _outerSplitContainer
             // 
@@ -111,64 +172,11 @@
             this._outerSplitContainer.SplitterWidth = 2;
             this._outerSplitContainer.TabIndex = 2;
             // 
-            // _leftArrowButton
+            // _cambiaModelloDiRiferimentoToolStripMenuItem
             // 
-            this._leftArrowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._leftArrowButton.Image = global::Signum.Properties.Resources.leftArrow;
-            this._leftArrowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._leftArrowButton.Name = "_leftArrowButton";
-            this._leftArrowButton.Size = new System.Drawing.Size(23, 22);
-            this._leftArrowButton.Text = "Torna indietro di un passo";
-            // 
-            // _rightArrowButton
-            // 
-            this._rightArrowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._rightArrowButton.Image = global::Signum.Properties.Resources.rightArrow;
-            this._rightArrowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._rightArrowButton.Name = "_rightArrowButton";
-            this._rightArrowButton.Size = new System.Drawing.Size(23, 22);
-            this._rightArrowButton.Text = "Avanza di un passo";
-            // 
-            // _nuovoToolstripButton
-            // 
-            this._nuovoToolstripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._nuovoToolstripButton.Image = global::Signum.Properties.Resources.new1;
-            this._nuovoToolstripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._nuovoToolstripButton.Name = "_nuovoToolstripButton";
-            this._nuovoToolstripButton.Size = new System.Drawing.Size(23, 22);
-            this._nuovoToolstripButton.Text = "Salva";
-            // 
-            // _salvaTooltipButton
-            // 
-            this._salvaTooltipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._salvaTooltipButton.Image = global::Signum.Properties.Resources.salva1;
-            this._salvaTooltipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._salvaTooltipButton.Name = "_salvaTooltipButton";
-            this._salvaTooltipButton.Size = new System.Drawing.Size(23, 22);
-            this._salvaTooltipButton.Text = "Salva";
-            // 
-            // _nuovoProgettoToolStripMenuItem
-            // 
-            this._nuovoProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.new1;
-            this._nuovoProgettoToolStripMenuItem.Name = "_nuovoProgettoToolStripMenuItem";
-            this._nuovoProgettoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this._nuovoProgettoToolStripMenuItem.Text = "Nuovo Progetto";
-            this._nuovoProgettoToolStripMenuItem.ToolTipText = "Crea un nuovo progetto";
-            // 
-            // apriProgettoToolStripMenuItem
-            // 
-            this.apriProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.carica1;
-            this.apriProgettoToolStripMenuItem.Name = "apriProgettoToolStripMenuItem";
-            this.apriProgettoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.apriProgettoToolStripMenuItem.Text = "Apri progetto";
-            // 
-            // salvaToolStripMenuItem
-            // 
-            this.salvaToolStripMenuItem.Image = global::Signum.Properties.Resources.salva1;
-            this.salvaToolStripMenuItem.Name = "salvaToolStripMenuItem";
-            this.salvaToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.salvaToolStripMenuItem.Text = "Salva...";
-            this.salvaToolStripMenuItem.ToolTipText = "Salva le modifiche correnti";
+            this._cambiaModelloDiRiferimentoToolStripMenuItem.Name = "_cambiaModelloDiRiferimentoToolStripMenuItem";
+            this._cambiaModelloDiRiferimentoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this._cambiaModelloDiRiferimentoToolStripMenuItem.Text = "Cambia modello di riferimento";
             // 
             // MainContainer
             // 
@@ -194,7 +202,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton _rightArrowButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.SplitContainer _outerSplitContainer;
@@ -205,5 +213,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem salvaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apriProgettoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _cambiaModelloDiRiferimentoToolStripMenuItem;
     }
 }

@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mainContainer1 = new Signum.View.MainContainer();
+            this._mainContainer = new Signum.View.MainContainer();
             this.SuspendLayout();
             // 
-            // mainContainer1
+            // _mainContainer
             // 
-            this.mainContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainContainer1.Location = new System.Drawing.Point(0, 0);
-            this.mainContainer1.Name = "mainContainer1";
-            this.mainContainer1.Size = new System.Drawing.Size(1088, 734);
-            this.mainContainer1.TabIndex = 0;
+            this._mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._mainContainer.Location = new System.Drawing.Point(0, 0);
+            this._mainContainer.Name = "_mainContainer";
+            this._mainContainer.Size = new System.Drawing.Size(1088, 734);
+            this._mainContainer.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 734);
-            this.Controls.Add(this.mainContainer1);
+            this.Controls.Add(this._mainContainer);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.ResumeLayout(false);
@@ -53,6 +53,6 @@
 
         #endregion
 
-        private MainContainer mainContainer1;
+        private MainContainer _mainContainer;
     }
 }

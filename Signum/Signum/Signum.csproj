@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ModelManaging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\ModelManaging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Animazione.cs" />
+    <Compile Include="Model\Documento.cs" />
     <Compile Include="Model\Frame.cs" />
     <Compile Include="Model\IElemento.cs" />
     <Compile Include="Model\IInformazione.cs" />
@@ -59,6 +56,7 @@
     <Compile Include="Model\InformazioneDataOra.cs" />
     <Compile Include="Model\IValutatoreInformazione.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />
+    <Compile Include="Presentation\MainContainerPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MainContainer.cs">
@@ -117,7 +115,10 @@
     <Content Include="Resources\salva1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Presentation\" />
+    <ProjectReference Include="..\ModelManaging\ModelManaging.csproj">
+      <Project>{82fd84f3-dd89-47a6-a25e-1e485ff56dd4}</Project>
+      <Name>ModelManaging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

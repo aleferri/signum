@@ -12,6 +12,9 @@ namespace Signum.View
 {
     public partial class MainForm : Form
     {
+
+        public MainContainer MainContainer => _mainContainer;
+
         public MainForm()
         {
             InitializeComponent();
