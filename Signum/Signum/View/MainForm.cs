@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,13 @@ namespace Signum.View
         public MainForm()
         {
             InitializeComponent();
+            Documento.getInstance().ModelChanged += onModelChanged;
+            onModelChanged(this, EventArgs.Empty);
+        }
+
+        private void onModelChanged(object sender, EventArgs args)
+        {
+            _modelLabel.Text = Documento.getInstance().ModelloRiferimento.ToString();
         }
     }
 }

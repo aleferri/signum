@@ -32,8 +32,9 @@
             this._fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._nuovoProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apriProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.salvaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this._cambiaModelloDiRiferimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._leftArrowButton = new System.Windows.Forms.ToolStripButton();
             this._rightArrowButton = new System.Windows.Forms.ToolStripButton();
@@ -41,7 +42,6 @@
             this._nuovoToolstripButton = new System.Windows.Forms.ToolStripButton();
             this._salvaTooltipButton = new System.Windows.Forms.ToolStripButton();
             this._outerSplitContainer = new System.Windows.Forms.SplitContainer();
-            this._cambiaModelloDiRiferimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).BeginInit();
@@ -85,18 +85,25 @@
             this.apriProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.apriProgettoToolStripMenuItem.Text = "Apri progetto";
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
-            // 
             // salvaToolStripMenuItem
             // 
+            this.salvaToolStripMenuItem.Enabled = false;
             this.salvaToolStripMenuItem.Image = global::Signum.Properties.Resources.salva1;
             this.salvaToolStripMenuItem.Name = "salvaToolStripMenuItem";
             this.salvaToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.salvaToolStripMenuItem.Text = "Salva...";
             this.salvaToolStripMenuItem.ToolTipText = "Salva le modifiche correnti";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(234, 6);
+            // 
+            // _cambiaModelloDiRiferimentoToolStripMenuItem
+            // 
+            this._cambiaModelloDiRiferimentoToolStripMenuItem.Name = "_cambiaModelloDiRiferimentoToolStripMenuItem";
+            this._cambiaModelloDiRiferimentoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this._cambiaModelloDiRiferimentoToolStripMenuItem.Text = "Cambia modello di riferimento";
             // 
             // toolStrip1
             // 
@@ -115,6 +122,7 @@
             // _leftArrowButton
             // 
             this._leftArrowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._leftArrowButton.Enabled = false;
             this._leftArrowButton.Image = global::Signum.Properties.Resources.leftArrow;
             this._leftArrowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._leftArrowButton.Name = "_leftArrowButton";
@@ -124,6 +132,7 @@
             // _rightArrowButton
             // 
             this._rightArrowButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._rightArrowButton.Enabled = false;
             this._rightArrowButton.Image = global::Signum.Properties.Resources.rightArrow;
             this._rightArrowButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._rightArrowButton.Name = "_rightArrowButton";
@@ -147,6 +156,7 @@
             // _salvaTooltipButton
             // 
             this._salvaTooltipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._salvaTooltipButton.Enabled = false;
             this._salvaTooltipButton.Image = global::Signum.Properties.Resources.salva1;
             this._salvaTooltipButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._salvaTooltipButton.Name = "_salvaTooltipButton";
@@ -171,12 +181,6 @@
             this._outerSplitContainer.SplitterDistance = 200;
             this._outerSplitContainer.SplitterWidth = 2;
             this._outerSplitContainer.TabIndex = 2;
-            // 
-            // _cambiaModelloDiRiferimentoToolStripMenuItem
-            // 
-            this._cambiaModelloDiRiferimentoToolStripMenuItem.Name = "_cambiaModelloDiRiferimentoToolStripMenuItem";
-            this._cambiaModelloDiRiferimentoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this._cambiaModelloDiRiferimentoToolStripMenuItem.Text = "Cambia modello di riferimento";
             // 
             // MainContainer
             // 

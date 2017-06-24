@@ -22,7 +22,6 @@ namespace Signum
             Application.SetCompatibleTextRenderingDefault(false);
 
             Documento.getInstance().ModelloRiferimento = ModelPane.showModelDialog();
-            Console.WriteLine(Documento.getInstance().ModelloRiferimento);
             if (null == Documento.getInstance().ModelloRiferimento) Environment.Exit(1);
 
             MainForm form = new MainForm();

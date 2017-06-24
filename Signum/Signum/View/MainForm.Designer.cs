@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this._mainContainer = new Signum.View.MainContainer();
+            this._statusStrip = new System.Windows.Forms.StatusStrip();
+            this._modelLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this._statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // _mainContainer
@@ -39,20 +42,41 @@
             this._mainContainer.Size = new System.Drawing.Size(1088, 734);
             this._mainContainer.TabIndex = 0;
             // 
+            // _statusStrip
+            // 
+            this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._modelLabel});
+            this._statusStrip.Location = new System.Drawing.Point(0, 712);
+            this._statusStrip.Name = "_statusStrip";
+            this._statusStrip.Size = new System.Drawing.Size(1088, 22);
+            this._statusStrip.TabIndex = 1;
+            this._statusStrip.Text = "statusStrip1";
+            // 
+            // _modelLabel
+            // 
+            this._modelLabel.Name = "_modelLabel";
+            this._modelLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 734);
+            this.Controls.Add(this._statusStrip);
             this.Controls.Add(this._mainContainer);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this._statusStrip.ResumeLayout(false);
+            this._statusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private MainContainer _mainContainer;
+        private System.Windows.Forms.StatusStrip _statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel _modelLabel;
     }
 }
