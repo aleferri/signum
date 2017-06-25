@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    interface IElemento
+    public interface IElemento
     {
 
         IInformazione InfomazioneAssociata { get; }

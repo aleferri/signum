@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class InformazioneDataOra : IInformazione
+    public class InformazioneDataOra : IInformazione
     {
         public T accept<T>(IValutatoreInformazione<T> valutatore)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    interface IInformazione
+    public interface IInformazione
     {
          T accept<T>(IValutatoreInformazione<T> valutatore);
     }

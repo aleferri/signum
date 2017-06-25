@@ -27,17 +27,20 @@ namespace Signum.Model
 
         private Modello _modelloRiferimento;
 
-        public Modello ModelloRiferimento { get => _modelloRiferimento; set { _modelloRiferimento = value; TriggerEvent(EventArgs.Empty); } }
+        public Modello ModelloRiferimento
+        {
+            get => _modelloRiferimento;
+            set
+            {
+                _modelloRiferimento = value;
+                ModelChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         public event EventHandler ModelChanged;
 
         protected Documento()
         {
-        }
-
-        private void TriggerEvent(EventArgs args)
-        {
-            if (null != ModelChanged) ModelChanged(this, args);
         }
 
         #endregion

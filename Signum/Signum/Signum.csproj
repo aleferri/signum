@@ -55,6 +55,7 @@
     <Compile Include="Model\InformazioneTestuale.cs" />
     <Compile Include="Model\InformazioneDataOra.cs" />
     <Compile Include="Model\IValutatoreInformazione.cs" />
+    <Compile Include="Model\Sequenza.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />
     <Compile Include="Presentation\MainContainerPresenter.cs" />
     <Compile Include="Program.cs" />

@@ -10,7 +10,7 @@ namespace Signum.Model
 {
     class Animazione : IElemento
     {
-        private int _frameRate;
+        private uint _frameRate;
         private readonly List<Frame> _frameSequence;
         private IInformazione _informazione;
 
@@ -19,17 +19,18 @@ namespace Signum.Model
             get => _frameSequence[position];
             set => _frameSequence[position] = value;
         }
-        public int Durata => _frameSequence.Count() / _frameRate;
+        public ulong Durata => (ulong)_frameSequence.Count() / _frameRate;
         public IInformazione InfomazioneAssociata
         {
             get => _informazione;
             set => _informazione = value;
         }
 
-        public Animazione(int frameRate)
+        public Animazione(uint frameRate)
         {
             Debug.Assert(frameRate > 0);
             _frameRate = frameRate;
+            _frameSequence = new List<Frame>();
         }
     }
 }
