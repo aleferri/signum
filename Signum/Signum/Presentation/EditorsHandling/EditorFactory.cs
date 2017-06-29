@@ -11,19 +11,20 @@ namespace Signum.Presentation.EditorsHandling
     public class EditorFactory
     {
         private readonly Dictionary<string, Type> _editorHandlers;
+        private readonly List<KeyValuePair<string, string>> _editorMenuNames;
+
+        public IEnumerable<string> Names => from KeyValuePair<string, string> kvp 
+                                            in _editorMenuNames
+                                            select kvp.Key;
 
         public EditorFactory()
         {
             _editorHandlers = new Dictionary<string, Type>();
-            FillDictionary();
+            _editorMenuNames = new List<KeyValuePair<string, string>>();
+            FillCollections();
         }
 
-        public IEditorPresenter getEditorHandler(string type, Modello modello)
-        {
-            return (IEditorPresenter) Activator.CreateInstance(_editorHandlers[type], new object[] { modello });
-        }
-
-        private void FillDictionary()
+        private void FillCollections()
         {
             IEnumerable<Type> handlerTypes = from Type t
                                                in Assembly.GetExecutingAssembly().GetTypes()
@@ -31,9 +32,25 @@ namespace Signum.Presentation.EditorsHandling
                                              select t;
             foreach (Type t in handlerTypes)
             {
-                string name = ((NameAttribute)t.GetCustomAttribute(typeof(NameAttribute))).Name;
-                _editorHandlers.Add(name, t);
+                NameTagAttribute att = ((NameTagAttribute)t.GetCustomAttribute(typeof(NameTagAttribute)));
+                KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(att.Name, att.Tag);
+                if (_editorMenuNames.Contains(kvp)) continue;
+                _editorHandlers.Add(kvp.Value, t);
+                _editorMenuNames.Add(kvp);
             }
         }
+
+        public IEditorPresenter GetEditorHandler(string type, Modello modello)
+        {
+            return (IEditorPresenter) Activator.CreateInstance(_editorHandlers[type], new object[] { modello });
+        }
+
+        public string GetTagFromName(string name)
+        {
+            return null == name ? null : (from KeyValuePair<string, string> kvp
+                                         in _editorMenuNames where kvp.Key == name
+                                         select kvp.Value).Single();
+        }
+
     }
 }

@@ -15,13 +15,12 @@ namespace Signum.Presentation.EditorsHandling
 {
     class FrameEditorPresenter
     {
-        private Control _editor;
+        private DoubleBufferControl _editor;
 
         private Modello _modelloFrame;
         private Frame _frame;
         private int _latoCella;
         private Point _puntoAncoraggio;
-        private bool _pressedMouse;
 
         public Frame CurrentResultFrame => _frame;
         public Control Editor => _editor;
@@ -33,7 +32,6 @@ namespace Signum.Presentation.EditorsHandling
             _editor.Dock = DockStyle.Fill;
             _modelloFrame = modello;
             _frame = frame;
-            _pressedMouse = false;
             AttachHandlers();
         }
         public FrameEditorPresenter(Modello modello) : this(new Frame(modello.Size), modello)
@@ -44,47 +42,31 @@ namespace Signum.Presentation.EditorsHandling
         {
             _editor.Paint += ShowEditorGrid;
             _editor.SizeChanged += OnSizeChanged;
-            _editor.MouseDown += OnMouseDown;
-            _editor.MouseMove += OnMouseMove;
-            _editor.MouseUp += OnMouseUp;
+            _editor.MouseDown += OnMouseAction;
+            _editor.MouseDrag += OnMouseAction;
         }
 
-        private void ResolveMouseAction(Point mouseLocation, Control editor, MouseButtons button)
+        #region EventHandlers
+        private void OnSizeChanged(object sender, EventArgs args)
         {
+            _latoCella = Math.Min((_editor.Width - 20) / _modelloFrame.Size.Width, (_editor.Height - 20) / _modelloFrame.Size.Height);
+            _puntoAncoraggio = new Point(_editor.Width / 2 - _modelloFrame.Size.Width * _latoCella / 2, _editor.Height / 2 - _modelloFrame.Size.Height * _latoCella / 2);
+        }
+        private void OnMouseAction(object sender, MouseEventArgs args)
+        { 
+            Point mouseLocation = args.Location;
+            Control editor = (Control)sender;
             mouseLocation.Offset(-_puntoAncoraggio.X, -_puntoAncoraggio.Y);
             int x = mouseLocation.X / _latoCella, y = mouseLocation.Y / _latoCella;
             if (_modelloFrame[x, y])
             {
-                _frame[x, y] = button == MouseButtons.Left;
+                _frame[x, y] = args.Button == MouseButtons.Left;
             }
             editor.SuspendLayout();
             editor.Refresh();
             editor.ResumeLayout();
         }
-
-        #region EventHandlers
-        public void OnSizeChanged(object sender, EventArgs args)
-        {
-            _latoCella = Math.Min((_editor.Width - 20) / _modelloFrame.Size.Width, (_editor.Height - 20) / _modelloFrame.Size.Height);
-            _puntoAncoraggio = new Point(_editor.Width / 2 - _modelloFrame.Size.Width * _latoCella / 2, _editor.Height / 2 - _modelloFrame.Size.Height * _latoCella / 2);
-        }
-        public void OnMouseDown(object sender, MouseEventArgs args)
-        {
-            _pressedMouse = true;
-            ResolveMouseAction(args.Location, (Control)sender, args.Button);
-            
-        }
-        public void OnMouseMove(object sender, MouseEventArgs args)
-        {
-            if (!_pressedMouse) return;
-            ResolveMouseAction(args.Location, (Control)sender, args.Button);
-
-        }
-        public void OnMouseUp(object sender, MouseEventArgs args)
-        {
-            _pressedMouse = false;
-        }
-        public void ShowEditorGrid(object sender, PaintEventArgs args)
+        private void ShowEditorGrid(object sender, PaintEventArgs args)
         {
             Graphics g = args.Graphics;
             for (int i = 0; i < _frame.Size.Width; i++)

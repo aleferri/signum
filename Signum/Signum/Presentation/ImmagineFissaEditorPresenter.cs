@@ -1,16 +1,13 @@
 ﻿using ModelManaging;
 using Signum.Model;
+using Signum.Presentation.EditorsHandling;
 using Signum.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Signum.Presentation.EditorsHandling
+namespace Signum.Presentation
 {
-    [NameAttribute("immagineFissa")]
+    [NameTagAttribute("Immagine Fissa", "immagineFissa")]
     class ImmagineFissaEditorPresenter : IEditorPresenter
     {
         private readonly ElementEditor _editor;

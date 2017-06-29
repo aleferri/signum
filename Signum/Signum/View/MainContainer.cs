@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Signum.View
 {
@@ -19,7 +11,7 @@ namespace Signum.View
         public ToolStripButton ForwardButton => _rightArrowButton;
         public ToolStripMenuItem CambiaModelloButton => _cambiaModelloDiRiferimentoToolStripMenuItem;
         public ToolStripMenuItem MenuModifica => _modificaToolStripMenuItem;
-        public ToolStripMenuItem NuovoImmagine => _immagineFissaToolStripMenuItem;
+        public ToolStripMenuItem NuovoMenu => _nuovoProgettoToolStripMenuItem;
         public ToolStripItem[] SaveItems => new ToolStripItem[] { _salvaToolStripMenuItem, _salvaTooltipButton };
 
         public MainContainer()

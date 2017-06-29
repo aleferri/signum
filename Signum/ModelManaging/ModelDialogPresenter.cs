@@ -93,12 +93,13 @@ namespace ModelManaging
             return args;
         }
 
-        public void OnComboChanging(object sender, EventArgs args)
+        #region EventHandlers
+        private void OnComboChanging(object sender, EventArgs args)
         {
             PopulateTable(_control.SelectedModel);
         }
 
-        public void Preview(object sender, PaintEventArgs e)
+        private void Preview(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
@@ -121,7 +122,7 @@ namespace ModelManaging
             }
         }
 
-        public void OnPreviewClicked(object sender, EventArgs args)
+        private void OnPreviewClicked(object sender, EventArgs args)
         {
             object[] argomenti = CalcolaArgomenti();
             Result = CostruisciModello(_control.SelectedModel.Tipo, argomenti);
@@ -129,5 +130,6 @@ namespace ModelManaging
             if(ModelDialog.PreviewButton == sender) ModelDialog.PreviewPanel.Refresh();
             ModelDialog.ResumeLayout();
         }
+        #endregion
     }
 }

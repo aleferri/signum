@@ -58,7 +58,8 @@
     <Compile Include="Model\Sequenza.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />
-    <Compile Include="Presentation\EditorsHandling\ImmagineFissaEditorPresenter.cs" />
+    <Compile Include="Presentation\EditorsHandling\NameTagAttribute.cs" />
+    <Compile Include="Presentation\ImmagineFissaEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\IEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\FrameEditorPresenter.cs" />
     <Compile Include="Presentation\MainContainerPresenter.cs" />
@@ -106,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Utils\DoubleBufferControl.resx">
+      <DependentUpon>DoubleBufferControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

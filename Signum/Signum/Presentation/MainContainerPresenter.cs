@@ -3,11 +3,6 @@ using Signum.Model;
 using Signum.Presentation.EditorsHandling;
 using Signum.View;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Signum.Presentation
@@ -22,11 +17,23 @@ namespace Signum.Presentation
             _mainContainer = mainContainer;
             _editorFactory = new EditorFactory();
             _mainContainer.CambiaModelloButton.Click += OnModelChangeClick;
-            _mainContainer.NuovoImmagine.Click += OnNewClick;
+            FillNuovoMenu();
+
+        }
+
+        private void FillNuovoMenu()
+        {
+            foreach(string name in _editorFactory.Names)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem(name);
+                item.Tag = _editorFactory.GetTagFromName(name);
+                item.Click += OnNewClick;
+                _mainContainer.NuovoMenu.DropDownItems.Add(item);
+            }
         }
 
         #region EventHandlers
-        public void OnModelChangeClick(object sender, EventArgs args)
+        private void OnModelChangeClick(object sender, EventArgs args)
         {
             Documento.getInstance().ModelloRiferimento = ModelPane.showModelDialog(Documento.getInstance().ModelloRiferimento) ?? Documento.getInstance().ModelloRiferimento;
             _mainContainer.RightPanel.Controls.Clear();
@@ -35,11 +42,11 @@ namespace Signum.Presentation
                 item.Enabled = true;
             }
         }
-        public void OnNewClick(object sender, EventArgs args)
+        private void OnNewClick(object sender, EventArgs args)
         {
             ToolStripItem source = (ToolStripItem)sender;
             IEditorPresenter old = _currentEditorHandler;
-            _currentEditorHandler = _editorFactory.getEditorHandler((string)source.Tag, Documento.getInstance().ModelloRiferimento);
+            _currentEditorHandler = _editorFactory.GetEditorHandler((string)source.Tag, Documento.getInstance().ModelloRiferimento);
             _mainContainer.RightPanel.Controls.Clear();
             _mainContainer.RightPanel.Controls.Add(_currentEditorHandler.Editor);
 
