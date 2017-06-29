@@ -3,7 +3,7 @@
 namespace ModelManaging
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    internal class NameAttribute : Attribute
+    public class NameAttribute : Attribute
     {
         public string Name;
 

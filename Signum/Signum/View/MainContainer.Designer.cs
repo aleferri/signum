@@ -31,10 +31,19 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._nuovoProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._nuovoElementoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sequenzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.programmaGiornalieroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apriProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salvaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._apriElementoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sequenzaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.programmazioneGiornalieraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progettoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this._salvaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._cambiaModelloDiRiferimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._modificaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this._leftArrowButton = new System.Windows.Forms.ToolStripButton();
             this._rightArrowButton = new System.Windows.Forms.ToolStripButton();
@@ -42,6 +51,8 @@
             this._nuovoToolstripButton = new System.Windows.Forms.ToolStripButton();
             this._salvaTooltipButton = new System.Windows.Forms.ToolStripButton();
             this._outerSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._immagineFissaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._animazioneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).BeginInit();
@@ -51,7 +62,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._fileToolStripMenuItem});
+            this._fileToolStripMenuItem,
+            this._modificaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(898, 24);
@@ -63,7 +75,7 @@
             this._fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._nuovoProgettoToolStripMenuItem,
             this.apriProgettoToolStripMenuItem,
-            this.salvaToolStripMenuItem,
+            this._salvaToolStripMenuItem,
             this.toolStripSeparator2,
             this._cambiaModelloDiRiferimentoToolStripMenuItem});
             this._fileToolStripMenuItem.Name = "_fileToolStripMenuItem";
@@ -72,27 +84,92 @@
             // 
             // _nuovoProgettoToolStripMenuItem
             // 
+            this._nuovoProgettoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._nuovoElementoToolStripMenuItem,
+            this.sequenzaToolStripMenuItem,
+            this.programmaGiornalieroToolStripMenuItem,
+            this.progettoToolStripMenuItem});
             this._nuovoProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.new1;
             this._nuovoProgettoToolStripMenuItem.Name = "_nuovoProgettoToolStripMenuItem";
             this._nuovoProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this._nuovoProgettoToolStripMenuItem.Text = "Nuovo Progetto";
+            this._nuovoProgettoToolStripMenuItem.Text = "Nuovo...";
             this._nuovoProgettoToolStripMenuItem.ToolTipText = "Crea un nuovo progetto";
+            // 
+            // _nuovoElementoToolStripMenuItem
+            // 
+            this._nuovoElementoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._immagineFissaToolStripMenuItem,
+            this._animazioneToolStripMenuItem});
+            this._nuovoElementoToolStripMenuItem.Name = "_nuovoElementoToolStripMenuItem";
+            this._nuovoElementoToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this._nuovoElementoToolStripMenuItem.Tag = "";
+            this._nuovoElementoToolStripMenuItem.Text = "Elemento";
+            // 
+            // sequenzaToolStripMenuItem
+            // 
+            this.sequenzaToolStripMenuItem.Name = "sequenzaToolStripMenuItem";
+            this.sequenzaToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.sequenzaToolStripMenuItem.Tag = "sequenza";
+            this.sequenzaToolStripMenuItem.Text = "Sequenza";
+            // 
+            // programmaGiornalieroToolStripMenuItem
+            // 
+            this.programmaGiornalieroToolStripMenuItem.Name = "programmaGiornalieroToolStripMenuItem";
+            this.programmaGiornalieroToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.programmaGiornalieroToolStripMenuItem.Tag = "programmazioneGiornaliera";
+            this.programmaGiornalieroToolStripMenuItem.Text = "Programmazione giornaliera";
+            // 
+            // progettoToolStripMenuItem
+            // 
+            this.progettoToolStripMenuItem.Name = "progettoToolStripMenuItem";
+            this.progettoToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.progettoToolStripMenuItem.Tag = "progetto";
+            this.progettoToolStripMenuItem.Text = "Progetto";
             // 
             // apriProgettoToolStripMenuItem
             // 
+            this.apriProgettoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._apriElementoToolStripMenuItem1,
+            this.sequenzaToolStripMenuItem1,
+            this.programmazioneGiornalieraToolStripMenuItem,
+            this.progettoToolStripMenuItem1});
             this.apriProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.carica1;
             this.apriProgettoToolStripMenuItem.Name = "apriProgettoToolStripMenuItem";
             this.apriProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.apriProgettoToolStripMenuItem.Text = "Apri progetto";
+            this.apriProgettoToolStripMenuItem.Text = "Apri...";
             // 
-            // salvaToolStripMenuItem
+            // _apriElementoToolStripMenuItem1
             // 
-            this.salvaToolStripMenuItem.Enabled = false;
-            this.salvaToolStripMenuItem.Image = global::Signum.Properties.Resources.salva1;
-            this.salvaToolStripMenuItem.Name = "salvaToolStripMenuItem";
-            this.salvaToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.salvaToolStripMenuItem.Text = "Salva...";
-            this.salvaToolStripMenuItem.ToolTipText = "Salva le modifiche correnti";
+            this._apriElementoToolStripMenuItem1.Name = "_apriElementoToolStripMenuItem1";
+            this._apriElementoToolStripMenuItem1.Size = new System.Drawing.Size(224, 22);
+            this._apriElementoToolStripMenuItem1.Text = "Elemento";
+            // 
+            // sequenzaToolStripMenuItem1
+            // 
+            this.sequenzaToolStripMenuItem1.Name = "sequenzaToolStripMenuItem1";
+            this.sequenzaToolStripMenuItem1.Size = new System.Drawing.Size(224, 22);
+            this.sequenzaToolStripMenuItem1.Text = "Sequenza";
+            // 
+            // programmazioneGiornalieraToolStripMenuItem
+            // 
+            this.programmazioneGiornalieraToolStripMenuItem.Name = "programmazioneGiornalieraToolStripMenuItem";
+            this.programmazioneGiornalieraToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.programmazioneGiornalieraToolStripMenuItem.Text = "Programmazione giornaliera";
+            // 
+            // progettoToolStripMenuItem1
+            // 
+            this.progettoToolStripMenuItem1.Name = "progettoToolStripMenuItem1";
+            this.progettoToolStripMenuItem1.Size = new System.Drawing.Size(224, 22);
+            this.progettoToolStripMenuItem1.Text = "Progetto";
+            // 
+            // _salvaToolStripMenuItem
+            // 
+            this._salvaToolStripMenuItem.Enabled = false;
+            this._salvaToolStripMenuItem.Image = global::Signum.Properties.Resources.salva1;
+            this._salvaToolStripMenuItem.Name = "_salvaToolStripMenuItem";
+            this._salvaToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this._salvaToolStripMenuItem.Text = "Salva...";
+            this._salvaToolStripMenuItem.ToolTipText = "Salva le modifiche correnti";
             // 
             // toolStripSeparator2
             // 
@@ -104,6 +181,12 @@
             this._cambiaModelloDiRiferimentoToolStripMenuItem.Name = "_cambiaModelloDiRiferimentoToolStripMenuItem";
             this._cambiaModelloDiRiferimentoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this._cambiaModelloDiRiferimentoToolStripMenuItem.Text = "Cambia modello di riferimento";
+            // 
+            // _modificaToolStripMenuItem
+            // 
+            this._modificaToolStripMenuItem.Name = "_modificaToolStripMenuItem";
+            this._modificaToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this._modificaToolStripMenuItem.Text = "Modifica";
             // 
             // toolStrip1
             // 
@@ -147,11 +230,11 @@
             // _nuovoToolstripButton
             // 
             this._nuovoToolstripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._nuovoToolstripButton.Image = global::Signum.Properties.Resources.new1;
+            this._nuovoToolstripButton.Image = global::Signum.Properties.Resources.carica1;
             this._nuovoToolstripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._nuovoToolstripButton.Name = "_nuovoToolstripButton";
             this._nuovoToolstripButton.Size = new System.Drawing.Size(23, 22);
-            this._nuovoToolstripButton.Text = "Salva";
+            this._nuovoToolstripButton.Text = "Apri oggetto";
             // 
             // _salvaTooltipButton
             // 
@@ -181,6 +264,20 @@
             this._outerSplitContainer.SplitterDistance = 200;
             this._outerSplitContainer.SplitterWidth = 2;
             this._outerSplitContainer.TabIndex = 2;
+            // 
+            // _immagineFissaToolStripMenuItem
+            // 
+            this._immagineFissaToolStripMenuItem.Name = "_immagineFissaToolStripMenuItem";
+            this._immagineFissaToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this._immagineFissaToolStripMenuItem.Tag = "immagineFissa";
+            this._immagineFissaToolStripMenuItem.Text = "Immagine Fissa";
+            // 
+            // _animazioneToolStripMenuItem
+            // 
+            this._animazioneToolStripMenuItem.Name = "_animazioneToolStripMenuItem";
+            this._animazioneToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this._animazioneToolStripMenuItem.Tag = "animazione";
+            this._animazioneToolStripMenuItem.Text = "Animazione";
             // 
             // MainContainer
             // 
@@ -215,8 +312,19 @@
         private System.Windows.Forms.ToolStripButton _nuovoToolstripButton;
         private System.Windows.Forms.ToolStripButton _salvaTooltipButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem salvaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _salvaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apriProgettoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _cambiaModelloDiRiferimentoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _nuovoElementoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sequenzaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem programmaGiornalieroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem progettoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _apriElementoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem sequenzaToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem programmazioneGiornalieraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem progettoToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem _modificaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _immagineFissaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _animazioneToolStripMenuItem;
     }
 }

@@ -24,5 +24,10 @@ namespace Signum.Model
             _bitmap = new BitArray(x * y, false);
             _nCols = x;
         }
+
+        public Frame(Size size) : this(size.Width, size.Height)
+        {
+
+        }
     }
 }

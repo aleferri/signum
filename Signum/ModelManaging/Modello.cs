@@ -24,7 +24,7 @@ namespace ModelManaging
 
         public override string ToString()
         {
-            return String.Format("TOT[{0}, {1}]", this.Size.Width, this.Size.Height);
+            return String.Format("({0} x {1})", this.Size.Width, this.Size.Height);
         }
     }
 }

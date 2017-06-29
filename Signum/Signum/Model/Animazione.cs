@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class Animazione : IElemento
+    class Animazione : Elemento
     {
         private uint _frameRate;
         private readonly List<Frame> _frameSequence;
@@ -20,17 +20,22 @@ namespace Signum.Model
             set => _frameSequence[position] = value;
         }
         public ulong Durata => (ulong)_frameSequence.Count() / _frameRate;
-        public IInformazione InfomazioneAssociata
-        {
-            get => _informazione;
-            set => _informazione = value;
-        }
 
-        public Animazione(uint frameRate)
+        public Animazione(uint frameRate, IInformazione informazione)
         {
             Debug.Assert(frameRate > 0);
             _frameRate = frameRate;
             _frameSequence = new List<Frame>();
+            InformazioneAssociata = informazione;
+        }
+
+        public Animazione(uint frameRate) : this(frameRate, null)
+        {
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Animazione -> \"{0}", _informazione.Accept(new ValutatoreInformazione()));
         }
     }
 }

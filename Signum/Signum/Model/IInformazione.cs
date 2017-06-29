@@ -8,6 +8,6 @@ namespace Signum.Model
 {
     public interface IInformazione
     {
-         T accept<T>(IValutatoreInformazione<T> valutatore);
+         T Accept<T>(IValutatoreInformazione<T> valutatore);
     }
 }

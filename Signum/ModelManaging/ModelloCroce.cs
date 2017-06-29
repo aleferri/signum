@@ -37,7 +37,7 @@ namespace ModelManaging
 
         public override string ToString()
         {
-            return base.ToString() + " (Modello a Croce) ";
+            return "Modello a Croce " + base.ToString();
         }
     }
 }

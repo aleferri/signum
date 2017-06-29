@@ -23,7 +23,7 @@ namespace ModelManaging
 
         public override string ToString()
         {
-            return base.ToString() + " (Modello a Ellisse) ";
+            return "Modello a Ellisse " + base.ToString();
         }
     }
 }

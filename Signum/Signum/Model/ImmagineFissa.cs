@@ -6,16 +6,25 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class ImmagineFissa : IElemento
+    class ImmagineFissa : Elemento
     {
-        private Frame _frame;
-        private IInformazione _informazione;
+        private readonly Frame _frame;
 
         public Frame Frame => _frame;
-        public IInformazione InfomazioneAssociata
+
+        public ImmagineFissa(Frame frame, IInformazione informazione)
         {
-            get => _informazione;
-            set => _informazione = value;
+            _frame = frame;
+            InformazioneAssociata = informazione;
+        }
+
+        public ImmagineFissa(Frame frame) : this(frame, null)
+        { 
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Immagine fissa -> \"{0}\"", InformazioneAssociata.Accept(new ValutatoreInformazione()));
         }
     }
 }

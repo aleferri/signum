@@ -16,7 +16,7 @@ namespace ModelManaging
 
         public override string ToString()
         {
-            return base.ToString() + " (Modello a Rettangolo) ";
+            return "Modello a Rettangolo " + base.ToString();
         }
     }
 }

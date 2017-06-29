@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,30 +9,32 @@ namespace Signum.Model
 {
     public class Sequenza
     {
-        private List<SequenzaWrapper> _elementi;
+        private List<KeyValuePair<Elemento, uint>> _elementi;
 
-        public IElemento this[int index] => _elementi[index].Elemento;
+        public KeyValuePair<Elemento, uint> this[int index] => _elementi[index];
 
         public Sequenza()
         {
-
+            _elementi = new List<KeyValuePair<Elemento, uint>>();
         }
  
-        #region Wrapper
-        private class SequenzaWrapper
+        public void AggiungiElemento(Elemento elemento, uint durata)
         {
-            private readonly IElemento _elemento;
-            private uint _durata;
-
-            public uint Durata { get => _durata; set => _durata = value; }
-            public IElemento Elemento => _elemento;
-
-            public SequenzaWrapper(IElemento elemento)
-            {
-                _elemento = elemento;
-            }
+            Debug.Assert(null != elemento);
+            Debug.Assert(0 < durata);
+            _elementi.Add(new KeyValuePair<Elemento, uint>(elemento, durata));
         }
-        #endregion
+        public void InserisciElemento(Elemento elemento, uint durata, int index)
+        {
+            Debug.Assert(null != elemento);
+            Debug.Assert(0 < durata);
+            _elementi.Insert(index, new KeyValuePair<Elemento, uint>(elemento, durata));
+        }
+
+        public void EliminaElemento(int index)
+        {
+            _elementi.RemoveAt(index);
+        }
     }
 
 }

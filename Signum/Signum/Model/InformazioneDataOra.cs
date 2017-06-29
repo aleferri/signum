@@ -8,9 +8,9 @@ namespace Signum.Model
 {
     public class InformazioneDataOra : IInformazione
     {
-        public T accept<T>(IValutatoreInformazione<T> valutatore)
+        public T Accept<T>(IValutatoreInformazione<T> valutatore)
         {
-            return valutatore.visit(this);
+            return valutatore.Visit(this);
         }
     }
 }

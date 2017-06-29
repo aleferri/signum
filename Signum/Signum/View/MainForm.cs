@@ -19,6 +19,8 @@ namespace Signum.View
         public MainForm()
         {
             InitializeComponent();
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             Documento.getInstance().ModelChanged += onModelChanged;
             onModelChanged(this, EventArgs.Empty);
         }

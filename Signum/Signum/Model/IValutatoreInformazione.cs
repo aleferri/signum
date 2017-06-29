@@ -8,8 +8,8 @@ namespace Signum.Model
 {
     public interface IValutatoreInformazione<T>
     {
-        T visit(InformazioneTestuale info);
+        T Visit(InformazioneTestuale info);
 
-        T visit(InformazioneDataOra info);
+        T Visit(InformazioneDataOra info);
     }
 }

@@ -39,7 +39,7 @@
             this._mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this._mainContainer.Location = new System.Drawing.Point(0, 0);
             this._mainContainer.Name = "_mainContainer";
-            this._mainContainer.Size = new System.Drawing.Size(1088, 734);
+            this._mainContainer.Size = new System.Drawing.Size(1088, 712);
             this._mainContainer.TabIndex = 0;
             // 
             // _statusStrip
@@ -62,10 +62,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1088, 734);
-            this.Controls.Add(this._statusStrip);
             this.Controls.Add(this._mainContainer);
+            this.Controls.Add(this._statusStrip);
+            this.DoubleBuffered = true;
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "Signum";
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
             this.ResumeLayout(false);

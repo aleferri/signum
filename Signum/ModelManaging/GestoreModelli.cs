@@ -21,7 +21,11 @@ namespace ModelManaging
         private IEnumerable<ModelDescriptor> TrovaModelli(Assembly targetAssembly)
         {
             List<ModelDescriptor> modelli = new List<ModelDescriptor>();
-            foreach (Type t in targetAssembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Modello))))
+            IEnumerable<Type> types = from Type t 
+                                      in targetAssembly.GetTypes()
+                                      where t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(Modello))
+                                      select t;
+            foreach (Type t in types)
             {
                 modelli.Add(new ModelDescriptor(t.GetCustomAttribute<NameAttribute>().Name, t));
             }

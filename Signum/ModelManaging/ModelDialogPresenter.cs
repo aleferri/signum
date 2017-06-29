@@ -101,8 +101,6 @@ namespace ModelManaging
         public void Preview(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            Pen p = new Pen(Color.Black, 1);
-            Brush b = new SolidBrush(Color.LawnGreen);
 
             if (null == Result) return;
 
@@ -116,8 +114,8 @@ namespace ModelManaging
                 {
                     if(Result[i, k])
                     {
-                        g.FillRectangle(b, sX + dim*i, sY + dim*k, dim, dim);
-                        g.DrawRectangle(p, new Rectangle(sX + dim*i, sY + dim*k, dim, dim));
+                        g.FillRectangle(Brushes.LawnGreen, sX + dim*i, sY + dim*k, dim, dim);
+                        g.DrawRectangle(Pens.Black, new Rectangle(sX + dim*i, sY + dim*k, dim, dim));
                     }
                 }
             }

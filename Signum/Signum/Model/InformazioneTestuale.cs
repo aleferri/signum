@@ -9,13 +9,18 @@ namespace Signum.Model
     public class InformazioneTestuale: IInformazione
     {
 
-        private string _value;
+        private readonly string _value;
 
         public string Valore => _value;
 
-        public T accept<T>(IValutatoreInformazione<T> valutatore)
+        public InformazioneTestuale(string info)
         {
-            return valutatore.visit(this);
+            _value = info;
+        }
+
+        public T Accept<T>(IValutatoreInformazione<T> valutatore)
+        {
+            return valutatore.Visit(this);
         }
     }
 }

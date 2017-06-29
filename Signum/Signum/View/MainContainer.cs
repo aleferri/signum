@@ -18,6 +18,10 @@ namespace Signum.View
         public ToolStripButton BackButton => _leftArrowButton;
         public ToolStripButton ForwardButton => _rightArrowButton;
         public ToolStripMenuItem CambiaModelloButton => _cambiaModelloDiRiferimentoToolStripMenuItem;
+        public ToolStripMenuItem MenuModifica => _modificaToolStripMenuItem;
+        public ToolStripMenuItem NuovoImmagine => _immagineFissaToolStripMenuItem;
+        public ToolStripItem[] SaveItems => new ToolStripItem[] { _salvaToolStripMenuItem, _salvaTooltipButton };
+
         public MainContainer()
         {
             InitializeComponent();

@@ -8,12 +8,12 @@ namespace Signum.Model
 {
     class ValutatoreInformazione : IValutatoreInformazione<string>
     {
-        public string visit(InformazioneTestuale info)
+        public string Visit(InformazioneTestuale info)
         {
             return info.Valore;
         }
 
-        public string visit(InformazioneDataOra info)
+        public string Visit(InformazioneDataOra info)
         {
             return DateTime.Now.ToString();
         }
