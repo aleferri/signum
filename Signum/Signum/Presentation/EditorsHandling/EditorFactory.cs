@@ -30,10 +30,14 @@ namespace Signum.Presentation.EditorsHandling
                                                in Assembly.GetExecutingAssembly().GetTypes()
                                              where t.IsClass && !t.IsAbstract && typeof(IEditorPresenter).IsAssignableFrom(t)
                                              select t;
+            int unnamedNo = 1;
             foreach (Type t in handlerTypes)
             {
                 NameTagAttribute att = ((NameTagAttribute)t.GetCustomAttribute(typeof(NameTagAttribute)));
-                KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(att.Name, att.Tag);
+                KeyValuePair<string, string> kvp;
+
+                kvp = null != att ? new KeyValuePair<string, string>(att.Name, att.Tag) : new KeyValuePair<string, string>("UnnamedElement" + unnamedNo, "UnnamedElement" + unnamedNo++);
+
                 if (_editorMenuNames.Contains(kvp)) continue;
                 _editorHandlers.Add(kvp.Value, t);
                 _editorMenuNames.Add(kvp);

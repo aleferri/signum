@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class Animazione : Elemento
+    public class Animazione : Elemento
     {
         private uint _frameRate;
         private readonly List<Frame> _frameSequence;
-        private IInformazione _informazione;
 
         public Frame this[int position]
         {
@@ -35,7 +34,7 @@ namespace Signum.Model
 
         public override string ToString()
         {
-            return String.Format("Animazione -> \"{0}", _informazione.Accept(new ValutatoreInformazione()));
+            return String.Format("Animazione -> \"{0}", InformazioneAssociata.Accept(new ValutatoreInformazione()));
         }
     }
 }

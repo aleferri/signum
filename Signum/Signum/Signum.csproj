@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\InputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\InputDialog.Designer.cs">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\InputPrompt.cs" />
     <Compile Include="Model\Animazione.cs" />
     <Compile Include="Model\Documento.cs" />
     <Compile Include="Model\Frame.cs" />
@@ -55,8 +62,14 @@
     <Compile Include="Model\InformazioneTestuale.cs" />
     <Compile Include="Model\InformazioneDataOra.cs" />
     <Compile Include="Model\IValutatoreInformazione.cs" />
+    <Compile Include="Model\Libreria.cs" />
     <Compile Include="Model\Sequenza.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />
+    <Compile Include="Persistence\ImmagineFissaPersister.cs" />
+    <Compile Include="Persistence\IPersister.cs" />
+    <Compile Include="Persistence\PersisterFactory.cs" />
+    <Compile Include="Persistence\PersisterTypes.cs" />
+    <Compile Include="Presentation\AnimazioneEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />
     <Compile Include="Presentation\EditorsHandling\NameTagAttribute.cs" />
     <Compile Include="Presentation\ImmagineFissaEditorPresenter.cs" />
@@ -89,6 +102,9 @@
     <Compile Include="View\Utils\DoubleBufferControl.Designer.cs">
       <DependentUpon>DoubleBufferControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Common\InputDialog.resx">
+      <DependentUpon>InputDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -125,7 +141,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\ModelManaging.dll" />
     <Content Include="Resources\-arrow.png" />
     <Content Include="Resources\base.png" />
     <Content Include="Resources\base1.png" />
@@ -144,5 +159,6 @@
       <Name>ModelManaging</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

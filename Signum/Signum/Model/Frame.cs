@@ -29,5 +29,12 @@ namespace Signum.Model
         {
 
         }
+
+        public byte[] ToByteArray()
+        {
+            byte[] result = new byte[(_bitmap.Length - 1) / 8 + 1];
+            _bitmap.CopyTo(result, 0);
+            return result;
+        }
     }
 }

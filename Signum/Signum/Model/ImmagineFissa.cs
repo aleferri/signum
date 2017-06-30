@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    class ImmagineFissa : Elemento
+    public class ImmagineFissa : Elemento
     {
         private readonly Frame _frame;
 

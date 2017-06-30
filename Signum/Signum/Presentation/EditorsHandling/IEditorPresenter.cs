@@ -11,6 +11,5 @@ namespace Signum.Presentation.EditorsHandling
     {
         EventHandler OnSave { get; }
         Control Editor { get; }
-        
     }
 }

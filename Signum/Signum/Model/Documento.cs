@@ -9,6 +9,9 @@ namespace Signum.Model
 {
     public class Documento
     {
+
+        public static readonly string LIBRARY_PATH = @"libreria\";
+
         #region Static
         private readonly static Documento _instance = null;
 

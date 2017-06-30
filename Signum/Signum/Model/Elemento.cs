@@ -8,10 +8,17 @@ namespace Signum.Model
 {
     public abstract class Elemento
     {
+        private string _nome;
         private IInformazione _informazione;
         public virtual IInformazione InformazioneAssociata {
             get => _informazione;
             set => _informazione = value ?? new InformazioneDataOra();
+        }
+
+        public string Nome
+        {
+            get => _nome;
+            set => _nome = value ?? String.Format("Elemento_{0}_{1}", DateTime.Now.ToShortDateString().Replace("/", "-"), DateTime.Now.ToShortTimeString().Replace(":", ""));
         }
 
         protected Elemento()
