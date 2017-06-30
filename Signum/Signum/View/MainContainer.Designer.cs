@@ -186,7 +186,7 @@
             // 
             this._outerSplitContainer.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this._outerSplitContainer.Size = new System.Drawing.Size(898, 553);
-            this._outerSplitContainer.SplitterDistance = 200;
+            this._outerSplitContainer.SplitterDistance = 131;
             this._outerSplitContainer.SplitterWidth = 2;
             this._outerSplitContainer.TabIndex = 2;
             // 

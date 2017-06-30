@@ -99,6 +99,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(850, 600);
             this.Name = "ModelDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Seleziona il Modello";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
