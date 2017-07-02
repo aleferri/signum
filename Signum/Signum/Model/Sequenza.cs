@@ -6,9 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Signum.Model
-{
+{ 
+
     public class Sequenza
     {
+
+        public static readonly uint MAX_DURATION = 60 * 60 * 24;
+
         private List<KeyValuePair<Elemento, uint>> _elementi;
 
         public KeyValuePair<Elemento, uint> this[int index] => _elementi[index];
@@ -16,6 +20,14 @@ namespace Signum.Model
         public Sequenza()
         {
             _elementi = new List<KeyValuePair<Elemento, uint>>();
+        }
+
+        public uint Duration
+        {
+            get
+            {
+                return (uint) _elementi.Sum(e => e.Value);
+            }
         }
  
         public void AggiungiElemento(Elemento elemento, uint durata)

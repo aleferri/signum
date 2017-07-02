@@ -29,4 +29,20 @@ namespace Signum.Model
         public abstract override string ToString();
 
     }
+
+    public class ElementoDummy : Elemento
+    {
+
+        public static readonly ElementoDummy DUMMY = new ElementoDummy();
+
+        private ElementoDummy()
+        {
+
+        }
+
+        public override string ToString()
+        {
+            return "Nessun Elemento";
+        }
+    }
 }
