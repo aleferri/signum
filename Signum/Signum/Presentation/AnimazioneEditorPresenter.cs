@@ -4,6 +4,7 @@ using Signum.Presentation.EditorsHandling;
 using Signum.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,10 @@ namespace Signum.Presentation
         {
             _elementEditor.DateHourCheckBox.CheckedChanged += OnCheckedChanged;
             _animationEditor.Pannello.Selected += OnTabChanged;
-
+            _animationEditor.Pannello.MouseUp += OnMouseUp;
+            _animationEditor.EliminaOption.Click += OnEliminaClick;
+            _animationEditor.MoveRightOption.Click += OnMoveRightClick;
+            _animationEditor.MoveLeftOption.Click += OnMoveLeftClick;
         }
 
         private TabPage CreateTab(int n)
@@ -49,7 +53,6 @@ namespace Signum.Presentation
             fp.Editor.Dock = DockStyle.Fill;
             nuovaTab.Controls.Add(fp.Editor);
             nuovaTab.Tag = fp;
-            //nuovaTab.ContextMenuStrip = _animationEditor.TabContextMenu;
             return nuovaTab;
         }
         private void AddFrame()
@@ -58,6 +61,25 @@ namespace Signum.Presentation
             _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabPages.Count - 1, nuovaTab);
             _animationEditor.Pannello.SelectedTab = nuovaTab;
         }
+        private void NameTabs()
+        {
+            foreach (TabPage tab in _animationEditor.Pannello.TabPages)
+            {
+                if (tab != _animationEditor.TabAggiungi)
+                {
+                    tab.Text = String.Format("Frame {0}", _animationEditor.Pannello.TabPages.IndexOf(tab) + 1);
+                }
+            }
+        }
+        private void Move(bool left)
+        {
+            int index = _animationEditor.Pannello.SelectedIndex;
+            int offset = left ? -1 : 1;
+            TabPage tab = _animationEditor.Pannello.SelectedTab;
+            _animationEditor.Pannello.TabPages.Remove(tab);
+            _animationEditor.Pannello.TabPages.Insert(index + offset, tab);
+            _animationEditor.Pannello.SelectedTab = tab;
+        }
 
         #region EventHandlers
         private void OnTabChanged(object sender, TabControlEventArgs args)
@@ -65,6 +87,20 @@ namespace Signum.Presentation
             if(args.TabPageIndex == _animationEditor.Pannello.TabCount - 1)
             {
                 AddFrame();
+            }
+            int sIndex = _animationEditor.Pannello.SelectedIndex; 
+            _animationEditor.MoveRightOption.Enabled = sIndex < _animationEditor.Pannello.TabCount - 2;
+            _animationEditor.MoveLeftOption.Enabled = sIndex > 0;
+            
+        }
+        private void OnMouseUp(object sender, MouseEventArgs args)
+        {
+            if (args.Button == MouseButtons.Right)
+            {
+                if (_animationEditor.Pannello.GetTabRect(_animationEditor.Pannello.SelectedIndex).Contains(new Point(args.X, args.Y)))
+                {
+                    _animationEditor.TabContextMenu.Show(_animationEditor.Pannello, args.X, args.Y);
+                }
             }
         }
         private void OnCheckedChanged(object sender, EventArgs args)
@@ -87,6 +123,21 @@ namespace Signum.Presentation
             }
             String recap = String.Format("Animazione ({0} fps, {1} frame) -> {2}", _animazione.FrameRate, _animazione.Frames.Count, _animazione.InformazioneAssociata.Accept(new ValutatoreInformazione()));
             MessageBox.Show(recap);
+        }
+        private void OnEliminaClick(object sender, EventArgs args)
+        {
+            _animationEditor.Pannello.TabPages.Remove(_animationEditor.Pannello.SelectedTab);
+            NameTabs();
+        }
+        public void OnMoveRightClick(object sender, EventArgs args)
+        {
+            Move(false);
+            NameTabs();
+        }
+        public void OnMoveLeftClick(object sender, EventArgs args)
+        {
+            Move(true);
+            NameTabs();
         }
         #endregion
     }

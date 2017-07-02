@@ -16,6 +16,9 @@ namespace Signum.View
         public TabControl Pannello => _tabControl;
         public NumericUpDown FramerateNumeric => _framerateNumeric;
         public ContextMenuStrip TabContextMenu => _tabContextMenu;
+        public ToolStripMenuItem EliminaOption => _eliminaOption;
+        public ToolStripMenuItem MoveRightOption => _moveRightOption;
+        public ToolStripMenuItem MoveLeftOption => _moveLeftOption;
 
         public AnimazioneEditor()
         {

@@ -34,9 +34,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this._framerateNumeric = new System.Windows.Forms.NumericUpDown();
             this._tabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.spostaASinistraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spostaADestraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._moveLeftOption = new System.Windows.Forms.ToolStripMenuItem();
+            this._moveRightOption = new System.Windows.Forms.ToolStripMenuItem();
+            this._eliminaOption = new System.Windows.Forms.ToolStripMenuItem();
             this._tabControl.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._framerateNumeric)).BeginInit();
@@ -78,36 +78,46 @@
             // _framerateNumeric
             // 
             this._framerateNumeric.Location = new System.Drawing.Point(7, 13);
+            this._framerateNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this._framerateNumeric.Name = "_framerateNumeric";
             this._framerateNumeric.Size = new System.Drawing.Size(120, 20);
             this._framerateNumeric.TabIndex = 0;
+            this._framerateNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // _tabContextMenu
             // 
             this._tabContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spostaASinistraToolStripMenuItem,
-            this.spostaADestraToolStripMenuItem,
-            this.eliminaToolStripMenuItem});
+            this._moveLeftOption,
+            this._moveRightOption,
+            this._eliminaOption});
             this._tabContextMenu.Name = "_tabContextMenu";
             this._tabContextMenu.Size = new System.Drawing.Size(159, 70);
             // 
-            // spostaASinistraToolStripMenuItem
+            // _moveLeftOption
             // 
-            this.spostaASinistraToolStripMenuItem.Name = "spostaASinistraToolStripMenuItem";
-            this.spostaASinistraToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.spostaASinistraToolStripMenuItem.Text = "Sposta a sinistra";
+            this._moveLeftOption.Name = "_moveLeftOption";
+            this._moveLeftOption.Size = new System.Drawing.Size(158, 22);
+            this._moveLeftOption.Text = "Sposta a sinistra";
             // 
-            // spostaADestraToolStripMenuItem
+            // _moveRightOption
             // 
-            this.spostaADestraToolStripMenuItem.Name = "spostaADestraToolStripMenuItem";
-            this.spostaADestraToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.spostaADestraToolStripMenuItem.Text = "Sposta a destra";
+            this._moveRightOption.Name = "_moveRightOption";
+            this._moveRightOption.Size = new System.Drawing.Size(158, 22);
+            this._moveRightOption.Text = "Sposta a destra";
             // 
-            // eliminaToolStripMenuItem
+            // _eliminaOption
             // 
-            this.eliminaToolStripMenuItem.Name = "eliminaToolStripMenuItem";
-            this.eliminaToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.eliminaToolStripMenuItem.Text = "Elimina";
+            this._eliminaOption.Name = "_eliminaOption";
+            this._eliminaOption.Size = new System.Drawing.Size(158, 22);
+            this._eliminaOption.Text = "Elimina";
             // 
             // AnimazioneEditor
             // 
@@ -132,8 +142,8 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown _framerateNumeric;
         private System.Windows.Forms.ContextMenuStrip _tabContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem spostaASinistraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem spostaADestraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eliminaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _moveLeftOption;
+        private System.Windows.Forms.ToolStripMenuItem _moveRightOption;
+        private System.Windows.Forms.ToolStripMenuItem _eliminaOption;
     }
 }

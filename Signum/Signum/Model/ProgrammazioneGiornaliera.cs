@@ -33,7 +33,7 @@ namespace Signum.Model
             }
         }
 
-        private int findNearDummy(int index, out Sequenza dummy)
+        private int FindNearDummy(int index, out Sequenza dummy)
         {
             if (index > 0)
             {
@@ -55,7 +55,7 @@ namespace Signum.Model
             return -1;
         }
 
-        private int findDummy(uint duration, out Sequenza dummy)
+        private int FindDummy(uint duration, out Sequenza dummy)
         {
             IEnumerable<Sequenza> seqs = from Sequenza s in _sequences
                                          orderby Math.Abs(s.Duration - duration)
@@ -68,7 +68,7 @@ namespace Signum.Model
             return _sequences.IndexOf(dummy);
         }
 
-        private void mergeDummies(int startIndex)
+        private void MergeDummies(int startIndex)
         {
             if (startIndex < _sequences.Count)
             {
@@ -90,12 +90,12 @@ namespace Signum.Model
         public void Remove(Sequenza s)
         {
             Sequenza dummy;
-            int indexOf = findNearDummy(_sequences.IndexOf(s), out dummy);
+            int indexOf = FindNearDummy(_sequences.IndexOf(s), out dummy);
             _sequences.Remove(s);
             if (dummy != null)
             {
                 dummy.AggiungiElemento(ElementoDummy.DUMMY, s.Duration);
-                mergeDummies(indexOf);
+                MergeDummies(indexOf);
             }
             else
             {
@@ -107,7 +107,7 @@ namespace Signum.Model
         public bool AggiungiSequenza(Sequenza s)
         {
             Sequenza dummy;
-            int indexOf = findDummy(s.Duration, out dummy);
+            int indexOf = FindDummy(s.Duration, out dummy);
             if (indexOf < 0)
             {
                 throw new ArgumentException("Impossibile insere, nessuno spazio libero");
