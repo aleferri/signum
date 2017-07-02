@@ -13,16 +13,15 @@ namespace Signum.Model
         private uint _frameRate;
         private readonly List<Frame> _frameSequence;
 
-        public Frame this[int position]
-        {
-            get => _frameSequence[position];
-            set => _frameSequence[position] = value;
-        }
+        public List<Frame> Frames => _frameSequence;
         public ulong Durata => (ulong)_frameSequence.Count() / _frameRate;
-
+        public uint FrameRate
+        {
+            get => _frameRate;
+            set => _frameRate = value;
+        }
         public Animazione(uint frameRate, IInformazione informazione)
         {
-            Debug.Assert(frameRate > 0);
             _frameRate = frameRate;
             _frameSequence = new List<Frame>();
             InformazioneAssociata = informazione;
