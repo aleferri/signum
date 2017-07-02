@@ -60,7 +60,7 @@ namespace Signum.Model
             IEnumerable<Sequenza> seqs = from Sequenza s in _sequences
                                          orderby Math.Abs(s.Duration - duration)
                                          select s;
-            dummy = seqs.First();
+            dummy = seqs.Count() > 0 ? seqs.First() : null;
             if (dummy == null)
             {
                 return -1;
