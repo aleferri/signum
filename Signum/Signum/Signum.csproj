@@ -80,13 +80,16 @@
     <Compile Include="Model\IValutatoreInformazione.cs" />
     <Compile Include="Model\Libreria.cs" />
     <Compile Include="Model\ProgrammazioneGiornaliera.cs" />
-    <Compile Include="Model\ProgrammazioneSettimanale.cs" />
     <Compile Include="Model\Sequenza.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />
+    <Compile Include="Persistence\AnimazionePersister.cs" />
     <Compile Include="Persistence\ImmagineFissaPersister.cs" />
+    <Compile Include="Persistence\InformazioneDataOraPersister.cs" />
+    <Compile Include="Persistence\InformazioneTestualePersister.cs" />
     <Compile Include="Persistence\IPersister.cs" />
     <Compile Include="Persistence\PersisterFactory.cs" />
     <Compile Include="Persistence\PersisterTypes.cs" />
+    <Compile Include="Persistence\TypeAttribute.cs" />
     <Compile Include="Presentation\AnimazioneEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />
     <Compile Include="Presentation\EditorsHandling\NameTagAttribute.cs" />
