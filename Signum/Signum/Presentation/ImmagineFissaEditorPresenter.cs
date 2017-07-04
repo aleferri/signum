@@ -5,6 +5,8 @@ using Signum.Persistence;
 using Signum.Presentation.EditorsHandling;
 using Signum.View;
 using System;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Signum.Presentation
@@ -36,9 +38,10 @@ namespace Signum.Presentation
                 if (null == nome) return;
                 _img.Nome = nome;
             }
-
-            PersisterFactory factory = new PersisterFactory();
-            ((IPersister<ImmagineFissa>)factory.GetPersister(PersisterTypes.IMMAGINE_FISSA)).Save(_img);
+            using(BinaryWriter bw = new BinaryWriter(new FileStream(Documento.LIBRARY_PATH + _img.Nome + ".elem", FileMode.Create), Encoding.UTF8))
+            {
+                PersisterFactory.GetPersister(PersisterFactory.IMMAGINE_FISSA).Save(_img, bw);
+            }
         }
 
         public void OnCheckedChanged(object sender, EventArgs args)
