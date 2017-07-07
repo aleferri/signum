@@ -30,6 +30,12 @@ namespace Signum.Model
 
         }
 
+        public Frame(byte[] array, int nCols)
+        {
+            _bitmap = new BitArray(array);
+            _nCols = nCols;
+        }
+
         public byte[] ToByteArray()
         {
             byte[] result = new byte[(_bitmap.Length - 1) / 8 + 1];
