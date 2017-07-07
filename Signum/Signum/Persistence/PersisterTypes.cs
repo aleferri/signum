@@ -6,5 +6,6 @@
         INFO_DATA_ORA,
         IMMAGINE_FISSA,
         ANIMAZIONE,
+        SEQUENZA,
     }
 }

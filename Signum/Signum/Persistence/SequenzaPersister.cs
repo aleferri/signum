@@ -9,6 +9,7 @@ using ModelManaging;
 
 namespace Signum.Persistence
 {
+    [TypeAttribute(typeof(Sequenza))]
     class SequenzaPersister : IPersister<Sequenza>
     {
         public Sequenza Retrive(BinaryReader br)
