@@ -16,7 +16,6 @@ namespace Signum.Model
         public static readonly uint MAX_DURATION = 60 * 60 * 24;
         private string _nome;
         private List<KeyValuePair<Elemento, uint>> _elementi;
-        private string _nome;
 
         public uint Durata => (uint)_elementi.Sum(e => e.Value);
         public int Count => _elementi.Count;
@@ -34,11 +33,6 @@ namespace Signum.Model
             _elementi = new List<KeyValuePair<Elemento, uint>>();
         }
 
- 
-        public int Count
-        {
-           get { return _elementi.Count; }
-        }
         public void AggiungiElemento(Elemento elemento, uint durata)
         {
             Debug.Assert(null != elemento);

@@ -55,15 +55,17 @@ namespace Signum.Persistence
             bw.Write(elem.Nome);
             // Elementi
             bw.Write(elem.Count);
-            KeyValuePair<Elemento, uint> value;
+            Elemento value;
+            uint durata;
             IPersister persister;
             for(int i=0; i<elem.Count; i++)
             {
                 value = elem[i];
-                bw.Write(value.Value);
-                bw.Write(value.Key.GetType().ToString());
-                persister = PersisterFactory.GetPersister(value.Key.GetType());
-                persister.Save(value.Key, bw);
+                durata = elem.GetDurataOf(value);
+                bw.Write(durata);
+                bw.Write(value.GetType().ToString());
+                persister = PersisterFactory.GetPersister(value.GetType());
+                persister.Save(value, bw);
             }
 
         }
