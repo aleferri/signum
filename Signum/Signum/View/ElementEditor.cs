@@ -12,17 +12,25 @@ namespace Signum.View
 {
     public partial class ElementEditor : UserControl
     {
-        private readonly Control _specificEditor;
+        private Control _specificEditor;
 
         public TextBox InfoBox => _infoTextBox;
         public CheckBox DateHourCheckBox => _dateHourCheck;
+        public Control SpecificEditor
+        {
+            get => _specificEditor;
+            set
+            {
+                _tableLayoutPanel.Controls.Remove(SpecificEditor);
+                _specificEditor = value;
+                _specificEditor.Dock = DockStyle.Fill;
+                _tableLayoutPanel.Controls.Add(SpecificEditor);
+            }
+        }
 
-        public ElementEditor(Control specificEditor)
+        public ElementEditor()
         {
             InitializeComponent();
-            _specificEditor = specificEditor;
-            specificEditor.Dock = DockStyle.Fill;
-            _tableLayoutPanel.Controls.Add(specificEditor);
-        }
+        } 
     }
 }

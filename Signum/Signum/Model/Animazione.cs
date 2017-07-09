@@ -10,6 +10,24 @@ namespace Signum.Model
 {
     public class Animazione : Elemento
     {
+        private static Animazione defaultAnimazione;
+        public static Animazione Empty => defaultAnimazione;
+
+        static Animazione()
+        {
+            Documento.getInstance().ModelChanged += OnModelChange;
+            OnModelChange(null, new ModelEventArgs(Documento.getInstance().ModelloRiferimento));
+        }
+
+        private static void OnModelChange(object sender, ModelEventArgs args)
+        {
+            defaultAnimazione = new Animazione(10)
+            {
+                Nome = "<animazione>",
+                InformazioneAssociata = new InformazioneTestuale("")
+            };
+        }
+
         private uint _frameRate;
         private readonly List<Frame> _frameSequence;
 

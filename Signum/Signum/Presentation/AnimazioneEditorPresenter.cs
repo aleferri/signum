@@ -12,24 +12,21 @@ using System.Windows.Forms;
 
 namespace Signum.Presentation
 {
-    [NameTagAttribute("Animazione", "animazione")]
-    class AnimazioneEditorPresenter : IEditorPresenter
+    [NameTagAttribute("Animazione", typeof(Animazione))]
+    class AnimazioneEditorPresenter : ElementEditorPresenter
     {
-        private readonly ElementEditor _elementEditor;
         private readonly AnimazioneEditor _animationEditor;
         private Animazione _animazione;
         private readonly Modello _modello;
 
-        public EventHandler OnSave => Save;
-        public Control Editor => _elementEditor;
+        public override EventHandler OnSave => Save;
 
         public AnimazioneEditorPresenter(Modello modello)
         {
             _animationEditor = new AnimazioneEditor();
             _animationEditor.Dock = DockStyle.Fill;
             _animationEditor.Pannello.CreateControl();
-            _elementEditor = new ElementEditor(_animationEditor);
-            _elementEditor.Dock = DockStyle.Fill;
+            SetEditor(_animationEditor);
             _modello = modello;
             InstallHandlers();
             AddFrame();
@@ -37,7 +34,6 @@ namespace Signum.Presentation
 
         private void InstallHandlers()
         {
-            _elementEditor.DateHourCheckBox.CheckedChanged += OnCheckedChanged;
             _animationEditor.Pannello.Selected += OnTabChanged;
             _animationEditor.Pannello.MouseUp += OnMouseUp;
             _animationEditor.EliminaOption.Click += OnEliminaClick;
@@ -55,9 +51,25 @@ namespace Signum.Presentation
             nuovaTab.Tag = fp;
             return nuovaTab;
         }
+        private TabPage CreateTab(int n, Frame frame)
+        {
+            TabPage nuovaTab = new TabPage();
+            nuovaTab.Text = String.Format("Frame {0}", n);
+            FrameEditorPresenter fp = new FrameEditorPresenter(frame, _modello);
+            fp.Editor.Dock = DockStyle.Fill;
+            nuovaTab.Controls.Add(fp.Editor);
+            nuovaTab.Tag = fp;
+            return nuovaTab;
+        }
         private void AddFrame()
         {      
             TabPage nuovaTab = CreateTab(_animationEditor.Pannello.TabPages.Count);
+            _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabPages.Count - 1, nuovaTab);
+            _animationEditor.Pannello.SelectedTab = nuovaTab;
+        }
+        private void AddFrame(Frame frame)
+        {
+            TabPage nuovaTab = CreateTab(_animationEditor.Pannello.TabPages.Count, frame);
             _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabPages.Count - 1, nuovaTab);
             _animationEditor.Pannello.SelectedTab = nuovaTab;
         }
@@ -79,6 +91,21 @@ namespace Signum.Presentation
             _animationEditor.Pannello.TabPages.Remove(tab);
             _animationEditor.Pannello.TabPages.Insert(index + offset, tab);
             _animationEditor.Pannello.SelectedTab = tab;
+        }
+
+        public override void CaricaElemento(Elemento element)
+        {
+            Animazione animazione = element as Animazione;
+            
+            _animazione = animazione ?? throw new ArgumentException("Elemento non compatibile con l'editor delle animazioni"); ;
+            _animationEditor.Pannello.TabPages.Clear();
+            _animationEditor.Pannello.TabPages.Add(_animationEditor.TabAggiungi);
+            foreach(Frame f in _animazione.Frames)
+            {
+                AddFrame(f);
+            }
+            ImportaInformazione(_animazione.InformazioneAssociata);
+            _animationEditor.FramerateNumeric.Value = _animazione.FrameRate;
         }
 
         #region EventHandlers
@@ -103,15 +130,12 @@ namespace Signum.Presentation
                 }
             }
         }
-        private void OnCheckedChanged(object sender, EventArgs args)
-        {
-            _elementEditor.InfoBox.Enabled = !_elementEditor.DateHourCheckBox.Checked;
-        }
         private void Save(object sender, EventArgs args)
         {
-            IInformazione info = _elementEditor.DateHourCheckBox.Checked ? (IInformazione) new InformazioneDataOra() : new InformazioneTestuale(_elementEditor.InfoBox.Text);
+            ElementEditor editor = (ElementEditor)Editor;
+            IInformazione info = editor.DateHourCheckBox.Checked ? (IInformazione) new InformazioneDataOra() : new InformazioneTestuale(editor.InfoBox.Text);
             if (null == _animazione) _animazione = new Animazione((uint)_animationEditor.FramerateNumeric.Value);
-
+            
             _animazione.InformazioneAssociata = info;
             _animazione.FrameRate = (uint)_animationEditor.FramerateNumeric.Value;
             _animazione.Frames.Clear();

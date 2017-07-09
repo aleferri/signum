@@ -29,10 +29,10 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -92,11 +92,13 @@
     <Compile Include="Persistence\TypeAttribute.cs" />
     <Compile Include="Presentation\AnimazioneEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />
+    <Compile Include="Presentation\EditorsHandling\ElementEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\NameTagAttribute.cs" />
     <Compile Include="Presentation\ImmagineFissaEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\IEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\FrameEditorPresenter.cs" />
     <Compile Include="Presentation\MainContainerPresenter.cs" />
+    <Compile Include="Presentation\SequenzaEditorPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\AnimazioneEditor.cs">
@@ -122,6 +124,12 @@
     </Compile>
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\SequenzaEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\SequenzaEditor.Designer.cs">
+      <DependentUpon>SequenzaEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Utils\DoubleBufferControl.cs">
       <SubType>UserControl</SubType>
@@ -153,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SequenzaEditor.resx">
+      <DependentUpon>SequenzaEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Utils\DoubleBufferControl.resx">
       <DependentUpon>DoubleBufferControl.cs</DependentUpon>

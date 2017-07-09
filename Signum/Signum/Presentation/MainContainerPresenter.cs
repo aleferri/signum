@@ -15,7 +15,7 @@ namespace Signum.Presentation
         public MainContainerPresenter(MainContainer mainContainer)
         {
             _mainContainer = mainContainer;
-            _editorFactory = new EditorFactory();
+            _editorFactory = Documento.getInstance().EditorFactory;
             _mainContainer.CambiaModelloButton.Click += OnModelChangeClick;
             FillNuovoMenu();
 
@@ -46,7 +46,7 @@ namespace Signum.Presentation
         {
             ToolStripItem source = (ToolStripItem)sender;
             IEditorPresenter old = _currentEditorHandler;
-            _currentEditorHandler = _editorFactory.GetEditorHandler((string)source.Tag, Documento.getInstance().ModelloRiferimento);
+            _currentEditorHandler = _editorFactory.GetEditorHandler((Type)source.Tag, Documento.getInstance().ModelloRiferimento);
             _mainContainer.RightPanel.Controls.Clear();
             _mainContainer.RightPanel.Controls.Add(_currentEditorHandler.Editor);
 

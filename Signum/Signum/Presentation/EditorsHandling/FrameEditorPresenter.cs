@@ -61,10 +61,10 @@ namespace Signum.Presentation.EditorsHandling
             if (_modelloFrame[x, y])
             {
                 _frame[x, y] = args.Button == MouseButtons.Left;
+                editor.SuspendLayout();
+                editor.Refresh();
+                editor.ResumeLayout();
             }
-            editor.SuspendLayout();
-            editor.Refresh();
-            editor.ResumeLayout();
         }
         private void ShowEditorGrid(object sender, PaintEventArgs args)
         {

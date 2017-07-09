@@ -55,10 +55,10 @@ namespace Signum.Model
             return -1;
         }
 
-        private int FindDummy(uint duration, out Sequenza dummy)
+        private int FindDummy(uint durata, out Sequenza dummy)
         {
             IEnumerable<Sequenza> seqs = from Sequenza s in _sequences
-                                         orderby Math.Abs(s.Duration - duration)
+                                         orderby Math.Abs(s.Durata - durata)
                                          select s;
             dummy = seqs.Count() > 0 ? seqs.First() : null;
             if (dummy == null)
@@ -79,7 +79,7 @@ namespace Signum.Model
             if (_dummies.Contains(a) && _dummies.Contains(b))
             {
                 Sequenza dummy = new Sequenza();
-                dummy.AggiungiElemento(ElementoDummy.DUMMY, a.Duration + b.Duration);
+                dummy.AggiungiElemento(ElementoDummy.DUMMY, a.Durata + b.Durata);
                 _dummies.Remove(a);
                 _dummies.Remove(b);
                 _sequences[startIndex] = dummy;
@@ -94,29 +94,29 @@ namespace Signum.Model
             _sequences.Remove(s);
             if (dummy != null)
             {
-                dummy.AggiungiElemento(ElementoDummy.DUMMY, s.Duration);
+                dummy.AggiungiElemento(ElementoDummy.DUMMY, s.Durata);
                 MergeDummies(indexOf);
             }
             else
             {
                 Sequenza dummyReplace = new Sequenza();
-                dummyReplace.AggiungiElemento(ElementoDummy.DUMMY, s.Duration);
+                dummyReplace.AggiungiElemento(ElementoDummy.DUMMY, s.Durata);
             }
         }
 
         public bool AggiungiSequenza(Sequenza s)
         {
             Sequenza dummy;
-            int indexOf = FindDummy(s.Duration, out dummy);
+            int indexOf = FindDummy(s.Durata, out dummy);
             if (indexOf < 0)
             {
                 throw new ArgumentException("Impossibile insere, nessuno spazio libero");
             }
-            bool trimmed = _sequences[indexOf].Duration < s.Duration;
-            uint fitDuration = trimmed
-                    ? _sequences[indexOf].Duration
-                    : s.Duration;
-            uint durationLeft = _sequences[indexOf].Duration - fitDuration;
+            bool trimmed = _sequences[indexOf].Durata < s.Durata;
+            uint fitDurata = trimmed
+                    ? _sequences[indexOf].Durata
+                    : s.Durata;
+            uint durationLeft = _sequences[indexOf].Durata - fitDurata;
             _sequences.Remove(dummy);
             _dummies.Remove(dummy);
             if (durationLeft > 0)

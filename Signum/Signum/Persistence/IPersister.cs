@@ -17,6 +17,6 @@ namespace Signum.Persistence
     public interface IPersister<T> : IPersister
     {
         void Save(T elem, BinaryWriter bw);
-        T Retrive(BinaryReader br);
+        new T Retrive(BinaryReader br);
     }
 }

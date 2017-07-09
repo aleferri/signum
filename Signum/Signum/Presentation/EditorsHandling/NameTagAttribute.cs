@@ -10,17 +10,12 @@ namespace Signum.Presentation.EditorsHandling
     class NameTagAttribute : Attribute
     {
         public string Name { get; }
-        public string Tag { get; }
+        public Type Tag { get; }
 
-        public NameTagAttribute(string name, string tag)
+        public NameTagAttribute(string name, Type tag)
         {
             Name = name;
             Tag = tag;
-        }
-
-        public NameTagAttribute(string name) : this(name, name)
-        {
-
         }
     }
 }

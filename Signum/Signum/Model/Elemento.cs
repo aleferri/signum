@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelManaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Signum.Model
 {
     public abstract class Elemento
     {
+        public static Elemento Default => ImmagineFissa.Empty;
+
         private string _nome;
         private IInformazione _informazione;
         public virtual IInformazione InformazioneAssociata {
@@ -25,7 +28,6 @@ namespace Signum.Model
         {
             _informazione = new InformazioneDataOra();
         }
-
         public abstract override string ToString();
 
     }

@@ -1,4 +1,5 @@
 ﻿using ModelManaging;
+using Signum.Presentation.EditorsHandling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,17 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
+    public class ModelEventArgs : EventArgs
+    {
+        public Modello NuovoModello { get; set; }
+
+        public ModelEventArgs(Modello modello)
+        {
+            NuovoModello = modello;
+        }
+    }
+
+    public delegate void ModelChangeHandler(object sender, ModelEventArgs args);
     public class Documento
     {
 
@@ -36,14 +48,16 @@ namespace Signum.Model
             set
             {
                 _modelloRiferimento = value;
-                ModelChanged?.Invoke(this, EventArgs.Empty);
+                ModelChanged?.Invoke(this, new ModelEventArgs(value));
             }
         }
+        public EditorFactory EditorFactory { get; }
 
-        public event EventHandler ModelChanged;
+        public event ModelChangeHandler ModelChanged;
 
         protected Documento()
         {
+            EditorFactory = new EditorFactory();
         }
 
         #endregion

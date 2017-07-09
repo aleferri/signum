@@ -8,6 +8,22 @@ namespace Signum.Model
 {
     public class ImmagineFissa : Elemento
     {
+        private static ImmagineFissa defaultImage;
+        public static ImmagineFissa Empty => defaultImage;
+
+        static ImmagineFissa()
+        {
+            Documento.getInstance().ModelChanged += OnModelChange;
+            OnModelChange(null, new ModelEventArgs(Documento.getInstance().ModelloRiferimento));
+        }
+
+        private static void OnModelChange(object sender, ModelEventArgs args)
+        {
+            defaultImage = new ImmagineFissa(new Frame(args.NuovoModello.Size));
+            defaultImage.Nome = "<immagine fissa>";
+            defaultImage.InformazioneAssociata = new InformazioneTestuale("");
+        }
+
         private readonly Frame _frame;
 
         public Frame Frame => _frame;
