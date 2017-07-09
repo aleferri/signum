@@ -89,6 +89,7 @@
     <Compile Include="Persistence\IPersister.cs" />
     <Compile Include="Persistence\PersisterFactory.cs" />
     <Compile Include="Persistence\PersisterTypes.cs" />
+    <Compile Include="Persistence\SequenzaPersister.cs" />
     <Compile Include="Persistence\TypeAttribute.cs" />
     <Compile Include="Presentation\AnimazioneEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />

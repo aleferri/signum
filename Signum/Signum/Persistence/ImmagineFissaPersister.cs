@@ -17,20 +17,24 @@ namespace Signum.Persistence
             int height = br.ReadInt32();
             if (width != modello.Size.Width || height != modello.Size.Height) throw new FileLoadException("Modello non compatibile");
            
-            // Frame
+            // Immagine
             if (br.ReadString() != typeof(ImmagineFissa).GetType().ToString()) throw new FileLoadException("Tipo non compatibile");
+            string nome = br.ReadString();
+            // Frame
+            int nCol = br.ReadInt32();
             int len = br.ReadInt32();
-            byte[] frameToArray = new byte[len];
-            br.Read(frameToArray, 0, len);
+            byte[] frameAsArray = new byte[len];
+            br.Read(frameAsArray, 0, len);
 
             // Informazione
             IPersister infoPersister = PersisterFactory.GetPersister(br.ReadString());
-            if (!(infoPersister.GetType().GetGenericTypeDefinition() is IInformazione)) throw new FileLoadException("Informazione associata non compatibile");
-
+            if (!(infoPersister.GetType().GetCustomAttributes(false)[0] is IInformazione)) throw new FileLoadException("Informazione associata non compatibile");
             IInformazione infoAssociata = (IInformazione)infoPersister.Retrive(br);
 
-            // Manca costruttpre ByteArray -> Frame
-            throw new NotImplementedException();
+            // Out
+            ImmagineFissa result = new ImmagineFissa(new Frame(frameAsArray, nCol), infoAssociata);
+            result.Nome = nome;
+            return result;
         }
 
         public void Save(ImmagineFissa elem, BinaryWriter bw)
@@ -40,11 +44,14 @@ namespace Signum.Persistence
             bw.Write(modello.Size.Width);
             bw.Write(modello.Size.Height);
             
-            // Frame
+            // Immagine
             bw.Write(elem.GetType().ToString());
-            byte[] frameToArray = elem.Frame.ToByteArray();
-            bw.Write(frameToArray.Length);
-            bw.Write(frameToArray);
+            bw.Write(elem.Nome);
+            // Frame
+            byte[] frameAsArray = elem.Frame.ToByteArray();
+            bw.Write(elem.Frame.Size.Width);
+            bw.Write(frameAsArray.Length);
+            bw.Write(frameAsArray);
 
             // Informazione
             IPersister infoPersister = PersisterFactory.GetPersister(elem.InformazioneAssociata.GetType());
