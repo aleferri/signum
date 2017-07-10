@@ -26,6 +26,7 @@ namespace Signum.Model
                 Nome = "<animazione>",
                 InformazioneAssociata = new InformazioneTestuale("")
             };
+            defaultAnimazione.Frames.Add(new Frame(args.NuovoModello.Size));
         }
 
         private uint _frameRate;

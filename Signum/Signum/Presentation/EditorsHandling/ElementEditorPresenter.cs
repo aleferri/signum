@@ -19,8 +19,10 @@ namespace Signum.Presentation.EditorsHandling
 
         protected ElementEditorPresenter()
         {
-            _editor = new ElementEditor();
-            _editor.Dock = DockStyle.Fill;
+            _editor = new ElementEditor()
+            {
+                Dock = DockStyle.Fill
+            };
             _editor.DateHourCheckBox.CheckedChanged += OnCheckedChanged;
         }
 

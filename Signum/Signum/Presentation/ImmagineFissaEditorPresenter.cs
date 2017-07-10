@@ -21,14 +21,14 @@ namespace Signum.Presentation
         public ImmagineFissaEditorPresenter(Modello modello)
         {
             _presenter = new FrameEditorPresenter(modello);
-            SetEditor(_presenter.Editor);
+            CaricaElemento(new ImmagineFissa(_presenter.CurrentResultFrame));
         }
 
         public override void CaricaElemento(Elemento element)
         {
             ImmagineFissa immagine = element as ImmagineFissa;
-            if (null == immagine) throw new ArgumentException("Elemento non compatibile con l'editor delle immagini fisse");
-            _img = immagine;
+            _img = immagine ?? throw new ArgumentException("Elemento non compatibile con l'editor delle immagini fisse");
+            _presenter = new FrameEditorPresenter(immagine.Frame, Documento.getInstance().ModelloRiferimento);
             SetEditor(_presenter.Editor);
             ImportaInformazione(immagine.InformazioneAssociata);
         }

@@ -29,7 +29,7 @@ namespace Signum.Presentation
             SetEditor(_animationEditor);
             _modello = modello;
             InstallHandlers();
-            AddFrame();
+            CaricaElemento(new Animazione(10));
         }
 
         private void InstallHandlers()
@@ -59,12 +59,14 @@ namespace Signum.Presentation
             fp.Editor.Dock = DockStyle.Fill;
             nuovaTab.Controls.Add(fp.Editor);
             nuovaTab.Tag = fp;
+
+            _animazione.Frames.Add(fp.CurrentResultFrame);
             return nuovaTab;
         }
         private void AddFrame()
         {      
-            TabPage nuovaTab = CreateTab(_animationEditor.Pannello.TabPages.Count);
-            _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabPages.Count - 1, nuovaTab);
+            TabPage nuovaTab = CreateTab(_animationEditor.Pannello.TabCount);
+            _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabCount - 1, nuovaTab);
             _animationEditor.Pannello.SelectedTab = nuovaTab;
         }
         private void AddFrame(Frame frame)

@@ -28,8 +28,10 @@ namespace Signum.Presentation.EditorsHandling
         public FrameEditorPresenter(Frame frame, Modello modello)
         {
             Debug.Assert(null != modello);
-            _editor = new DoubleBufferControl();
-            _editor.Dock = DockStyle.Fill;
+            _editor = new DoubleBufferControl()
+            {
+                Dock = DockStyle.Fill
+            };
             _modelloFrame = modello;
             _frame = frame;
             AttachHandlers();
