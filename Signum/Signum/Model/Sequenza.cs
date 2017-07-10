@@ -10,20 +10,24 @@ using System.Threading.Tasks;
 namespace Signum.Model
 { 
 
-    public class Sequenza :IListSource
+    public class Sequenza : IListSource
     {
 
         public static readonly uint MAX_DURATION = 60 * 60 * 24;
+
         private string _nome;
         private List<KeyValuePair<Elemento, uint>> _elementi;
 
         public uint Durata => (uint)_elementi.Sum(e => e.Value);
+
         public int Count => _elementi.Count;
+
         public string Nome
         {
             get => _nome;
             set => _nome = value ?? "Nuova sequenza";
         }
+
         public bool ContainsListCollection => true;
 
         public Elemento this[int index] => _elementi[index].Key;
@@ -38,6 +42,7 @@ namespace Signum.Model
             Debug.Assert(null != elemento);
             _elementi.Add(new KeyValuePair<Elemento, uint>(elemento, durata));
         }
+
         public void InserisciElemento(Elemento elemento, uint durata, int index)
         {
             Debug.Assert(null != elemento);
