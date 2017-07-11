@@ -9,7 +9,8 @@ namespace Signum.Model
     public class ImmagineFissa : Elemento
     {
         private static ImmagineFissa defaultImage;
-        public static ImmagineFissa Empty => defaultImage;
+
+        public static ImmagineFissa Empty => defaultImage.Copy();
 
         static ImmagineFissa()
         {
@@ -28,14 +29,24 @@ namespace Signum.Model
 
         public Frame Frame => _frame;
 
-        public ImmagineFissa(Frame frame, IInformazione informazione)
+        public ImmagineFissa(Frame frame, IInformazione informazione, string nome)
         {
             _frame = frame;
             InformazioneAssociata = informazione;
+            Nome = nome;
+        }
+
+        public ImmagineFissa(Frame frame, IInformazione informazione) : this(frame, informazione, "")
+        {
         }
 
         public ImmagineFissa(Frame frame) : this(frame, null)
         { 
+        }
+
+        public ImmagineFissa Copy()
+        {
+            return new ImmagineFissa(_frame, InformazioneAssociata, Nome);
         }
 
         public override string ToString()
