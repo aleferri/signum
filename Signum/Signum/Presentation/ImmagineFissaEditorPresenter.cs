@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Signum.Presentation
 {
     [NameTagAttribute("Immagine Fissa", typeof(ImmagineFissa))]
-    class ImmagineFissaEditorPresenter : ElementEditorPresenter
+    class ImmagineFissaEditorPresenter : ElementoEditorPresenter
     {
         private FrameEditorPresenter _presenter;
         private ImmagineFissa _img;
@@ -28,14 +28,14 @@ namespace Signum.Presentation
         {
             ImmagineFissa immagine = element as ImmagineFissa;
             _img = immagine ?? throw new ArgumentException("Elemento non compatibile con l'editor delle immagini fisse");
+            AsElemento = _img;
             _presenter = new FrameEditorPresenter(immagine.Frame, Documento.getInstance().ModelloRiferimento);
             SetEditor(_presenter.Editor);
-            ImportaInformazione(immagine.InformazioneAssociata);
         }
 
         private void OnSaveHandler(object sender, EventArgs args)
         {
-            _img = _img ?? new ImmagineFissa(_presenter.CurrentResultFrame, Informazione);
+            AsElemento = _img;
             if(null == _img.Nome)
             {
                 string nome = InputPrompt.ShowInputDialog("Scegli il nome dell'elemento:", "Immagine Fissa", "OK", "Annulla");

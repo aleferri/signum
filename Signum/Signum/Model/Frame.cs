@@ -42,5 +42,10 @@ namespace Signum.Model
             _bitmap.CopyTo(result, 0);
             return result;
         }
+
+        public Frame Copy()
+        {
+            return new Frame(ToByteArray(), _nCols);
+        }
     }
 }

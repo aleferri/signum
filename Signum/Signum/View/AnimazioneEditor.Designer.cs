@@ -37,6 +37,7 @@
             this._moveLeftOption = new System.Windows.Forms.ToolStripMenuItem();
             this._moveRightOption = new System.Windows.Forms.ToolStripMenuItem();
             this._eliminaOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this._tabControl.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._framerateNumeric)).BeginInit();
@@ -60,7 +61,7 @@
             this._tabNewPage.Padding = new System.Windows.Forms.Padding(3);
             this._tabNewPage.Size = new System.Drawing.Size(634, 470);
             this._tabNewPage.TabIndex = 1;
-            this._tabNewPage.Text = "+";
+            this._tabNewPage.Text = "+ Frame";
             this._tabNewPage.ToolTipText = "Aggiungi un frame";
             this._tabNewPage.UseVisualStyleBackColor = true;
             // 
@@ -119,6 +120,11 @@
             this._eliminaOption.Size = new System.Drawing.Size(158, 22);
             this._eliminaOption.Text = "Elimina";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 26);
+            // 
             // AnimazioneEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,5 +151,6 @@
         private System.Windows.Forms.ToolStripMenuItem _moveLeftOption;
         private System.Windows.Forms.ToolStripMenuItem _moveRightOption;
         private System.Windows.Forms.ToolStripMenuItem _eliminaOption;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

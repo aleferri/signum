@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Signum.View
@@ -20,6 +13,9 @@ namespace Signum.View
         public NumericUpDown DurataNumeric => _durataUpDown;
         public TextBox NomeField => _nomeField;
         public TextBox SequenzaNomeField => _nomeSequenza;
+        public ToolStripMenuItem EliminaOption => _eliminaToolStripMenuItem;
+        public ToolStripMenuItem MoveUpOption => _spostaSuToolStripMenuItem;
+        public ToolStripMenuItem MoveDownOption => _spostaGiuToolStripMenuItem;
 
         public SequenzaEditor()
         {

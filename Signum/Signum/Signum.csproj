@@ -93,7 +93,7 @@
     <Compile Include="Persistence\TypeAttribute.cs" />
     <Compile Include="Presentation\AnimazioneEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />
-    <Compile Include="Presentation\EditorsHandling\ElementEditorPresenter.cs" />
+    <Compile Include="Presentation\EditorsHandling\ElementoEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\NameTagAttribute.cs" />
     <Compile Include="Presentation\ImmagineFissaEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\IEditorPresenter.cs" />

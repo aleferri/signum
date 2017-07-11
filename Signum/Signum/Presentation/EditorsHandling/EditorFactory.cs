@@ -24,7 +24,7 @@ namespace Signum.Presentation.EditorsHandling
                    in _editorMenuNames
                    let tipi = from Type t
                               in _editorHandlers.Keys
-                              where _editorHandlers[t].IsSubclassOf(typeof(ElementEditorPresenter))
+                              where _editorHandlers[t].IsSubclassOf(typeof(ElementoEditorPresenter))
                               select t
                    where tipi.Contains(kvp.Value)
                    select kvp.Key;

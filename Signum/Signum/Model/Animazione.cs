@@ -11,7 +11,7 @@ namespace Signum.Model
     public class Animazione : Elemento
     {
         private static Animazione defaultAnimazione;
-        public static Animazione Empty => defaultAnimazione;
+        public static Animazione Empty => defaultAnimazione.Copy();
 
         static Animazione()
         {
@@ -30,10 +30,10 @@ namespace Signum.Model
         }
 
         private uint _frameRate;
-        private readonly List<Frame> _frameSequence;
+        private readonly List<Frame> _sequenzaFrame;
 
-        public List<Frame> Frames => _frameSequence;
-        public ulong Durata => (ulong)_frameSequence.Count() / _frameRate;
+        public List<Frame> Frames => _sequenzaFrame;
+        public ulong Durata => (ulong)_sequenzaFrame.Count() / _frameRate;
         public uint FrameRate
         {
             get => _frameRate;
@@ -42,7 +42,7 @@ namespace Signum.Model
         public Animazione(uint frameRate, IInformazione informazione)
         {
             _frameRate = frameRate;
-            _frameSequence = new List<Frame>();
+            _sequenzaFrame = new List<Frame>();
             InformazioneAssociata = informazione;
         }
 
@@ -50,6 +50,12 @@ namespace Signum.Model
         {
         }
 
+        public Animazione Copy()
+        {
+            Animazione result = new Animazione(_frameRate, InformazioneAssociata);
+            _sequenzaFrame.ForEach(f => result.Frames.Add(f.Copy()));
+            return result;
+        }
         public override string ToString()
         {
             return String.Format("Animazione -> \"{0}", InformazioneAssociata.Accept(new ValutatoreInformazione()));
