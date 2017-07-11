@@ -22,6 +22,7 @@ namespace Signum.Presentation
         private ElementoEditorPresenter _elementEditorPresenter;
         private EditorFactory _editorFactory;
         private Elemento _currentElemento;
+        private int _draggedElementIndex;
 
         public EventHandler OnSave => OnSaveRequest;
         public Control Editor => _editor;
@@ -33,6 +34,9 @@ namespace Signum.Presentation
             _editor.Dock = DockStyle.Fill;
             _sequenza = new Sequenza();
             if (0 == _sequenza.Count) _sequenza.AggiungiElemento(Elemento.Default, 1);
+
+            _draggedElementIndex = -1;
+
             FillList();
             PopulateElementChoices();
             AttachHandlers();
@@ -55,6 +59,8 @@ namespace Signum.Presentation
         {
             _editor.Lista.MouseDoubleClick += OnListDoubleClick;
             _editor.DurataNumeric.ValueChanged += OnDurationChange;
+            _editor.Lista.MouseDown += OnListMouseDown;
+            _editor.Lista.MouseMove += OnListMouseMove;
             _editor.Lista.MouseUp += OnListMouseUp;
             _editor.Lista.SelectedIndexChanged += OnListSelectedChange;
             _editor.EliminaOption.Click += OnEliminaClick;
@@ -84,7 +90,7 @@ namespace Signum.Presentation
         }
         private void OpenEditorForIndex(int index)
         {
-            Elemento e = (Elemento)_editor.Lista.Items[index];
+            Elemento e = _sequenza[index];
             SetViewFromModel(e);
         }
         private void Move(bool up, int index)
@@ -114,8 +120,26 @@ namespace Signum.Presentation
             }
             OpenEditorForIndex(index);
         }
+        private void OnListMouseDown(object sender, MouseEventArgs args)
+        {
+            if (args.Button == MouseButtons.Left)
+            {
+                _draggedElementIndex = _editor.Lista.SelectedIndex;
+            }
+        }
+        private void OnListMouseMove(object sender, MouseEventArgs args)
+        {
+            if (0 > _draggedElementIndex) return;
+            int hoverIndex = _editor.Lista.IndexFromPoint(new Point(args.X, args.Y));
+            if(hoverIndex != _draggedElementIndex && hoverIndex >= 0)
+            {
+                Move(hoverIndex < _draggedElementIndex, _draggedElementIndex);
+                _draggedElementIndex = hoverIndex;
+            }
+        }
         private void OnListMouseUp(object sender, MouseEventArgs args)
         {
+            _draggedElementIndex = -1;
             if (args.Button == MouseButtons.Right)
             {
                 Point point = new Point(args.X, args.Y);

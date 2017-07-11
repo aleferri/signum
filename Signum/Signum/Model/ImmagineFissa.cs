@@ -46,7 +46,7 @@ namespace Signum.Model
 
         public ImmagineFissa Copy()
         {
-            return new ImmagineFissa(_frame, InformazioneAssociata, Nome);
+            return new ImmagineFissa(new Frame(_frame.Size), InformazioneAssociata, Nome);
         }
 
         public override string ToString()

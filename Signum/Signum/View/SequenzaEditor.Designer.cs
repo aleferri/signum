@@ -70,10 +70,12 @@
             // 
             this._splitContainer.Panel1.Controls.Add(this._elementList);
             this._splitContainer.Panel1.Controls.Add(this.tableLayoutPanel1);
+            this._splitContainer.Panel1MinSize = 220;
             // 
             // _splitContainer.Panel2
             // 
             this._splitContainer.Panel2.Controls.Add(this._groupBox1);
+            this._splitContainer.Panel2MinSize = 400;
             this._splitContainer.Size = new System.Drawing.Size(752, 511);
             this._splitContainer.SplitterDistance = 250;
             this._splitContainer.TabIndex = 0;
@@ -222,7 +224,7 @@
             this._spostaSuToolStripMenuItem,
             this._spostaGiuToolStripMenuItem});
             this._elementoContextMenu.Name = "_elementoContextMenu";
-            this._elementoContextMenu.Size = new System.Drawing.Size(153, 92);
+            this._elementoContextMenu.Size = new System.Drawing.Size(131, 70);
             // 
             // _eliminaToolStripMenuItem
             // 
