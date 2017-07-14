@@ -14,18 +14,18 @@ namespace Signum.Persistence
     {
         public Animazione Retrive(BinaryReader br)
         {
+            // Animazione
+            string nome = br.ReadString();
+            uint frameRate = br.ReadUInt32();
+            Animazione result = new Animazione(frameRate);
+            result.Nome = nome;
+
             // Modello
             Modello modello = Documento.getInstance().ModelloRiferimento;
             int width = br.ReadInt32();
             int height = br.ReadInt32();
-            if (width != modello.Size.Width || height != modello.Size.Height) throw new FileLoadException("Modello non compatibile");
+            if (width != modello.Size.Width || height != modello.Size.Height) return null;
 
-            // Animazione
-            if (br.ReadString() != typeof(Animazione).GetType().ToString()) throw new FileLoadException("Tipo non compatibile");
-            string nome = br.ReadString();
-            uint frameRate= br.ReadUInt32();
-            Animazione result = new Animazione(frameRate);
-            result.Nome = nome;
             // Frames
             byte[] frameAsArray;
             int nFrames = br.ReadInt32();
@@ -41,7 +41,6 @@ namespace Signum.Persistence
 
             // Informazione
             IPersister infoPersister = PersisterFactory.GetPersister(br.ReadString());
-            if (!(infoPersister.GetType().GetCustomAttributes(false)[0] is IInformazione)) throw new FileLoadException("Informazione associata non compatibile");
             IInformazione infoAssociata = (IInformazione)infoPersister.Retrive(br);
 
             // Out
@@ -51,15 +50,16 @@ namespace Signum.Persistence
 
         public void Save(Animazione elem, BinaryWriter bw)
         {
+            // Animazione
+            bw.Write(elem.GetType().ToString());
+            bw.Write(elem.Nome);
+            bw.Write(elem.FrameRate);
+
             // Modello di riferimento
             Modello modello = Documento.getInstance().ModelloRiferimento;
             bw.Write(modello.Size.Width);
             bw.Write(modello.Size.Height);
 
-            // Animazione
-            bw.Write(elem.GetType().ToString());
-            bw.Write(elem.Nome);
-            bw.Write(elem.FrameRate);
             // Frames
             bw.Write(elem.Frames.Count);
             byte[] frameAsArray;

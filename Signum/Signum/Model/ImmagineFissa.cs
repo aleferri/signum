@@ -10,7 +10,7 @@ namespace Signum.Model
     {
         private static ImmagineFissa defaultImage;
 
-        public static ImmagineFissa Empty => defaultImage.Copy();
+        public static ImmagineFissa Empty => (ImmagineFissa)defaultImage.Copy();
 
         static ImmagineFissa()
         {
@@ -44,7 +44,7 @@ namespace Signum.Model
         { 
         }
 
-        public ImmagineFissa Copy()
+        public override Elemento Copy()
         {
             return new ImmagineFissa(new Frame(_frame.Size), InformazioneAssociata, Nome);
         }

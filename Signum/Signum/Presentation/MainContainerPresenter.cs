@@ -18,6 +18,8 @@ namespace Signum.Presentation
             _editorFactory = Documento.getInstance().EditorFactory;
             _mainContainer.CambiaModelloButton.Click += OnModelChangeClick;
             FillNuovoMenu();
+            OnLibreriaChange(this, EventArgs.Empty);
+            Documento.getInstance().LibreriaChanged += OnLibreriaChange;
 
         }
 
@@ -31,6 +33,42 @@ namespace Signum.Presentation
                 _mainContainer.NuovoMenu.DropDownItems.Add(item);
             }
         }
+        private void FillImmaginiFisseNode(TreeNode node)
+        {
+            foreach(ModelToPersistenceWrapper<ImmagineFissa> imm in Documento.getInstance().Libreria.ImmaginiFisse)
+            {
+                TreeNode immNode = new TreeNode(imm.ModelElement.Nome + " (Immagine Fissa)");
+                immNode.Tag = imm;
+                node.Nodes.Add(immNode);
+            }
+        }
+        private void FillAnimazioniNode(TreeNode node)
+        {
+            foreach (ModelToPersistenceWrapper<Animazione> a in Documento.getInstance().Libreria.Animazioni)
+            {
+                TreeNode aNode = new TreeNode(a.ModelElement.Nome + " (Animazione)");
+                aNode.Tag = a;
+                node.Nodes.Add(aNode);
+            }
+        }
+        private void FillSequenzeNode(TreeNode node)
+        {
+            foreach (ModelToPersistenceWrapper<Sequenza> s in Documento.getInstance().Libreria.Sequenze)
+            {
+                TreeNode sNode = new TreeNode(s.ModelElement.Nome);
+                sNode.Tag = s;
+                node.Nodes.Add(sNode);
+            }
+        }
+        private void FillProgrammazioniGiornaliereNode(TreeNode node)
+        {
+            foreach (ModelToPersistenceWrapper<ProgrammazioneGiornaliera> p in Documento.getInstance().Libreria.ProgrGiornaliere)
+            {
+                TreeNode pNode = new TreeNode(p.ModelElement.Nome);
+                pNode.Tag = p;
+                node.Nodes.Add(pNode);
+            }
+        }
 
         #region EventHandlers
         private void OnModelChangeClick(object sender, EventArgs args)
@@ -41,6 +79,21 @@ namespace Signum.Presentation
             {
                 item.Enabled = true;
             }
+        }
+        private void OnLibreriaChange(object sender, EventArgs args)
+        {
+            TreeNodeCollection nodes = _mainContainer.LibreriaView.Nodes;
+            nodes.Clear();
+            TreeNode elementi = new TreeNode("Elementi");
+            FillImmaginiFisseNode(elementi);
+            FillAnimazioniNode(elementi);
+            TreeNode sequenze = new TreeNode("Sequenze");
+            FillSequenzeNode(sequenze);
+            TreeNode progr = new TreeNode("Programmazioni Giornaliere");
+            FillProgrammazioniGiornaliereNode(progr);
+            if (elementi.Nodes.Count != 0) nodes.Add(elementi);
+            if (sequenze.Nodes.Count != 0) nodes.Add(sequenze);
+            if (progr.Nodes.Count != 0) nodes.Add(progr);
         }
         private void OnNewClick(object sender, EventArgs args)
         {

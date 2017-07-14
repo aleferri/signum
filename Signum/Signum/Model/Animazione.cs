@@ -11,7 +11,7 @@ namespace Signum.Model
     public class Animazione : Elemento
     {
         private static Animazione defaultAnimazione;
-        public static Animazione Empty => defaultAnimazione.Copy();
+        public static Animazione Empty => (Animazione)defaultAnimazione.Copy();
 
         static Animazione()
         {
@@ -50,10 +50,11 @@ namespace Signum.Model
         {
         }
 
-        public Animazione Copy()
+        public override Elemento Copy()
         {
             Animazione result = new Animazione(_frameRate, InformazioneAssociata);
             _sequenzaFrame.ForEach(f => result.Frames.Add(f.Copy()));
+            result.Nome = Nome;
             return result;
         }
         public override string ToString()

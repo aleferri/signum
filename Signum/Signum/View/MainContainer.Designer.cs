@@ -31,7 +31,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._nuovoProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.apriProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._salvaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this._cambiaModelloDiRiferimentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,12 +39,13 @@
             this._leftArrowButton = new System.Windows.Forms.ToolStripButton();
             this._rightArrowButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this._nuovoToolstripButton = new System.Windows.Forms.ToolStripButton();
             this._salvaTooltipButton = new System.Windows.Forms.ToolStripButton();
             this._outerSplitContainer = new System.Windows.Forms.SplitContainer();
+            this._libreriaTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).BeginInit();
+            this._outerSplitContainer.Panel1.SuspendLayout();
             this._outerSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +64,6 @@
             // 
             this._fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._nuovoProgettoToolStripMenuItem,
-            this.apriProgettoToolStripMenuItem,
             this._salvaToolStripMenuItem,
             this.toolStripSeparator2,
             this._cambiaModelloDiRiferimentoToolStripMenuItem});
@@ -79,13 +78,6 @@
             this._nuovoProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this._nuovoProgettoToolStripMenuItem.Text = "Nuovo...";
             this._nuovoProgettoToolStripMenuItem.ToolTipText = "Crea un nuovo progetto";
-            // 
-            // apriProgettoToolStripMenuItem
-            // 
-            this.apriProgettoToolStripMenuItem.Image = global::Signum.Properties.Resources.carica1;
-            this.apriProgettoToolStripMenuItem.Name = "apriProgettoToolStripMenuItem";
-            this.apriProgettoToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.apriProgettoToolStripMenuItem.Text = "Apri...";
             // 
             // _salvaToolStripMenuItem
             // 
@@ -119,7 +111,6 @@
             this._leftArrowButton,
             this._rightArrowButton,
             this.toolStripSeparator1,
-            this._nuovoToolstripButton,
             this._salvaTooltipButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
@@ -152,15 +143,6 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // _nuovoToolstripButton
-            // 
-            this._nuovoToolstripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this._nuovoToolstripButton.Image = global::Signum.Properties.Resources.carica1;
-            this._nuovoToolstripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._nuovoToolstripButton.Name = "_nuovoToolstripButton";
-            this._nuovoToolstripButton.Size = new System.Drawing.Size(23, 22);
-            this._nuovoToolstripButton.Text = "Apri oggetto";
-            // 
             // _salvaTooltipButton
             // 
             this._salvaTooltipButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -173,7 +155,7 @@
             // 
             // _outerSplitContainer
             // 
-            this._outerSplitContainer.BackColor = System.Drawing.Color.Black;
+            this._outerSplitContainer.BackColor = System.Drawing.SystemColors.Control;
             this._outerSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this._outerSplitContainer.Location = new System.Drawing.Point(0, 49);
             this._outerSplitContainer.Name = "_outerSplitContainer";
@@ -181,6 +163,7 @@
             // _outerSplitContainer.Panel1
             // 
             this._outerSplitContainer.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            this._outerSplitContainer.Panel1.Controls.Add(this._libreriaTreeView);
             // 
             // _outerSplitContainer.Panel2
             // 
@@ -189,6 +172,14 @@
             this._outerSplitContainer.SplitterDistance = 131;
             this._outerSplitContainer.SplitterWidth = 2;
             this._outerSplitContainer.TabIndex = 2;
+            // 
+            // _libreriaTreeView
+            // 
+            this._libreriaTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._libreriaTreeView.Location = new System.Drawing.Point(0, 0);
+            this._libreriaTreeView.Name = "_libreriaTreeView";
+            this._libreriaTreeView.Size = new System.Drawing.Size(131, 553);
+            this._libreriaTreeView.TabIndex = 0;
             // 
             // MainContainer
             // 
@@ -203,6 +194,7 @@
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this._outerSplitContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).EndInit();
             this._outerSplitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -220,12 +212,11 @@
         private System.Windows.Forms.SplitContainer _outerSplitContainer;
         private System.Windows.Forms.ToolStripButton _leftArrowButton;
         private System.Windows.Forms.ToolStripMenuItem _nuovoProgettoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton _nuovoToolstripButton;
         private System.Windows.Forms.ToolStripButton _salvaTooltipButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem _salvaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem apriProgettoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _cambiaModelloDiRiferimentoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _modificaToolStripMenuItem;
+        private System.Windows.Forms.TreeView _libreriaTreeView;
     }
 }

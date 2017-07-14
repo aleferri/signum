@@ -1,9 +1,4 @@
-﻿using ModelManaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace Signum.Model
 {
@@ -13,11 +8,11 @@ namespace Signum.Model
 
         private string _nome;
         private IInformazione _informazione;
+
         public virtual IInformazione InformazioneAssociata {
             get => _informazione;
             set => _informazione = value ?? new InformazioneDataOra();
         }
-
         public string Nome
         {
             get => _nome;
@@ -29,6 +24,7 @@ namespace Signum.Model
             _informazione = new InformazioneDataOra();
         }
         public abstract override string ToString();
+        public abstract Elemento Copy();
 
     }
 
@@ -40,6 +36,11 @@ namespace Signum.Model
         private ElementoDummy()
         {
 
+        }
+
+        public override Elemento Copy()
+        {
+            return DUMMY;
         }
 
         public override string ToString()

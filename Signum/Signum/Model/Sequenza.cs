@@ -74,6 +74,13 @@ namespace Signum.Model
             }
             return -1;
         }
+        public Sequenza Copy()
+        {
+            Sequenza s = new Sequenza();
+            s.Nome = Nome;
+            _elementi.ForEach(e => s.AggiungiElemento(e.Key.Copy(), e.Value));
+            return s;
+        } 
 
         public IList GetList()
         {

@@ -1,4 +1,5 @@
-﻿using Signum.Model;
+﻿using Signum.Common;
+using Signum.Model;
 using Signum.View;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,9 @@ namespace Signum.Presentation.EditorsHandling
     {
         private ElementEditor _editor;
         private Elemento _elemento;
+        private ModelToPersistenceWrapper<Elemento> _wrapper;
 
-        public abstract EventHandler OnSave { get; }
+        public EventHandler OnSave => Save;
         protected Elemento AsElemento
         {
             get => _elemento;
@@ -24,6 +26,11 @@ namespace Signum.Presentation.EditorsHandling
                 ImportaInformazione(value.InformazioneAssociata);
                 _elemento = value;
             }
+        }
+        protected ModelToPersistenceWrapper<Elemento> Wrapper
+        {
+            get => _wrapper;
+            set => _wrapper = value;
         }
         public Control Editor => _editor;
 
@@ -42,7 +49,7 @@ namespace Signum.Presentation.EditorsHandling
             _editor.SpecificEditor = editor;
         }
 
-        public abstract void CaricaElemento(Elemento element);
+        public abstract void CaricaElemento(ModelToPersistenceWrapper<Elemento> element);
 
         private void ImportaInformazione(IInformazione informazione)
         {
@@ -54,6 +61,16 @@ namespace Signum.Presentation.EditorsHandling
         }
 
         #region EventHandlers
+        private void Save(object sender, EventArgs args)
+        {
+            if(null == AsElemento.Nome || "" == AsElemento.Nome)
+            {
+                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
+                if (null == nome) return;
+                AsElemento.Nome = nome;
+            }
+            Documento.getInstance().Libreria.AggiungiElemento(Wrapper);
+        }
         private void OnCheckedChanged(object sender, EventArgs args)
         {
             if (null == _elemento) return;

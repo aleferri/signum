@@ -19,6 +19,7 @@ namespace Signum.Presentation
     {
         private SequenzaEditor _editor;
         private Sequenza _sequenza;
+        private ModelToPersistenceWrapper<Sequenza> _wrapper;
         private ElementoEditorPresenter _elementEditorPresenter;
         private EditorFactory _editorFactory;
         private Elemento _currentElemento;
@@ -33,6 +34,7 @@ namespace Signum.Presentation
             _editorFactory = Documento.getInstance().EditorFactory;
             _editor.Dock = DockStyle.Fill;
             _sequenza = new Sequenza();
+            _wrapper = new ModelToPersistenceWrapper<Sequenza>(_sequenza);
             if (0 == _sequenza.Count) _sequenza.AggiungiElemento(Elemento.Default, 1);
 
             _draggedElementIndex = -1;
@@ -82,7 +84,7 @@ namespace Signum.Presentation
             _currentElemento = e;
             ElementoEditorPresenter presenter = _editorFactory.GetEditorHandler(
                 e.GetType(), Documento.getInstance().ModelloRiferimento) as ElementoEditorPresenter;
-            presenter.CaricaElemento(e);
+            presenter.CaricaElemento(new ModelToPersistenceWrapper<Elemento>(e));
             _editor.DurataNumeric.Value = _sequenza.GetDurataOf(e);
             _editor.NomeField.Text = e.Nome;
             _editor.SetEditor(presenter.Editor);
@@ -103,9 +105,10 @@ namespace Signum.Presentation
             FillList();
         }
 
-        public void CaricaSequenza(Sequenza sequenza)
+        public void CaricaSequenza(ModelToPersistenceWrapper<Sequenza> sequenza)
         {
-            _sequenza = sequenza;
+            _sequenza = sequenza.ModelElement;
+            _wrapper = sequenza;
             FillList();
             _editor.SequenzaNomeField.Text = _sequenza.Nome;
         }
@@ -173,7 +176,14 @@ namespace Signum.Presentation
         }
         private void OnSaveRequest(object sender, EventArgs args)
         {
+            if (null == _sequenza.Nome || "" == _sequenza.Nome)
+            {
+                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
+                if (null == nome) return;
+                _sequenza.Nome = nome;
+            }
 
+            Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
         }
         private void OnEliminaClick(object sender, EventArgs args)
         {

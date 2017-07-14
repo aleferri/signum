@@ -21,8 +21,6 @@ namespace Signum.Presentation
 
         private int _draggedTabIndex;
 
-        public override EventHandler OnSave => Save;
-
         public AnimazioneEditorPresenter(Modello modello)
         {
             _animationEditor = new AnimazioneEditor();
@@ -34,7 +32,7 @@ namespace Signum.Presentation
             InstallHandlers();
             SetEditor(_animationEditor);
             _modello = modello;
-            CaricaElemento(new Animazione(10));
+            CaricaElemento(new ModelToPersistenceWrapper<Elemento>(new Animazione(10)));
             AddFrame();
         }
 
@@ -115,10 +113,10 @@ namespace Signum.Presentation
             }
             return -1;
         }
-        public override void CaricaElemento(Elemento element)
+        public override void CaricaElemento(ModelToPersistenceWrapper<Elemento> element)
         {
-            Animazione animazione = element as Animazione;
-            
+            Animazione animazione = element.ModelElement as Animazione;
+            Wrapper = element;
             _animazione = animazione ?? throw new ArgumentException("Elemento non compatibile con l'editor delle animazioni");
             AsElemento = _animazione;
             _animationEditor.Pannello.TabPages.Clear();
@@ -170,19 +168,6 @@ namespace Signum.Presentation
                     _animationEditor.TabContextMenu.Show(_animationEditor.Pannello, args.X, args.Y);
                 }
             }
-        }
-        private void Save(object sender, EventArgs args)
-        {
-            ElementEditor editor = (ElementEditor)Editor;
-            IInformazione info = editor.DateHourCheckBox.Checked ? (IInformazione) new InformazioneDataOra() : new InformazioneTestuale(editor.InfoBox.Text);
-            if (null == _animazione) _animazione = new Animazione((uint)_animationEditor.FramerateNumeric.Value);
-            
-            String recap = String.Format("Animazione ({0} fps, {1} frame) -> {2}", 
-                _animazione.FrameRate, 
-                _animazione.Frames.Count,
-                _animazione.InformazioneAssociata.Accept(new ValutatoreInformazione())
-                );
-            MessageBox.Show(recap);
         }
         private void OnEliminaClick(object sender, EventArgs args)
         {

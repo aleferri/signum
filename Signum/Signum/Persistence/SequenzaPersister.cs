@@ -14,17 +14,17 @@ namespace Signum.Persistence
     {
         public Sequenza Retrive(BinaryReader br)
         {
+            // Sequenza
+            string nome = br.ReadString();
+            Sequenza result = new Sequenza();
+            result.Nome = nome;
+
             // Modello
             Modello modello = Documento.getInstance().ModelloRiferimento;
             int width = br.ReadInt32();
             int height = br.ReadInt32();
-            if (width != modello.Size.Width || height != modello.Size.Height) throw new FileLoadException("Modello non compatibile");
+            if (width != modello.Size.Width || height != modello.Size.Height) return null;
 
-            // Sequenza
-            if (br.ReadString() != typeof(Sequenza).GetType().ToString()) throw new FileLoadException("Tipo non compatibile");
-            string nome = br.ReadString();
-            Sequenza result = new Sequenza();
-            result.Nome = nome;
             // Elementi
             int nElementi = br.ReadInt32();
             uint durata;
@@ -35,7 +35,6 @@ namespace Signum.Persistence
                 durata = br.ReadUInt32();
                 type = br.ReadString();
                 persister = PersisterFactory.GetPersister(type);
-                if (!(persister.GetType().GetCustomAttributes(false)[0] is Elemento)) throw new FileLoadException("Elemento non compatibile");
                 result.AggiungiElemento((Elemento)persister.Retrive(br), durata);
             }
 
@@ -45,14 +44,15 @@ namespace Signum.Persistence
 
         public void Save(Sequenza elem, BinaryWriter bw)
         {
+            // Sequenza
+            bw.Write(elem.GetType().ToString());
+            bw.Write(elem.Nome);
+
             // Modello di riferimento
             Modello modello = Documento.getInstance().ModelloRiferimento;
             bw.Write(modello.Size.Width);
             bw.Write(modello.Size.Height);
 
-            // Sequenza
-            bw.Write(elem.GetType().ToString());
-            bw.Write(elem.Nome);
             // Elementi
             bw.Write(elem.Count);
             Elemento value;
@@ -61,7 +61,6 @@ namespace Signum.Persistence
             {
                 value = elem[i];
                 bw.Write(elem.GetDurataOf(value));
-                bw.Write(value.GetType().ToString());
                 persister = PersisterFactory.GetPersister(value.GetType());
                 persister.Save(value, bw);
             }
@@ -71,12 +70,12 @@ namespace Signum.Persistence
         void IPersister.Save(object elem, BinaryWriter bw)
         {
             if (!(elem is Sequenza)) throw new ArgumentException();
-            this.Save((Sequenza)elem, bw);
+            Save((Sequenza)elem, bw);
         }
 
         object IPersister.Retrive(BinaryReader br)
         {
-            return this.Retrive(br);
+            return Retrive(br);
         }
     }
 }
