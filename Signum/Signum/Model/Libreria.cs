@@ -1,5 +1,6 @@
 ﻿using Signum.Persistence;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -86,28 +87,15 @@ namespace Signum.Model
         }
         private void InsideAggiungiElemento(ModelToPersistenceWrapper<Elemento> elemento)
         {
-            ImmagineFissa imm;
-            Animazione anim;
-            if (null != (imm = elemento.ModelElement as ImmagineFissa))
+            IList lista = null;
+            if (null != elemento.ModelElement as ImmagineFissa)  lista = _immaginiFisse;
+            else if (null != elemento.ModelElement as Animazione) lista = _animazioni;         
+            if (elemento.ID >= 0 && elemento.ID < lista.Count)
             {
-                if (elemento.ID >= 0 && elemento.ID < _immaginiFisse.Count)
-                {
-                    int index = _immaginiFisse.IndexOf(imm);
-                    _immaginiFisse.Remove(imm);
-                    _immaginiFisse.Insert(index, imm);
-                }
-                else _immaginiFisse.Add(imm);
+                lista?.RemoveAt(elemento.ID);
+                lista?.Insert(elemento.ID, elemento.ModelElement);
             }
-            else if (null != (anim = elemento.ModelElement as Animazione))
-            {
-                if (elemento.ID >= 0 && elemento.ID < _animazioni.Count)
-                {
-                    int index = _animazioni.IndexOf(anim);
-                    _animazioni.Remove(anim);
-                    _animazioni.Insert(index, anim);
-                }
-                else _animazioni.Add(anim);
-            }
+            else lista?.Add(elemento.ModelElement);
             LibreriaChange?.Invoke(this, EventArgs.Empty);
         }
         private bool Overwrite(string fileName)
@@ -124,12 +112,12 @@ namespace Signum.Model
         public void AggiungiElemento(ModelToPersistenceWrapper<Elemento> elemento)
         {
             string nomeFile = _base + elemento.ModelElement.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".elem";
-            if (!Overwrite(nomeFile)) return;
+            if (elemento.ID < 0 && !Overwrite(nomeFile)) return;
+            InsideAggiungiElemento(elemento);
             using (BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
             {
                 PersisterFactory.GetPersister(elemento.ModelElement.GetType()).Save(elemento.ModelElement, bw);
             }
-            InsideAggiungiElemento(elemento);
         }
         public void AggiungiProgrGiornaliera(ModelToPersistenceWrapper<ProgrammazioneGiornaliera> progrGiornaliera)
         {
@@ -139,11 +127,6 @@ namespace Signum.Model
         public void AggiungiSequenza(ModelToPersistenceWrapper<Sequenza> sequenza)
         {
             string nomeFile = _base + sequenza.ModelElement.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".seq";
-            if (!Overwrite(nomeFile)) return;
-            using (BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
-            {
-                PersisterFactory.GetPersister(PersisterFactory.SEQUENZA).Save(sequenza.ModelElement, bw);
-            }
 
             if (sequenza.ID >= 0 && sequenza.ID < _sequenze.Count)
             {
@@ -151,7 +134,16 @@ namespace Signum.Model
                 _sequenze.Remove(sequenza.ModelElement);
                 _sequenze.Insert(index, sequenza.ModelElement);
             }
-            else _sequenze.Add(sequenza.ModelElement);
+            else
+            {
+                if (!Overwrite(nomeFile)) return;
+                _sequenze.Add(sequenza.ModelElement);
+            }
+
+            using (BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
+            {
+                PersisterFactory.GetPersister(PersisterFactory.SEQUENZA).Save(sequenza.ModelElement, bw);
+            }
 
             LibreriaChange?.Invoke(this, EventArgs.Empty);
 

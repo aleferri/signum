@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Model;
+using System;
 using System.Windows.Forms;
 
 namespace Signum.Presentation.EditorsHandling
@@ -7,5 +8,7 @@ namespace Signum.Presentation.EditorsHandling
     {
         EventHandler OnSave { get; }
         Control Editor { get; }
+
+        void CaricaModello(ModelToPersistenceWrapper oggettoModello);
     }
 }

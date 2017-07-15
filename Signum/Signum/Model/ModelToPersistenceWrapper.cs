@@ -6,23 +6,32 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    public class ModelToPersistenceWrapper<W>
+    public class ModelToPersistenceWrapper
     {
         private readonly int _id;
-        private readonly W _element;
+        private readonly object _objElement;
 
         public int ID { get; }
+        public object ObjectModelElement => _objElement;
+
+        protected ModelToPersistenceWrapper(object objModel, int id)
+        {
+            _id = id;
+            _objElement = objModel;
+        }
+    }
+
+    public class ModelToPersistenceWrapper<W> : ModelToPersistenceWrapper
+    {
+        private readonly W _element;       
         public W ModelElement => _element;
 
-        public ModelToPersistenceWrapper(W modelElement, int id)
+        public ModelToPersistenceWrapper(W modelElement, int id) : base(modelElement, id)
         {
-            ID = id;
             _element = modelElement;
         }
-        public ModelToPersistenceWrapper(W modelElement)
+        public ModelToPersistenceWrapper(W modelElement) : this(modelElement, -1)
         {
-            ID = -1;
-            _element = modelElement;
         }
     }
 }

@@ -16,9 +16,10 @@ namespace Signum.Presentation
         {
             _mainContainer = mainContainer;
             _editorFactory = Documento.getInstance().EditorFactory;
-            _mainContainer.CambiaModelloButton.Click += OnModelChangeClick;
             FillNuovoMenu();
             OnLibreriaChange(this, EventArgs.Empty);
+            _mainContainer.CambiaModelloButton.Click += OnModelChangeClick;
+            _mainContainer.LibreriaView.MouseDoubleClick += OnLibreriaClick;
             Documento.getInstance().LibreriaChanged += OnLibreriaChange;
 
         }
@@ -69,6 +70,24 @@ namespace Signum.Presentation
                 node.Nodes.Add(pNode);
             }
         }
+        private IEditorPresenter ChangePresenter(Type modelType)
+        {
+            IEditorPresenter old = _currentEditorHandler;
+            _currentEditorHandler = _editorFactory.GetEditorHandler(modelType, Documento.getInstance().ModelloRiferimento);
+            _mainContainer.RightPanel.Controls.Clear();
+            _mainContainer.RightPanel.Controls.Add(_currentEditorHandler.Editor);
+            foreach (ToolStripItem item in _mainContainer.SaveItems)
+            {
+                item.Enabled = true;
+                if (null != old)
+                {
+                    item.Click -= old.OnSave;
+                }
+
+                item.Click += _currentEditorHandler.OnSave;
+            }
+            return _currentEditorHandler;
+        }
 
         #region EventHandlers
         private void OnModelChangeClick(object sender, EventArgs args)
@@ -79,6 +98,14 @@ namespace Signum.Presentation
             {
                 item.Enabled = true;
             }
+        }
+        private void OnLibreriaClick(object sender, MouseEventArgs args)
+        {
+            TreeNode clicked = _mainContainer.LibreriaView.GetNodeAt(new System.Drawing.Point(args.X, args.Y));
+            if (null == clicked.Tag) return;
+            ModelToPersistenceWrapper obj = (ModelToPersistenceWrapper)clicked.Tag;
+            IEditorPresenter presenter = ChangePresenter(obj.ObjectModelElement.GetType());
+            presenter.CaricaModello(obj);
         }
         private void OnLibreriaChange(object sender, EventArgs args)
         {
@@ -98,21 +125,7 @@ namespace Signum.Presentation
         private void OnNewClick(object sender, EventArgs args)
         {
             ToolStripItem source = (ToolStripItem)sender;
-            IEditorPresenter old = _currentEditorHandler;
-            _currentEditorHandler = _editorFactory.GetEditorHandler((Type)source.Tag, Documento.getInstance().ModelloRiferimento);
-            _mainContainer.RightPanel.Controls.Clear();
-            _mainContainer.RightPanel.Controls.Add(_currentEditorHandler.Editor);
-
-            foreach (ToolStripItem item in _mainContainer.SaveItems)
-            {
-                item.Enabled = true;
-                if (null != old)
-                {
-                    item.Click -= old.OnSave;
-                }
-
-                item.Click += _currentEditorHandler.OnSave;
-            }
+            ChangePresenter((Type)source.Tag);
         }
         #endregion
     }

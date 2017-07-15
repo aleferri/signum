@@ -112,6 +112,11 @@ namespace Signum.Presentation
             FillList();
             _editor.SequenzaNomeField.Text = _sequenza.Nome;
         }
+        public void CaricaModello(ModelToPersistenceWrapper oggettoModello)
+        {
+            ModelToPersistenceWrapper<Sequenza> tmp = oggettoModello as ModelToPersistenceWrapper<Sequenza>;
+            CaricaSequenza(tmp ?? throw new ArgumentException("Oggetto passato non compatibile all'editor delle sequenze"));
+        }
 
         #region EventHandlers
         private void OnListDoubleClick(object sender, MouseEventArgs args)

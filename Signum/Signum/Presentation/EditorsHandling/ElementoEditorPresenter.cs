@@ -51,6 +51,13 @@ namespace Signum.Presentation.EditorsHandling
 
         public abstract void CaricaElemento(ModelToPersistenceWrapper<Elemento> element);
 
+        public void CaricaModello(ModelToPersistenceWrapper oggettoModello)
+        {
+
+            ModelToPersistenceWrapper<Elemento> tmp = new ModelToPersistenceWrapper <Elemento>((Elemento)oggettoModello.ObjectModelElement, oggettoModello.ID);
+            CaricaElemento(tmp);
+        }
+
         private void ImportaInformazione(IInformazione informazione)
         {
             if(!(_editor.DateHourCheckBox.Checked = informazione is InformazioneDataOra))

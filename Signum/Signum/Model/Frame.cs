@@ -16,7 +16,7 @@ namespace Signum.Model
         public Size Size => new Size(_nCols, _bitmap.Count / _nCols);
         public bool this[int x, int y] {
             get => _bitmap[x + y * _nCols];
-            set => _bitmap[x + y * _nCols] = value;
+            set =>  _bitmap[x + y * _nCols] = value;
         }
 
         public Frame(int x, int y)
