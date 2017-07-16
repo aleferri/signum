@@ -185,7 +185,6 @@ namespace Signum.Presentation
                 if (null == nome) return;
                 _sequenza.Nome = nome;
             }
-
             Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
         }
         private void OnEliminaClick(object sender, EventArgs args)

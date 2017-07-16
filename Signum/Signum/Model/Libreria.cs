@@ -130,9 +130,8 @@ namespace Signum.Model
 
             if (sequenza.ID >= 0 && sequenza.ID < _sequenze.Count)
             {
-                int index = _sequenze.IndexOf(sequenza.ModelElement);
-                _sequenze.Remove(sequenza.ModelElement);
-                _sequenze.Insert(index, sequenza.ModelElement);
+                _sequenze.RemoveAt(sequenza.ID);
+                _sequenze.Insert(sequenza.ID, sequenza.ModelElement);
             }
             else
             {
