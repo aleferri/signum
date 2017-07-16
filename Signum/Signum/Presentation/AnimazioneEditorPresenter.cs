@@ -118,7 +118,6 @@ namespace Signum.Presentation
             Animazione animazione = element.ModelElement as Animazione;
             Wrapper = element;
             _animazione = animazione ?? throw new ArgumentException("Elemento non compatibile con l'editor delle animazioni");
-            AsElemento = _animazione;
             _animationEditor.Pannello.TabPages.Clear();
             _animationEditor.Pannello.TabPages.Add(_animationEditor.TabAggiungi);
             foreach(Frame f in _animazione.Frames)

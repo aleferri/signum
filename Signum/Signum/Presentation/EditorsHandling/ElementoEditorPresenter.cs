@@ -2,10 +2,6 @@
 using Signum.Model;
 using Signum.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Signum.Presentation.EditorsHandling
@@ -17,20 +13,16 @@ namespace Signum.Presentation.EditorsHandling
         private ModelToPersistenceWrapper<Elemento> _wrapper;
 
         public EventHandler OnSave => Save;
-        protected Elemento AsElemento
-        {
-            get => _elemento;
-            set
-            {
-                if (null == value) throw new ArgumentNullException("Elemento nullo per l'editor presenter");
-                ImportaInformazione(value.InformazioneAssociata);
-                _elemento = value;
-            }
-        }
         protected ModelToPersistenceWrapper<Elemento> Wrapper
         {
             get => _wrapper;
-            set => _wrapper = value;
+            set
+            {
+                _wrapper = value;
+                if (null == value) throw new ArgumentNullException("Elemento nullo per l'editor presenter");
+                _elemento = _wrapper.ModelElement;
+                ImportaInformazione(_elemento.InformazioneAssociata);
+            }
         }
         public Control Editor => _editor;
 
@@ -41,7 +33,7 @@ namespace Signum.Presentation.EditorsHandling
                 Dock = DockStyle.Fill
             };
             _editor.DateHourCheckBox.CheckedChanged += OnCheckedChanged;
-            _editor.InfoBox.LostFocus += OnInfoBoxUnfocused;
+            _editor.InfoBox.TextChanged += OnInfoBoxChanged;
         }
 
         protected void SetEditor(Control editor)
@@ -60,21 +52,22 @@ namespace Signum.Presentation.EditorsHandling
 
         private void ImportaInformazione(IInformazione informazione)
         {
-            if(!(_editor.DateHourCheckBox.Checked = informazione is InformazioneDataOra))
+            bool isDataOra = informazione is InformazioneDataOra;
+            if (!isDataOra)
             {
                 _editor.InfoBox.Text = informazione.Accept(new ValutatoreInformazione());
             }
-            _editor.InfoBox.Enabled = !_editor.DateHourCheckBox.Checked;
+                _editor.DateHourCheckBox.Checked = isDataOra;
         }
 
         #region EventHandlers
         private void Save(object sender, EventArgs args)
         {
-            if(null == AsElemento.Nome || "" == AsElemento.Nome)
+            if(null == _elemento.Nome || "" == _elemento.Nome)
             {
                 string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
                 if (null == nome) return;
-                AsElemento.Nome = nome;
+                _elemento.Nome = nome;
             }
             Documento.getInstance().Libreria.AggiungiElemento(Wrapper);
         }
@@ -85,13 +78,8 @@ namespace Signum.Presentation.EditorsHandling
             _editor.InfoBox.Enabled = !check;
             _elemento.InformazioneAssociata = check ? (IInformazione)new InformazioneDataOra() : new InformazioneTestuale(_editor.InfoBox.Text);
         }
-        public void OnInfoBoxUnfocused(object sender, EventArgs args)
+        public void OnInfoBoxChanged(object sender, EventArgs args)
         {
-            if (_editor.DateHourCheckBox.Checked)
-            {
-                throw new Exception("Il testo dell'informazione è cambiato, ma non è uninformazione testuale");
-            }
-
             _elemento.InformazioneAssociata = new InformazioneTestuale(_editor.InfoBox.Text);
         }
         #endregion

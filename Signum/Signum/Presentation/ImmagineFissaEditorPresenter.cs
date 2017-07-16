@@ -1,13 +1,7 @@
 ﻿using ModelManaging;
-using Signum.Common;
 using Signum.Model;
-using Signum.Persistence;
 using Signum.Presentation.EditorsHandling;
-using Signum.View;
 using System;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
 
 namespace Signum.Presentation
 {
@@ -27,7 +21,6 @@ namespace Signum.Presentation
         {
             ImmagineFissa immagine = element.ModelElement as ImmagineFissa;
             _img = immagine ?? throw new ArgumentException("Elemento non compatibile con l'editor delle immagini fisse");
-            AsElemento = _img;
             Wrapper = element;
             _presenter = new FrameEditorPresenter(immagine.Frame, Documento.getInstance().ModelloRiferimento);
             SetEditor(_presenter.Editor);

@@ -126,6 +126,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InputDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "InputDialog";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

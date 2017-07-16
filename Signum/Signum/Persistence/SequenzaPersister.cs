@@ -12,7 +12,7 @@ namespace Signum.Persistence
     [TypeAttribute(typeof(Sequenza))]
     class SequenzaPersister : IPersister<Sequenza>
     {
-        public Sequenza Retrive(BinaryReader br)
+        public Sequenza Retrieve(BinaryReader br)
         {
             // Sequenza
             string nome = br.ReadString();
@@ -35,7 +35,7 @@ namespace Signum.Persistence
                 durata = br.ReadUInt32();
                 type = br.ReadString();
                 persister = PersisterFactory.GetPersister(type);
-                result.AggiungiElemento((Elemento)persister.Retrive(br), durata);
+                result.AggiungiElemento((Elemento)persister.Retrieve(br), durata);
             }
 
             // Out
@@ -73,9 +73,9 @@ namespace Signum.Persistence
             Save((Sequenza)elem, bw);
         }
 
-        object IPersister.Retrive(BinaryReader br)
+        object IPersister.Retrieve(BinaryReader br)
         {
-            return Retrive(br);
+            return Retrieve(br);
         }
     }
 }

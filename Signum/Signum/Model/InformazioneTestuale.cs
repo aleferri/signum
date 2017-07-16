@@ -22,5 +22,9 @@ namespace Signum.Model
         {
             return valutatore.Visit(this);
         }
+        public IInformazione Copy()
+        {
+            return new InformazioneTestuale(String.Copy(_value));
+        }
     }
 }

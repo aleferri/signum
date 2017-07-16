@@ -121,6 +121,7 @@ namespace Signum.Presentation
             if (elementi.Nodes.Count != 0) nodes.Add(elementi);
             if (sequenze.Nodes.Count != 0) nodes.Add(sequenze);
             if (progr.Nodes.Count != 0) nodes.Add(progr);
+            _mainContainer.LibreriaView.ExpandAll();
         }
         private void OnNewClick(object sender, EventArgs args)
         {

@@ -12,7 +12,7 @@ namespace Signum.Persistence
     [TypeAttribute(typeof(Animazione))]
     internal class AnimazionePersister : IPersister<Animazione>
     {
-        public Animazione Retrive(BinaryReader br)
+        public Animazione Retrieve(BinaryReader br)
         {
             // Animazione
             string nome = br.ReadString();
@@ -35,13 +35,13 @@ namespace Signum.Persistence
                 int len = br.ReadInt32();
                 frameAsArray = new byte[len];
                 br.Read(frameAsArray, 0, len);
-                result.Frames.Add(new Frame(frameAsArray, nCol));
+                result.Frames.Add(new Frame(frameAsArray, nCol, width*height));
             }
             
 
             // Informazione
             IPersister infoPersister = PersisterFactory.GetPersister(br.ReadString());
-            IInformazione infoAssociata = (IInformazione)infoPersister.Retrive(br);
+            IInformazione infoAssociata = (IInformazione)infoPersister.Retrieve(br);
 
             // Out
             result.InformazioneAssociata = infoAssociata;
@@ -82,9 +82,9 @@ namespace Signum.Persistence
             this.Save((Animazione)elem, bw);
         }
 
-        object IPersister.Retrive(BinaryReader br)
+        object IPersister.Retrieve(BinaryReader br)
         {
-            return this.Retrive(br);
+            return this.Retrieve(br);
         }
     }
 }

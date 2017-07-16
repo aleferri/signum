@@ -69,7 +69,7 @@ namespace Signum.Model
             using (BinaryReader br = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read)))
             {
                 IPersister persister = PersisterFactory.GetPersister(br.ReadString());
-                object result = persister.Retrive(br);
+                object result = persister.Retrieve(br);
 
                 if (null != result as Sequenza)
                 {

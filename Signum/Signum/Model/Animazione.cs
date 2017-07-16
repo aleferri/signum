@@ -52,7 +52,7 @@ namespace Signum.Model
 
         public override Elemento Copy()
         {
-            Animazione result = new Animazione(_frameRate, InformazioneAssociata);
+            Animazione result = new Animazione(_frameRate, InformazioneAssociata.Copy());
             _sequenzaFrame.ForEach(f => result.Frames.Add(f.Copy()));
             result.Nome = Nome;
             return result;

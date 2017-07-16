@@ -33,16 +33,14 @@ namespace Signum.Presentation
             _editor = new SequenzaEditor();
             _editorFactory = Documento.getInstance().EditorFactory;
             _editor.Dock = DockStyle.Fill;
-            _sequenza = new Sequenza();
-            _wrapper = new ModelToPersistenceWrapper<Sequenza>(_sequenza);
-            if (0 == _sequenza.Count) _sequenza.AggiungiElemento(Elemento.Default, 1);
+            Sequenza s = new Sequenza();
+            s.AggiungiElemento(Elemento.Default, 1);
+            CaricaSequenza(new ModelToPersistenceWrapper<Sequenza>(s));
 
             _draggedElementIndex = -1;
 
-            FillList();
             PopulateElementChoices();
             AttachHandlers();
-            OpenEditorForIndex(0);
         }
 
         private void PopulateElementChoices()
@@ -110,7 +108,7 @@ namespace Signum.Presentation
             _sequenza = sequenza.ModelElement;
             _wrapper = sequenza;
             FillList();
-            _editor.SequenzaNomeField.Text = _sequenza.Nome;
+            OpenEditorForIndex(0);
         }
         public void CaricaModello(ModelToPersistenceWrapper oggettoModello)
         {

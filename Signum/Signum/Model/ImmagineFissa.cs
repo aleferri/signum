@@ -46,7 +46,7 @@ namespace Signum.Model
 
         public override Elemento Copy()
         {
-            return new ImmagineFissa(new Frame(_frame.Size), InformazioneAssociata, Nome);
+            return new ImmagineFissa(_frame.Copy(), InformazioneAssociata.Copy(), Nome);
         }
 
         public override string ToString()

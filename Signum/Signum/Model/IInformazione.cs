@@ -2,6 +2,8 @@
 {
     public interface IInformazione
     {
-         T Accept<T>(IValutatoreInformazione<T> valutatore);
+        T Accept<T>(IValutatoreInformazione<T> valutatore);
+
+        IInformazione Copy();
     }
 }

@@ -20,6 +20,7 @@ namespace Signum.Common
         public InputDialog()
         {
             InitializeComponent();
+            _inputField.Focus();
         }
     }
 }

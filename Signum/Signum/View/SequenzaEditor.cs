@@ -12,7 +12,6 @@ namespace Signum.View
         public ListBox Lista => _elementList;
         public NumericUpDown DurataNumeric => _durataUpDown;
         public TextBox NomeField => _nomeField;
-        public TextBox SequenzaNomeField => _nomeSequenza;
         public ToolStripMenuItem EliminaOption => _eliminaToolStripMenuItem;
         public ToolStripMenuItem MoveUpOption => _spostaSuToolStripMenuItem;
         public ToolStripMenuItem MoveDownOption => _spostaGiuToolStripMenuItem;

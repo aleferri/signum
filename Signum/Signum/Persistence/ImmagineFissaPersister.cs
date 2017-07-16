@@ -10,7 +10,7 @@ namespace Signum.Persistence
     [TypeAttribute(typeof(ImmagineFissa))]
     internal class ImmagineFissaPersister : IPersister<ImmagineFissa>
     {
-        public ImmagineFissa Retrive(BinaryReader br)
+        public ImmagineFissa Retrieve(BinaryReader br)
         {
             // Immagine
             string nome = br.ReadString();
@@ -30,11 +30,10 @@ namespace Signum.Persistence
             // Informazione
             IPersister infoPersister = PersisterFactory.GetPersister(br.ReadString());
             TypeAttribute attr = (TypeAttribute)infoPersister.GetType().GetCustomAttribute(typeof(TypeAttribute));
-            IInformazione infoAssociata = (IInformazione)infoPersister.Retrive(br);
+            IInformazione infoAssociata = (IInformazione)infoPersister.Retrieve(br);
 
             // Out
-            ImmagineFissa result = new ImmagineFissa(new Frame(frameAsArray, nCol), infoAssociata);
-            result.Nome = nome;
+            ImmagineFissa result = new ImmagineFissa(new Frame(frameAsArray, nCol, width * height), infoAssociata, nome);
             return result;
         }
 
@@ -67,9 +66,9 @@ namespace Signum.Persistence
             Save((ImmagineFissa)elem, bw);
         }
 
-        object IPersister.Retrive(BinaryReader br)
+        object IPersister.Retrieve(BinaryReader br)
         {
-            return this.Retrive(br);
+            return Retrieve(br);
         }
     }
 }
