@@ -8,20 +8,22 @@ namespace Signum.Presentation.EditorsHandling
 {
     abstract class ElementoEditorPresenter : IEditorPresenter
     {
+        public abstract event EventHandler EditorChange;
+
         private ElementEditor _editor;
-        private Elemento _elemento;
-        private ModelToPersistenceWrapper<Elemento> _wrapper;
+        private MementoWrapper<Elemento> _wrapper;
 
         public EventHandler OnSave => Save;
-        protected ModelToPersistenceWrapper<Elemento> Wrapper
+        public EventHandler OnBack => Back;
+        public EventHandler OnForward => Forward;
+        protected MementoWrapper<Elemento> Wrapper
         {
             get => _wrapper;
             set
             {
                 _wrapper = value;
                 if (null == value) throw new ArgumentNullException("Elemento nullo per l'editor presenter");
-                _elemento = _wrapper.ModelElement;
-                ImportaInformazione(_elemento.InformazioneAssociata);
+                ImportaInformazione(Wrapper.Memento.InformazioneAssociata);
             }
         }
         public Control Editor => _editor;
@@ -41,13 +43,21 @@ namespace Signum.Presentation.EditorsHandling
             _editor.SpecificEditor = editor;
         }
 
-        public abstract void CaricaElemento(ModelToPersistenceWrapper<Elemento> element);
+        public abstract void CaricaElemento(MementoWrapper<Elemento> element);
 
-        public void CaricaModello(ModelToPersistenceWrapper oggettoModello)
+        public void CaricaModello(MementoWrapper oggettoModello)
         {
 
-            ModelToPersistenceWrapper<Elemento> tmp = new ModelToPersistenceWrapper <Elemento>((Elemento)oggettoModello.ObjectModelElement, oggettoModello.ID);
+            MementoWrapper<Elemento> tmp = new MementoWrapper <Elemento>((Elemento)oggettoModello.ObjectModelElement, oggettoModello.ID);
             CaricaElemento(tmp);
+        }
+        public bool CanGoBack()
+        {
+            return Wrapper.CanGoBack();
+        }
+        public bool CanGoForward()
+        {
+            return Wrapper.CanGoForward();
         }
 
         private void ImportaInformazione(IInformazione informazione)
@@ -63,24 +73,33 @@ namespace Signum.Presentation.EditorsHandling
         #region EventHandlers
         private void Save(object sender, EventArgs args)
         {
-            if(null == _elemento.Nome || "" == _elemento.Nome)
+            if(null == Wrapper.Memento.Nome || "" == Wrapper.Memento.Nome)
             {
                 string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
                 if (null == nome) return;
-                _elemento.Nome = nome;
+                Wrapper.Memento.Nome = nome;
             }
             Documento.getInstance().Libreria.AggiungiElemento(Wrapper);
         }
+        private void Back(object sender, EventArgs args)
+        {
+            Wrapper.Back();
+            CaricaElemento(Wrapper);
+        }
+        private void Forward(object sender, EventArgs args)
+        {
+            Wrapper.Forward();
+            CaricaElemento(Wrapper);
+        }
         private void OnCheckedChanged(object sender, EventArgs args)
         {
-            if (null == _elemento) return;
             bool check = _editor.DateHourCheckBox.Checked;
             _editor.InfoBox.Enabled = !check;
-            _elemento.InformazioneAssociata = check ? (IInformazione)new InformazioneDataOra() : new InformazioneTestuale(_editor.InfoBox.Text);
+            Wrapper.Memento.InformazioneAssociata = check ? (IInformazione)new InformazioneDataOra() : new InformazioneTestuale(_editor.InfoBox.Text);
         }
         public void OnInfoBoxChanged(object sender, EventArgs args)
         {
-            _elemento.InformazioneAssociata = new InformazioneTestuale(_editor.InfoBox.Text);
+            Wrapper.Memento.InformazioneAssociata = new InformazioneTestuale(_editor.InfoBox.Text);
         }
         #endregion
     }

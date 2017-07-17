@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 
 namespace Signum.Model
 {
-    public abstract class Elemento
+    public abstract class Elemento : ICopiable<Elemento>
     {
         public static Elemento Default => ImmagineFissa.Empty;
 

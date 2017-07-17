@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace Signum.Model
 { 
 
-    public class Sequenza : IListSource
+    public class Sequenza : IListSource, ICopiable<Sequenza>
     {
 
         public static readonly uint MAX_DURATION = 60 * 60 * 24;

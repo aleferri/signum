@@ -17,15 +17,19 @@ namespace Signum.Presentation
     [NameTagAttribute("Sequenza", typeof(Sequenza))]
     class SequenzaEditorPresenter : IEditorPresenter
     {
+        public event EventHandler EditorChange;
+
         private SequenzaEditor _editor;
         private Sequenza _sequenza;
-        private ModelToPersistenceWrapper<Sequenza> _wrapper;
+        private MementoWrapper<Sequenza> _wrapper;
         private ElementoEditorPresenter _elementEditorPresenter;
         private EditorFactory _editorFactory;
         private Elemento _currentElemento;
         private int _draggedElementIndex;
 
         public EventHandler OnSave => OnSaveRequest;
+        public EventHandler OnBack => OnBackRequest;
+        public EventHandler OnForward => OnForwardRequest;
         public Control Editor => _editor;
 
         public SequenzaEditorPresenter(Modello modello)
@@ -35,7 +39,7 @@ namespace Signum.Presentation
             _editor.Dock = DockStyle.Fill;
             Sequenza s = new Sequenza();
             s.AggiungiElemento(Elemento.Default, 1);
-            CaricaSequenza(new ModelToPersistenceWrapper<Sequenza>(s));
+            CaricaSequenza(new MementoWrapper<Sequenza>(s));
 
             _draggedElementIndex = -1;
 
@@ -82,7 +86,7 @@ namespace Signum.Presentation
             _currentElemento = e;
             ElementoEditorPresenter presenter = _editorFactory.GetEditorHandler(
                 e.GetType(), Documento.getInstance().ModelloRiferimento) as ElementoEditorPresenter;
-            presenter.CaricaElemento(new ModelToPersistenceWrapper<Elemento>(e));
+            presenter.CaricaElemento(new MementoWrapper<Elemento>(e));
             _editor.DurataNumeric.Value = _sequenza.GetDurataOf(e);
             _editor.NomeField.Text = e.Nome;
             _editor.SetEditor(presenter.Editor);
@@ -103,20 +107,46 @@ namespace Signum.Presentation
             FillList();
         }
 
-        public void CaricaSequenza(ModelToPersistenceWrapper<Sequenza> sequenza)
+        public void CaricaSequenza(MementoWrapper<Sequenza> sequenza)
         {
-            _sequenza = sequenza.ModelElement;
+            _sequenza = sequenza.Memento;
             _wrapper = sequenza;
             FillList();
             OpenEditorForIndex(0);
         }
-        public void CaricaModello(ModelToPersistenceWrapper oggettoModello)
+        public void CaricaModello(MementoWrapper oggettoModello)
         {
-            ModelToPersistenceWrapper<Sequenza> tmp = oggettoModello as ModelToPersistenceWrapper<Sequenza>;
+            MementoWrapper<Sequenza> tmp = oggettoModello as MementoWrapper<Sequenza>;
             CaricaSequenza(tmp ?? throw new ArgumentException("Oggetto passato non compatibile all'editor delle sequenze"));
+        }
+        public bool CanGoBack()
+        {
+            return _wrapper.CanGoBack();
+        }
+        public bool CanGoForward()
+        {
+            return _wrapper.CanGoForward();
         }
 
         #region EventHandlers
+        private void OnSaveRequest(object sender, EventArgs args)
+        {
+            if (null == _sequenza.Nome || "" == _sequenza.Nome)
+            {
+                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
+                if (null == nome) return;
+                _sequenza.Nome = nome;
+            }
+            Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
+        }
+        private void OnBackRequest(object sender, EventArgs args)
+        {
+
+        }
+        private void OnForwardRequest(object sender, EventArgs args)
+        {
+
+        }
         private void OnListDoubleClick(object sender, MouseEventArgs args)
         {
             int index = _editor.Lista.IndexFromPoint(args.Location);
@@ -176,16 +206,6 @@ namespace Signum.Presentation
             int index = _editor.Lista.SelectedIndex;
             _editor.MoveUpOption.Enabled = index != 0;
             _editor.MoveDownOption.Enabled = index != _sequenza.Count - 1;
-        }
-        private void OnSaveRequest(object sender, EventArgs args)
-        {
-            if (null == _sequenza.Nome || "" == _sequenza.Nome)
-            {
-                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
-                if (null == nome) return;
-                _sequenza.Nome = nome;
-            }
-            Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
         }
         private void OnEliminaClick(object sender, EventArgs args)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    public class Animazione : Elemento
+    public class Animazione : Elemento, ICopiable<Animazione>
     {
         private static Animazione defaultAnimazione;
         public static Animazione Empty => (Animazione)defaultAnimazione.Copy();
@@ -51,6 +52,10 @@ namespace Signum.Model
         }
 
         public override Elemento Copy()
+        {
+            return ((ICopiable<Animazione>)this).Copy();
+        }
+        Animazione ICopiable<Animazione>.Copy()
         {
             Animazione result = new Animazione(_frameRate, InformazioneAssociata.Copy());
             _sequenzaFrame.ForEach(f => result.Frames.Add(f.Copy()));

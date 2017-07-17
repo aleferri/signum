@@ -15,6 +15,8 @@ namespace Signum.Presentation
     [NameTagAttribute("Animazione", typeof(Animazione))]
     class AnimazioneEditorPresenter : ElementoEditorPresenter
     {
+        public override event EventHandler EditorChange;
+
         private readonly AnimazioneEditor _animationEditor;
         private Animazione _animazione;
         private readonly Modello _modello;
@@ -32,7 +34,7 @@ namespace Signum.Presentation
             InstallHandlers();
             SetEditor(_animationEditor);
             _modello = modello;
-            CaricaElemento(new ModelToPersistenceWrapper<Elemento>(new Animazione(10)));
+            CaricaElemento(new MementoWrapper<Elemento>(new Animazione(10)));
             AddFrame();
         }
 
@@ -60,7 +62,7 @@ namespace Signum.Presentation
             fp.Editor.Dock = DockStyle.Fill;
             nuovaTab.Controls.Add(fp.Editor);
             nuovaTab.Tag = fp;
-
+            fp.FrameChange += OnFrameChange;
             return nuovaTab;
         }
         private void AddFrame()
@@ -98,6 +100,11 @@ namespace Signum.Presentation
             _animazione.Frames.Remove(moving);
             _animazione.Frames.Insert(tabIndex + offset, moving);
         }
+        private void CreateMemento()
+        {
+            Wrapper.AddStep(_animazione);
+            CaricaElemento(Wrapper);
+        }
         private bool IsMouseHoverSelected(Point point)
         {
             return _animationEditor.Pannello.GetTabRect(_animationEditor.Pannello.SelectedIndex).Contains(point);
@@ -113,9 +120,9 @@ namespace Signum.Presentation
             }
             return -1;
         }
-        public override void CaricaElemento(ModelToPersistenceWrapper<Elemento> element)
+        public override void CaricaElemento(MementoWrapper<Elemento> element)
         {
-            Animazione animazione = element.ModelElement as Animazione;
+            Animazione animazione = element.Memento as Animazione;
             Wrapper = element;
             _animazione = animazione ?? throw new ArgumentException("Elemento non compatibile con l'editor delle animazioni");
             _animationEditor.Pannello.TabPages.Clear();
@@ -125,6 +132,7 @@ namespace Signum.Presentation
                 AddFrame(f);
             }
             _animationEditor.FramerateNumeric.Value = _animazione.FrameRate;
+            EditorChange?.Invoke(this, EventArgs.Empty);
         }
 
         #region EventHandlers
@@ -132,7 +140,8 @@ namespace Signum.Presentation
         {
             if (_animationEditor.Pannello.SelectedTab == _animationEditor.TabAggiungi)
             {
-                AddFrame();
+                _animazione.Frames.Add(new Frame(_modello.Size));
+                CreateMemento();
             }
             int sIndex = _animationEditor.Pannello.SelectedIndex; 
             _animationEditor.MoveRightOption.Enabled = sIndex < _animationEditor.Pannello.TabCount - 2;
@@ -170,7 +179,9 @@ namespace Signum.Presentation
         }
         private void OnEliminaClick(object sender, EventArgs args)
         {
+            _animazione.Frames.RemoveAt(_animationEditor.Pannello.SelectedIndex);
             _animationEditor.Pannello.TabPages.Remove(_animationEditor.Pannello.SelectedTab);
+            CreateMemento();
             NameTabs();
         }
         public void OnMoveRightClick(object sender, EventArgs args)
@@ -182,6 +193,13 @@ namespace Signum.Presentation
         {
             Move(true, _animationEditor.Pannello.SelectedIndex);
             NameTabs();
+        }
+
+        private void OnFrameChange(object sender, EventArgs args)
+        {
+            int index = _animationEditor.Pannello.SelectedIndex;
+            CreateMemento();
+            _animationEditor.Pannello.SelectedIndex = index;
         }
         #endregion
     }

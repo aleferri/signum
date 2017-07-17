@@ -123,7 +123,7 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // AnimazioneEditor
             // 
@@ -131,6 +131,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._tabControl);
             this.Controls.Add(this.groupBox1);
+            this.DoubleBuffered = true;
             this.Name = "AnimazioneEditor";
             this.Size = new System.Drawing.Size(642, 535);
             this._tabControl.ResumeLayout(false);

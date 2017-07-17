@@ -21,22 +21,22 @@ namespace Signum.Model
 
         private string _base;
 
-        public IEnumerable<ModelToPersistenceWrapper<ImmagineFissa>> ImmaginiFisse =>
+        public IEnumerable<MementoWrapper<ImmagineFissa>> ImmaginiFisse =>
             from ImmagineFissa imm
             in _immaginiFisse
-            select new ModelToPersistenceWrapper<ImmagineFissa>((ImmagineFissa)imm.Copy(), _immaginiFisse.IndexOf(imm));
-        public IEnumerable<ModelToPersistenceWrapper<Animazione>> Animazioni =>
+            select new MementoWrapper<ImmagineFissa>((ImmagineFissa)imm.Copy(), _immaginiFisse.IndexOf(imm));
+        public IEnumerable<MementoWrapper<Animazione>> Animazioni =>
             from Animazione a
             in _animazioni
-            select new ModelToPersistenceWrapper<Animazione>((Animazione)a.Copy(), _animazioni.IndexOf(a));
-        public IEnumerable<ModelToPersistenceWrapper<Sequenza>> Sequenze =>
+            select new MementoWrapper<Animazione>((Animazione)a.Copy(), _animazioni.IndexOf(a));
+        public IEnumerable<MementoWrapper<Sequenza>> Sequenze =>
             from Sequenza s
             in _sequenze
-            select new ModelToPersistenceWrapper<Sequenza>(s.Copy(), _sequenze.IndexOf(s));
-        public IEnumerable<ModelToPersistenceWrapper<ProgrammazioneGiornaliera>> ProgrGiornaliere =>
+            select new MementoWrapper<Sequenza>(s.Copy(), _sequenze.IndexOf(s));
+        public IEnumerable<MementoWrapper<ProgrammazioneGiornaliera>> ProgrGiornaliere =>
             from ProgrammazioneGiornaliera p
             in _progrGiornaliere
-            select new ModelToPersistenceWrapper<ProgrammazioneGiornaliera>(p.Copy(), _progrGiornaliere.IndexOf(p));
+            select new MementoWrapper<ProgrammazioneGiornaliera>(p.Copy(), _progrGiornaliere.IndexOf(p));
 
         public Libreria(string baseRoot)
         {
@@ -81,21 +81,21 @@ namespace Signum.Model
                 }
                 else
                 {
-                    InsideAggiungiElemento(new ModelToPersistenceWrapper<Elemento>((Elemento)result));
+                    InsideAggiungiElemento(new MementoWrapper<Elemento>((Elemento)result));
                 }
             }
         }
-        private void InsideAggiungiElemento(ModelToPersistenceWrapper<Elemento> elemento)
+        private void InsideAggiungiElemento(MementoWrapper<Elemento> elemento)
         {
             IList lista = null;
-            if (null != elemento.ModelElement as ImmagineFissa)  lista = _immaginiFisse;
-            else if (null != elemento.ModelElement as Animazione) lista = _animazioni;         
+            if (null != elemento.Memento as ImmagineFissa)  lista = _immaginiFisse;
+            else if (null != elemento.Memento as Animazione) lista = _animazioni;         
             if (elemento.ID >= 0 && elemento.ID < lista.Count)
             {
                 lista?.RemoveAt(elemento.ID);
-                lista?.Insert(elemento.ID, elemento.ModelElement);
+                lista?.Insert(elemento.ID, elemento.Memento);
             }
-            else lista?.Add(elemento.ModelElement);
+            else lista?.Add(elemento.Memento);
             LibreriaChange?.Invoke(this, EventArgs.Empty);
         }
         private bool Overwrite(string fileName)
@@ -109,39 +109,39 @@ namespace Signum.Model
             return DialogResult.Yes == result;
         }
 
-        public void AggiungiElemento(ModelToPersistenceWrapper<Elemento> elemento)
+        public void AggiungiElemento(MementoWrapper<Elemento> elemento)
         {
-            string nomeFile = _base + elemento.ModelElement.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".elem";
+            string nomeFile = _base + elemento.Memento.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".elem";
             if (elemento.ID < 0 && !Overwrite(nomeFile)) return;
             InsideAggiungiElemento(elemento);
             using (BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
             {
-                PersisterFactory.GetPersister(elemento.ModelElement.GetType()).Save(elemento.ModelElement, bw);
+                PersisterFactory.GetPersister(elemento.Memento.GetType()).Save(elemento.Memento, bw);
             }
         }
-        public void AggiungiProgrGiornaliera(ModelToPersistenceWrapper<ProgrammazioneGiornaliera> progrGiornaliera)
+        public void AggiungiProgrGiornaliera(MementoWrapper<ProgrammazioneGiornaliera> progrGiornaliera)
         {
             throw new NotImplementedException();
             LibreriaChange?.Invoke(this, EventArgs.Empty);
         }
-        public void AggiungiSequenza(ModelToPersistenceWrapper<Sequenza> sequenza)
+        public void AggiungiSequenza(MementoWrapper<Sequenza> sequenza)
         {
-            string nomeFile = _base + sequenza.ModelElement.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".seq";
+            string nomeFile = _base + sequenza.Memento.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".seq";
 
             if (sequenza.ID >= 0 && sequenza.ID < _sequenze.Count)
             {
                 _sequenze.RemoveAt(sequenza.ID);
-                _sequenze.Insert(sequenza.ID, sequenza.ModelElement);
+                _sequenze.Insert(sequenza.ID, sequenza.Memento);
             }
             else
             {
                 if (!Overwrite(nomeFile)) return;
-                _sequenze.Add(sequenza.ModelElement);
+                _sequenze.Add(sequenza.Memento);
             }
 
             using (BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
             {
-                PersisterFactory.GetPersister(PersisterFactory.SEQUENZA).Save(sequenza.ModelElement, bw);
+                PersisterFactory.GetPersister(PersisterFactory.SEQUENZA).Save(sequenza.Memento, bw);
             }
 
             LibreriaChange?.Invoke(this, EventArgs.Empty);

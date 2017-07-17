@@ -1,6 +1,9 @@
-﻿namespace Signum.Model
+﻿using Signum.Common;
+using System;
+
+namespace Signum.Model
 {
-    public interface IInformazione
+    public interface IInformazione : ICopiable<IInformazione>
     {
         T Accept<T>(IValutatoreInformazione<T> valutatore);
 

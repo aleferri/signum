@@ -10,13 +10,13 @@ namespace Signum.Model
     {
         event EventHandler LibreriaChange;
 
-        IEnumerable<ModelToPersistenceWrapper<ImmagineFissa>> ImmaginiFisse { get; }
-        IEnumerable<ModelToPersistenceWrapper<Animazione>> Animazioni { get; }
-        IEnumerable<ModelToPersistenceWrapper<Sequenza>> Sequenze { get; }
-        IEnumerable<ModelToPersistenceWrapper<ProgrammazioneGiornaliera>> ProgrGiornaliere { get; }
+        IEnumerable<MementoWrapper<ImmagineFissa>> ImmaginiFisse { get; }
+        IEnumerable<MementoWrapper<Animazione>> Animazioni { get; }
+        IEnumerable<MementoWrapper<Sequenza>> Sequenze { get; }
+        IEnumerable<MementoWrapper<ProgrammazioneGiornaliera>> ProgrGiornaliere { get; }
 
-        void AggiungiElemento(ModelToPersistenceWrapper<Elemento> elemento);
-        void AggiungiSequenza(ModelToPersistenceWrapper<Sequenza> sequenza);
-        void AggiungiProgrGiornaliera(ModelToPersistenceWrapper<ProgrammazioneGiornaliera> progrGiornaliera);
+        void AggiungiElemento(MementoWrapper<Elemento> elemento);
+        void AggiungiSequenza(MementoWrapper<Sequenza> sequenza);
+        void AggiungiProgrGiornaliera(MementoWrapper<ProgrammazioneGiornaliera> progrGiornaliera);
     }
 }

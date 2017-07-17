@@ -21,11 +21,21 @@ namespace Signum.View
             InitializeComponent();
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            Documento.getInstance().ModelChanged += onModelChanged;
-            onModelChanged(this, EventArgs.Empty);
+            Documento.getInstance().ModelChanged += OnModelChanged;
+            OnModelChanged(this, EventArgs.Empty);
         }
 
-        private void onModelChanged(object sender, EventArgs args)
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
+
+        private void OnModelChanged(object sender, EventArgs args)
         {
             _modelLabel.Text = Documento.getInstance().ModelloRiferimento.ToString();
         }

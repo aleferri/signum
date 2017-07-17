@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ICopiable.cs" />
     <Compile Include="Common\InputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,7 +81,7 @@
     <Compile Include="Model\IValutatoreInformazione.cs" />
     <Compile Include="Model\ILibreria.cs" />
     <Compile Include="Model\Libreria.cs" />
-    <Compile Include="Model\ModelToPersistenceWrapper.cs" />
+    <Compile Include="Model\MementoWrapper.cs" />
     <Compile Include="Model\ProgrammazioneGiornaliera.cs" />
     <Compile Include="Model\Sequenza.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />

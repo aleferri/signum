@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace Signum.Model
 {
 
-    public class ProgrammazioneGiornaliera
+    public class ProgrammazioneGiornaliera : ICopiable<ProgrammazioneGiornaliera>
     {
 
         public static readonly uint SECONDS_IN_DAY = 60 * 60 * 24;
