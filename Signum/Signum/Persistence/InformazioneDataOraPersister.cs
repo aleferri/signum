@@ -11,7 +11,7 @@ namespace Signum.Persistence
     [TypeAttribute(typeof(InformazioneDataOra))]
     class InformazioneDataOraPersister : IPersister<InformazioneDataOra>
     {
-        public InformazioneDataOra Retrive(BinaryReader br)
+        public InformazioneDataOra Retrieve(BinaryReader br)
         {
             return new InformazioneDataOra();
         }
@@ -27,9 +27,9 @@ namespace Signum.Persistence
             this.Save((InformazioneDataOra)elem, bw);
         }
 
-        object IPersister.Retrive(BinaryReader br)
+        object IPersister.Retrieve(BinaryReader br)
         {
-            return this.Retrive(br);
+            return this.Retrieve(br);
         }
     }
 }

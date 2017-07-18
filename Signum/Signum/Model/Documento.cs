@@ -22,7 +22,7 @@ namespace Signum.Model
     public class Documento
     {
 
-        public static readonly string LIBRARY_PATH = @"libreria\";
+        private static readonly string LIBRARY_PATH = @"libreria\";
 
         #region Static
         private readonly static Documento _instance = null;
@@ -40,7 +40,11 @@ namespace Signum.Model
 
         #region Instance
 
+        public event ModelChangeHandler ModelChanged;
+        public event EventHandler LibreriaChanged;
+
         private Modello _modelloRiferimento;
+        private ILibreria _libreria;
 
         public Modello ModelloRiferimento
         {
@@ -48,18 +52,24 @@ namespace Signum.Model
             set
             {
                 _modelloRiferimento = value;
+                _libreria = new Libreria(LIBRARY_PATH);
+                _libreria.LibreriaChange += OnLibreriaChange;
                 ModelChanged?.Invoke(this, new ModelEventArgs(value));
+                LibreriaChanged?.Invoke(this, EventArgs.Empty);
             }
         }
         public EditorFactory EditorFactory { get; }
-
-        public event ModelChangeHandler ModelChanged;
+        public ILibreria Libreria => _libreria;
 
         protected Documento()
         {
             EditorFactory = new EditorFactory();
         }
 
+        private void OnLibreriaChange(object sender, EventArgs args)
+        {
+            LibreriaChanged(sender, args);
+        }
         #endregion
     }
 }

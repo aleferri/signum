@@ -12,11 +12,11 @@ namespace Signum.Persistence
     public interface IPersister
     {
         void Save(Object elem, BinaryWriter bw);
-        Object Retrive(BinaryReader br);
+        Object Retrieve(BinaryReader br);
     }
     public interface IPersister<T> : IPersister
     {
         void Save(T elem, BinaryWriter bw);
-        new T Retrive(BinaryReader br);
+        new T Retrieve(BinaryReader br);
     }
 }

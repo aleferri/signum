@@ -11,7 +11,7 @@ namespace Signum.Persistence
     [TypeAttribute(typeof(InformazioneTestuale))]
     internal class InformazioneTestualePersister : IPersister<InformazioneTestuale>
     {
-        public InformazioneTestuale Retrive(BinaryReader br)
+        public InformazioneTestuale Retrieve(BinaryReader br)
         {
             return new InformazioneTestuale(br.ReadString());
         }
@@ -28,9 +28,9 @@ namespace Signum.Persistence
             this.Save((InformazioneTestuale) elem, bw);
         }
 
-        object IPersister.Retrive(BinaryReader br)
+        object IPersister.Retrieve(BinaryReader br)
         {
-            return this.Retrive(br);
+            return this.Retrieve(br);
         }
     }
 }

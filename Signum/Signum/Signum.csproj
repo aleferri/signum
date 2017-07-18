@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ICopiable.cs" />
     <Compile Include="Common\InputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,7 +79,9 @@
     <Compile Include="Model\InformazioneTestuale.cs" />
     <Compile Include="Model\InformazioneDataOra.cs" />
     <Compile Include="Model\IValutatoreInformazione.cs" />
+    <Compile Include="Model\ILibreria.cs" />
     <Compile Include="Model\Libreria.cs" />
+    <Compile Include="Model\MementoWrapper.cs" />
     <Compile Include="Model\ProgrammazioneGiornaliera.cs" />
     <Compile Include="Model\ProgrammazioneSettimanale.cs" />
     <Compile Include="Model\Sequenza.cs" />
@@ -94,7 +97,7 @@
     <Compile Include="Persistence\TypeAttribute.cs" />
     <Compile Include="Presentation\AnimazioneEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\EditorFactory.cs" />
-    <Compile Include="Presentation\EditorsHandling\ElementEditorPresenter.cs" />
+    <Compile Include="Presentation\EditorsHandling\ElementoEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\NameTagAttribute.cs" />
     <Compile Include="Presentation\ImmagineFissaEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\IEditorPresenter.cs" />

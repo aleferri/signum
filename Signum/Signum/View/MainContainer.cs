@@ -4,7 +4,7 @@ namespace Signum.View
 {
     public partial class MainContainer : UserControl
     {
-
+        public TreeView LibreriaView => _libreriaTreeView;
         public Panel LeftPanel => _outerSplitContainer.Panel1;
         public Panel RightPanel => _outerSplitContainer.Panel2;
         public ToolStripButton BackButton => _leftArrowButton;

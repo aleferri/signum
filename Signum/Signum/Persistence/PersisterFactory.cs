@@ -45,7 +45,7 @@ namespace Signum.Persistence
                     where ((TypeAttribute)persister.GetType().GetCustomAttributes(false)[0]).Type == type
                     select persister).FirstOrDefault();
         }
-        public static IPersister GetPersister(String type)
+        public static IPersister GetPersister(string type)
         {
             return (from persister in _persisters
                     where ((TypeAttribute)persister.GetType().GetCustomAttributes(false)[0]).Type.ToString() == type

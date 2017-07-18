@@ -12,20 +12,20 @@ namespace Signum.Persistence
     [TypeAttribute(typeof(Animazione))]
     internal class AnimazionePersister : IPersister<Animazione>
     {
-        public Animazione Retrive(BinaryReader br)
+        public Animazione Retrieve(BinaryReader br)
         {
+            // Animazione
+            string nome = br.ReadString();
+            uint frameRate = br.ReadUInt32();
+            Animazione result = new Animazione(frameRate);
+            result.Nome = nome;
+
             // Modello
             Modello modello = Documento.getInstance().ModelloRiferimento;
             int width = br.ReadInt32();
             int height = br.ReadInt32();
-            if (width != modello.Size.Width || height != modello.Size.Height) throw new FileLoadException("Modello non compatibile");
+            if (width != modello.Size.Width || height != modello.Size.Height) return null;
 
-            // Animazione
-            if (br.ReadString() != typeof(Animazione).GetType().ToString()) throw new FileLoadException("Tipo non compatibile");
-            string nome = br.ReadString();
-            uint frameRate= br.ReadUInt32();
-            Animazione result = new Animazione(frameRate);
-            result.Nome = nome;
             // Frames
             byte[] frameAsArray;
             int nFrames = br.ReadInt32();
@@ -35,14 +35,13 @@ namespace Signum.Persistence
                 int len = br.ReadInt32();
                 frameAsArray = new byte[len];
                 br.Read(frameAsArray, 0, len);
-                result.Frames.Add(new Frame(frameAsArray, nCol));
+                result.Frames.Add(new Frame(frameAsArray, nCol, width*height));
             }
             
 
             // Informazione
             IPersister infoPersister = PersisterFactory.GetPersister(br.ReadString());
-            if (!(infoPersister.GetType().GetCustomAttributes(false)[0] is IInformazione)) throw new FileLoadException("Informazione associata non compatibile");
-            IInformazione infoAssociata = (IInformazione)infoPersister.Retrive(br);
+            IInformazione infoAssociata = (IInformazione)infoPersister.Retrieve(br);
 
             // Out
             result.InformazioneAssociata = infoAssociata;
@@ -51,15 +50,16 @@ namespace Signum.Persistence
 
         public void Save(Animazione elem, BinaryWriter bw)
         {
+            // Animazione
+            bw.Write(elem.GetType().ToString());
+            bw.Write(elem.Nome);
+            bw.Write(elem.FrameRate);
+
             // Modello di riferimento
             Modello modello = Documento.getInstance().ModelloRiferimento;
             bw.Write(modello.Size.Width);
             bw.Write(modello.Size.Height);
 
-            // Animazione
-            bw.Write(elem.GetType().ToString());
-            bw.Write(elem.Nome);
-            bw.Write(elem.FrameRate);
             // Frames
             bw.Write(elem.Frames.Count);
             byte[] frameAsArray;
@@ -82,9 +82,9 @@ namespace Signum.Persistence
             this.Save((Animazione)elem, bw);
         }
 
-        object IPersister.Retrive(BinaryReader br)
+        object IPersister.Retrieve(BinaryReader br)
         {
-            return this.Retrive(br);
+            return this.Retrieve(br);
         }
     }
 }

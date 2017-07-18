@@ -15,8 +15,9 @@ namespace Signum.Presentation.EditorsHandling
 {
     class FrameEditorPresenter
     {
-        private DoubleBufferControl _editor;
+        public event EventHandler FrameChange;
 
+        private DoubleBufferControl _editor;
         private Modello _modelloFrame;
         private Frame _frame;
         private int _latoCella;
@@ -28,8 +29,10 @@ namespace Signum.Presentation.EditorsHandling
         public FrameEditorPresenter(Frame frame, Modello modello)
         {
             Debug.Assert(null != modello);
-            _editor = new DoubleBufferControl();
-            _editor.Dock = DockStyle.Fill;
+            _editor = new DoubleBufferControl()
+            {
+                Dock = DockStyle.Fill
+            };
             _modelloFrame = modello;
             _frame = frame;
             AttachHandlers();
@@ -43,6 +46,7 @@ namespace Signum.Presentation.EditorsHandling
             _editor.Paint += ShowEditorGrid;
             _editor.SizeChanged += OnSizeChanged;
             _editor.MouseDown += OnMouseAction;
+            _editor.MouseUp += OnMouseUp;
             _editor.MouseDrag += OnMouseAction;
         }
 
@@ -65,6 +69,10 @@ namespace Signum.Presentation.EditorsHandling
                 editor.Refresh();
                 editor.ResumeLayout();
             }
+        }
+        private void OnMouseUp(object sender, MouseEventArgs args)
+        {
+            FrameChange?.Invoke(this, EventArgs.Empty);
         }
         private void ShowEditorGrid(object sender, PaintEventArgs args)
         {

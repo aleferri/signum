@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,21 @@ using System.Threading.Tasks;
 namespace Signum.Model
 {
 
-    class ProgrammazioneGiornaliera
+    public class ProgrammazioneGiornaliera : ICopiable<ProgrammazioneGiornaliera>
     {
 
         public static readonly uint SECONDS_IN_DAY = 60 * 60 * 24;
 
         private readonly IList<Sequenza> _sequences;
         private readonly IList<Sequenza> _dummies;
+        private string _nome;
+
+        public IEnumerable<Sequenza> Sequenze => _sequences;
+        public string Nome
+        {
+            get => _nome;
+            set => _nome = value ?? String.Format("P.Girnaliera_{0}_{1}", DateTime.Now.ToShortDateString().Replace("/", "-"), DateTime.Now.ToShortTimeString().Replace(":", ""));
+        }
 
         public ProgrammazioneGiornaliera()
         {
@@ -23,14 +32,6 @@ namespace Signum.Model
             dummy.AggiungiElemento(ElementoDummy.DUMMY, Sequenza.MAX_DURATION);
             _dummies.Add(dummy);
             _sequences.Add(dummy);
-        }
-
-        public IEnumerable<Sequenza> Sequenze
-        {
-            get
-            {
-                return _sequences;
-            }
         }
 
         private int FindNearDummy(int index, out Sequenza dummy)
@@ -106,8 +107,7 @@ namespace Signum.Model
 
         public bool AggiungiSequenza(Sequenza s)
         {
-            Sequenza dummy;
-            int indexOf = FindDummy(s.Durata, out dummy);
+            int indexOf = FindDummy(s.Durata, out Sequenza dummy);
             if (indexOf < 0)
             {
                 throw new ArgumentException("Impossibile insere, nessuno spazio libero");
@@ -130,5 +130,14 @@ namespace Signum.Model
             return !trimmed;
         }
 
+        public ProgrammazioneGiornaliera Copy()
+        {
+            ProgrammazioneGiornaliera p = new ProgrammazioneGiornaliera();
+            foreach(Sequenza s in _sequences)
+            {
+                p.AggiungiSequenza(s);
+            }
+            return p;
+        }
     }
 }

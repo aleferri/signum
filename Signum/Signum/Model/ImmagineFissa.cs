@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
-    public class ImmagineFissa : Elemento
+    public class ImmagineFissa : Elemento, ICopiable<ImmagineFissa>
     {
         private static ImmagineFissa defaultImage;
 
-        public static ImmagineFissa Empty => defaultImage.Copy();
+        public static ImmagineFissa Empty => (ImmagineFissa)defaultImage.Copy();
 
         static ImmagineFissa()
         {
@@ -44,11 +45,14 @@ namespace Signum.Model
         { 
         }
 
-        public ImmagineFissa Copy()
+        public override Elemento Copy()
         {
-            return new ImmagineFissa(_frame, InformazioneAssociata, Nome);
+            return ((ICopiable <ImmagineFissa>)this).Copy();
         }
-
+        ImmagineFissa ICopiable<ImmagineFissa>.Copy()
+        {
+            return new ImmagineFissa(_frame.Copy(), InformazioneAssociata.Copy(), Nome);
+        }
         public override string ToString()
         {
             return String.Format("Immagine fissa -> \"{0}\"", InformazioneAssociata.Accept(new ValutatoreInformazione()));
