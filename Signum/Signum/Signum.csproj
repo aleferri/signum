@@ -80,6 +80,7 @@
     <Compile Include="Model\IValutatoreInformazione.cs" />
     <Compile Include="Model\Libreria.cs" />
     <Compile Include="Model\ProgrammazioneGiornaliera.cs" />
+    <Compile Include="Model\ProgrammazioneSettimanale.cs" />
     <Compile Include="Model\Sequenza.cs" />
     <Compile Include="Model\ValutatoreInformazione.cs" />
     <Compile Include="Persistence\AnimazionePersister.cs" />
