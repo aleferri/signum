@@ -72,6 +72,7 @@
     <Compile Include="Common\InputPrompt.cs" />
     <Compile Include="Model\Animazione.cs" />
     <Compile Include="Model\Documento.cs" />
+    <Compile Include="Model\FasciaOraria.cs" />
     <Compile Include="Model\Frame.cs" />
     <Compile Include="Model\Elemento.cs" />
     <Compile Include="Model\IInformazione.cs" />
