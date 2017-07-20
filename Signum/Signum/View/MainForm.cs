@@ -25,16 +25,6 @@ namespace Signum.View
             OnModelChanged(this, EventArgs.Empty);
         }
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
-                return cp;
-            }
-        }
-
         private void OnModelChanged(object sender, EventArgs args)
         {
             _modelLabel.Text = Documento.getInstance().ModelloRiferimento.ToString();

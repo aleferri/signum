@@ -39,29 +39,7 @@ namespace Signum.Model
             }
         }
 
-        public void Remove(Sequenza s)
-        {
-            Sequenza dummy = null;
-            for (int i = 0; i < _sequences.Length; i++)
-            {
-                if (_sequences[i] == s)
-                {
-                    if (dummy == null)
-                    {
-                        dummy = new Sequenza();
-                        _dummies.Add(dummy);
-                    }
-                    dummy.AggiungiElemento(ElementoDummy.DUMMY, QUARTER_DURATION);
-                    _sequences[i] = dummy;
-                }
-                else
-                {
-                    dummy = _dummies.Contains(_sequences[i]) ? _sequences[i] : null;
-                }
-            }
-        }
-
-        public bool AggiungiSequenza(Sequenza s)
+        private bool AggiungiSequenza(Sequenza s)
         {
             int required = s.Count;
             uint start = 0;
@@ -94,6 +72,27 @@ namespace Signum.Model
             return accepted;
         }
 
+        public void Remove(Sequenza s)
+        {
+            Sequenza dummy = null;
+            for (int i = 0; i < _sequences.Length; i++)
+            {
+                if (_sequences[i] == s)
+                {
+                    if (dummy == null)
+                    {
+                        dummy = new Sequenza();
+                        _dummies.Add(dummy);
+                    }
+                    dummy.AggiungiElemento(ElementoDummy.DUMMY, QUARTER_DURATION);
+                    _sequences[i] = dummy;
+                }
+                else
+                {
+                    dummy = _dummies.Contains(_sequences[i]) ? _sequences[i] : null;
+                }
+            }
+        }
         public bool InserisciSequenza(Sequenza s, FasciaOraria f)
         {
             if (!_dummies.Contains(_sequences[f.StartQuarter]))
@@ -114,7 +113,6 @@ namespace Signum.Model
             }
             return accepted;
         }
-
         public ProgrammazioneGiornaliera Copy()
         {
             ProgrammazioneGiornaliera p = new ProgrammazioneGiornaliera();

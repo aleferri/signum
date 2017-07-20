@@ -16,12 +16,12 @@ namespace Signum.Model
             _programma = new ProgrammazioneGiornaliera[7];
         }
 
-        public void setProgrammazione(ProgrammazioneGiornaliera p, DayOfWeek day)
+        public void SetProgrammazione(ProgrammazioneGiornaliera p, DayOfWeek day)
         {
             _programma[(int)day] = p;
         }
 
-        public ProgrammazioneGiornaliera getProgrammazione(DayOfWeek day)
+        public ProgrammazioneGiornaliera GetProgrammazione(DayOfWeek day)
         {
             return _programma[(int)day];
         }

@@ -35,24 +35,24 @@
             this._eliminaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._spostaSuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._spostaGiuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this._aggiungiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._daLibreriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._groupBox1 = new System.Windows.Forms.GroupBox();
             this._nomeField = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this._durataUpDown = new System.Windows.Forms.NumericUpDown();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this._aggiungiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.daLibreriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this._splitContainer)).BeginInit();
             this._splitContainer.Panel1.SuspendLayout();
             this._splitContainer.Panel2.SuspendLayout();
             this._splitContainer.SuspendLayout();
             this._elementoContextMenu.SuspendLayout();
-            this._groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._durataUpDown)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this._groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._durataUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // _splitContainer
@@ -111,6 +111,38 @@
             this._spostaGiuToolStripMenuItem.Name = "_spostaGiuToolStripMenuItem";
             this._spostaGiuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this._spostaGiuToolStripMenuItem.Text = "Sposta Giù";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.menuStrip1);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 467);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(250, 44);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._aggiungiToolStripMenuItem,
+            this._daLibreriaToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(250, 24);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // _aggiungiToolStripMenuItem
+            // 
+            this._aggiungiToolStripMenuItem.Name = "_aggiungiToolStripMenuItem";
+            this._aggiungiToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this._aggiungiToolStripMenuItem.Text = "Aggiungi";
+            // 
+            // _daLibreriaToolStripMenuItem
+            // 
+            this._daLibreriaToolStripMenuItem.Name = "_daLibreriaToolStripMenuItem";
+            this._daLibreriaToolStripMenuItem.Size = new System.Drawing.Size(126, 20);
+            this._daLibreriaToolStripMenuItem.Text = "Aggiungi da Libreria";
             // 
             // _groupBox1
             // 
@@ -172,38 +204,6 @@
             0,
             0});
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.menuStrip1);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 467);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(250, 44);
-            this.flowLayoutPanel1.TabIndex = 2;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._aggiungiToolStripMenuItem,
-            this.daLibreriaToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(202, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // _aggiungiToolStripMenuItem
-            // 
-            this._aggiungiToolStripMenuItem.Name = "_aggiungiToolStripMenuItem";
-            this._aggiungiToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
-            this._aggiungiToolStripMenuItem.Text = "Aggiungi";
-            // 
-            // daLibreriaToolStripMenuItem
-            // 
-            this.daLibreriaToolStripMenuItem.Name = "daLibreriaToolStripMenuItem";
-            this.daLibreriaToolStripMenuItem.Size = new System.Drawing.Size(126, 20);
-            this.daLibreriaToolStripMenuItem.Text = "Aggiungi da Libreria";
-            // 
             // SequenzaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,13 +216,13 @@
             ((System.ComponentModel.ISupportInitialize)(this._splitContainer)).EndInit();
             this._splitContainer.ResumeLayout(false);
             this._elementoContextMenu.ResumeLayout(false);
-            this._groupBox1.ResumeLayout(false);
-            this._groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._durataUpDown)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this._groupBox1.ResumeLayout(false);
+            this._groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._durataUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -243,6 +243,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem _aggiungiToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem daLibreriaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _daLibreriaToolStripMenuItem;
     }
 }

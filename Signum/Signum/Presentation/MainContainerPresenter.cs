@@ -36,36 +36,36 @@ namespace Signum.Presentation
         }
         private void FillImmaginiFisseNode(TreeNode node)
         {
-            foreach(MementoWrapper<ImmagineFissa> imm in Documento.getInstance().Libreria.ImmaginiFisse)
+            foreach(PersisterMapper<ImmagineFissa> imm in Documento.getInstance().Libreria.ImmaginiFisse)
             {
-                TreeNode immNode = new TreeNode(imm.Memento.Nome + " (Immagine Fissa)");
+                TreeNode immNode = new TreeNode(imm.Element.Nome + " (Immagine Fissa)");
                 immNode.Tag = imm;
                 node.Nodes.Add(immNode);
             }
         }
         private void FillAnimazioniNode(TreeNode node)
         {
-            foreach (MementoWrapper<Animazione> a in Documento.getInstance().Libreria.Animazioni)
+            foreach (PersisterMapper<Animazione> a in Documento.getInstance().Libreria.Animazioni)
             {
-                TreeNode aNode = new TreeNode(a.Memento.Nome + " (Animazione)");
+                TreeNode aNode = new TreeNode(a.Element.Nome + " (Animazione)");
                 aNode.Tag = a;
                 node.Nodes.Add(aNode);
             }
         }
         private void FillSequenzeNode(TreeNode node)
         {
-            foreach (MementoWrapper<Sequenza> s in Documento.getInstance().Libreria.Sequenze)
+            foreach (PersisterMapper<Sequenza> s in Documento.getInstance().Libreria.Sequenze)
             {
-                TreeNode sNode = new TreeNode(s.Memento.Nome);
+                TreeNode sNode = new TreeNode(s.Element.Nome);
                 sNode.Tag = s;
                 node.Nodes.Add(sNode);
             }
         }
         private void FillProgrammazioniGiornaliereNode(TreeNode node)
         {
-            foreach (MementoWrapper<ProgrammazioneGiornaliera> p in Documento.getInstance().Libreria.ProgrGiornaliere)
+            foreach (PersisterMapper<ProgrammazioneGiornaliera> p in Documento.getInstance().Libreria.ProgrGiornaliere)
             {
-                TreeNode pNode = new TreeNode(p.Memento.Nome);
+                TreeNode pNode = new TreeNode(p.Element.Nome);
                 pNode.Tag = p;
                 node.Nodes.Add(pNode);
             }
@@ -85,15 +85,6 @@ namespace Signum.Presentation
                 }
                 item.Click += _currentEditorHandler.OnSave;
             }
-            if(null != old)
-            {
-                _mainContainer.BackButton.Click -= old.OnBack;
-                _mainContainer.ForwardButton.Click -= old.OnForward;
-                old.EditorChange -= OnEditorChange;
-            }
-            _mainContainer.BackButton.Click += _currentEditorHandler.OnBack;
-            _mainContainer.ForwardButton.Click += _currentEditorHandler.OnForward;
-            _currentEditorHandler.EditorChange += OnEditorChange;
             return _currentEditorHandler;
         }
 
@@ -116,8 +107,7 @@ namespace Signum.Presentation
         }
         private void OnEditorChange(object sender, EventArgs args)
         {
-            _mainContainer.BackButton.Enabled = _currentEditorHandler.CanGoBack();
-            _mainContainer.ForwardButton.Enabled = _currentEditorHandler.CanGoForward();
+            //TODO
         }
         private void OnModelChangeClick(object sender, EventArgs args)
         {
@@ -132,8 +122,8 @@ namespace Signum.Presentation
         {
             TreeNode clicked = _mainContainer.LibreriaView.GetNodeAt(new System.Drawing.Point(args.X, args.Y));
             if (null == clicked.Tag) return;
-            MementoWrapper obj = (MementoWrapper)clicked.Tag;
-            IEditorPresenter presenter = ChangePresenter(obj.ObjectModelElement.GetType());
+            PersisterMapper obj = (PersisterMapper)clicked.Tag;
+            IEditorPresenter presenter = ChangePresenter(obj.Element.GetType());
             presenter.CaricaModello(obj);
         }
         private void OnNewClick(object sender, EventArgs args)

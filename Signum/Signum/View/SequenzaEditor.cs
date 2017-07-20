@@ -8,7 +8,8 @@ namespace Signum.View
 
         private Control _editor;
 
-        public ToolStripMenuItem AggiungiMenu => _aggiungiToolStripMenuItem;
+        public ToolStripMenuItem AggiungiOption => _aggiungiToolStripMenuItem;
+        public ToolStripMenuItem DaLibreriaOption => _daLibreriaToolStripMenuItem;
         public ListBox Lista => _elementList;
         public NumericUpDown DurataNumeric => _durataUpDown;
         public TextBox NomeField => _nomeField;

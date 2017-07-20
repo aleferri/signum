@@ -57,6 +57,14 @@ namespace Signum.Model
                     select kvp.Value)
                     .Single();
         }
+        public uint GetDurataOf(int index)
+        {
+            return (from KeyValuePair<Elemento, uint> kvp
+                    in _elementi
+                    where _elementi.IndexOf(kvp) == index
+                    select kvp.Value)
+                    .Single();
+        }
         public void SetDurataOf(Elemento elemento, uint durata)
         {
             int index = IndexOf(elemento);

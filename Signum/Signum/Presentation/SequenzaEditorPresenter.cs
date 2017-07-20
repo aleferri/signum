@@ -17,19 +17,14 @@ namespace Signum.Presentation
     [NameTagAttribute("Sequenza", typeof(Sequenza))]
     class SequenzaEditorPresenter : IEditorPresenter
     {
-        public event EventHandler EditorChange;
-
         private SequenzaEditor _editor;
         private Sequenza _sequenza;
-        private MementoWrapper<Sequenza> _wrapper;
+        private PersisterMapper<Sequenza> _wrapper;
         private ElementoEditorPresenter _elementEditorPresenter;
         private EditorFactory _editorFactory;
-        private Elemento _currentElemento;
+        private PersisterMapper<Elemento> _currentElemento;
         private int _draggedElementIndex;
 
-        public EventHandler OnSave => OnSaveRequest;
-        public EventHandler OnBack => OnBackRequest;
-        public EventHandler OnForward => OnForwardRequest;
         public Control Editor => _editor;
 
         public SequenzaEditorPresenter(Modello modello)
@@ -39,11 +34,12 @@ namespace Signum.Presentation
             _editor.Dock = DockStyle.Fill;
             Sequenza s = new Sequenza();
             s.AggiungiElemento(Elemento.Default, 1);
-            CaricaSequenza(new MementoWrapper<Sequenza>(s));
+            CaricaSequenza(new PersisterMapper<Sequenza>(s));
 
             _draggedElementIndex = -1;
 
             PopulateElementChoices();
+            OnLibreriaChange(this, EventArgs.Empty);
             AttachHandlers();
         }
 
@@ -56,11 +52,12 @@ namespace Signum.Presentation
                     Text = name,
                     Tag = _editorFactory.GetTagFromName(name)
                 };
-                _editor.AggiungiMenu.DropDownItems.Add(voice);
+                _editor.AggiungiOption.DropDownItems.Add(voice);
             }
         }
         private void AttachHandlers()
         {
+            Documento.getInstance().LibreriaChanged += OnLibreriaChange;
             _editor.Lista.MouseDoubleClick += OnListDoubleClick;
             _editor.DurataNumeric.ValueChanged += OnDurationChange;
             _editor.Lista.MouseDown += OnListMouseDown;
@@ -70,7 +67,7 @@ namespace Signum.Presentation
             _editor.EliminaOption.Click += OnEliminaClick;
             _editor.MoveUpOption.Click += OnUpClick;
             _editor.MoveDownOption.Click += OnDownClick;
-            foreach(ToolStripMenuItem item in _editor.AggiungiMenu.DropDownItems)
+            foreach(ToolStripMenuItem item in _editor.AggiungiOption.DropDownItems)
             {
                 item.Click += OnNuovoClick;
             }
@@ -81,12 +78,12 @@ namespace Signum.Presentation
             _editor.Lista.DataSource = _sequenza.GetList();
             _editor.Lista.DisplayMember = "Nome";
         }
-        private void SetViewFromModel(Elemento e)
+        private void SetViewFromModel(Elemento e, int index)
         {
-            _currentElemento = e;
+            _currentElemento = new PersisterMapper<Elemento>(e, index);
             ElementoEditorPresenter presenter = _editorFactory.GetEditorHandler(
                 e.GetType(), Documento.getInstance().ModelloRiferimento) as ElementoEditorPresenter;
-            presenter.CaricaElemento(new MementoWrapper<Elemento>(e));
+            presenter.CaricaElemento(_currentElemento);
             _editor.DurataNumeric.Value = _sequenza.GetDurataOf(e);
             _editor.NomeField.Text = e.Nome;
             _editor.SetEditor(presenter.Editor);
@@ -95,66 +92,45 @@ namespace Signum.Presentation
         private void OpenEditorForIndex(int index)
         {
             Elemento e = _sequenza[index];
-            SetViewFromModel(e);
+            SetViewFromModel(e, index);
         }
         private void Move(bool up, int index)
         {
             Elemento e = _sequenza[index];
-            uint durata = _sequenza.GetDurataOf(e);
+            uint durata = _sequenza.GetDurataOf(index);
             int offset = up ? -1 : 1;
             _sequenza.EliminaElemento(index);
             _sequenza.InserisciElemento(e, durata, index + offset);
             FillList();
         }
-
-        public void CaricaSequenza(MementoWrapper<Sequenza> sequenza)
+        private void AggiuntaElemento(Elemento e)
         {
-            _sequenza = sequenza.Memento;
+            _sequenza.AggiungiElemento(e, 1);
+            FillList();
+            SetViewFromModel(e, _sequenza.Count - 1);
+        }
+
+        public void CaricaSequenza(PersisterMapper<Sequenza> sequenza)
+        {
+            _sequenza = sequenza.Element;
             _wrapper = sequenza;
             FillList();
             OpenEditorForIndex(0);
         }
-        public void CaricaModello(MementoWrapper oggettoModello)
+        public void CaricaModello(PersisterMapper oggettoModello)
         {
-            MementoWrapper<Sequenza> tmp = oggettoModello as MementoWrapper<Sequenza>;
+            PersisterMapper<Sequenza> tmp = oggettoModello as PersisterMapper<Sequenza>;
             CaricaSequenza(tmp ?? throw new ArgumentException("Oggetto passato non compatibile all'editor delle sequenze"));
-        }
-        public bool CanGoBack()
-        {
-            return _wrapper.CanGoBack();
-        }
-        public bool CanGoForward()
-        {
-            return _wrapper.CanGoForward();
         }
 
         #region EventHandlers
-        private void OnSaveRequest(object sender, EventArgs args)
-        {
-            if (null == _sequenza.Nome || "" == _sequenza.Nome)
-            {
-                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
-                if (null == nome) return;
-                _sequenza.Nome = nome;
-            }
-            Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
-        }
-        private void OnBackRequest(object sender, EventArgs args)
-        {
-
-        }
-        private void OnForwardRequest(object sender, EventArgs args)
-        {
-
-        }
         private void OnListDoubleClick(object sender, MouseEventArgs args)
         {
             int index = _editor.Lista.IndexFromPoint(args.Location);
-            if (index == ListBox.NoMatches)
+            if (index != ListBox.NoMatches)
             {
-                return;
-            }
-            OpenEditorForIndex(index);
+                OpenEditorForIndex(index);
+            }         
         }
         private void OnListMouseDown(object sender, MouseEventArgs args)
         {
@@ -192,14 +168,11 @@ namespace Signum.Presentation
             Elemento e = (Elemento)type.GetProperty("Empty", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
                 .GetValue(null);
             e.Nome = nome;
-            _sequenza.AggiungiElemento(e, 1);
-            FillList();
-            SetViewFromModel(e);
-
+            AggiuntaElemento(e);
         }
         private void OnDurationChange(object sender, EventArgs args)
         {
-            _sequenza.SetDurataOf(_currentElemento, (uint) _editor.DurataNumeric.Value);
+            _sequenza.SetDurataOf(_sequenza[_currentElemento.ID], (uint) _editor.DurataNumeric.Value);
         }
         private void OnListSelectedChange(object sender, EventArgs args)
         {
@@ -211,11 +184,11 @@ namespace Signum.Presentation
         {
             int index = _editor.Lista.SelectedIndex;
             Elemento e = _sequenza[index];
-            if(e == _currentElemento)
+            if(index == _currentElemento.ID)
             {
                 if (_sequenza.Count == 1) return;
                 int offset = index == 0 ? 1 : -1;
-                SetViewFromModel(_sequenza[index + offset]);
+                SetViewFromModel(_sequenza[index + offset], index + offset);
             }
             _sequenza.EliminaElemento(index);
             FillList();
@@ -227,6 +200,47 @@ namespace Signum.Presentation
         private void OnDownClick(object sender, EventArgs args)
         {
             Move(false, _editor.Lista.SelectedIndex);
+        }
+        private void OnLibreriaChange(object sender, EventArgs args)
+        {
+            ILibreria libreria = Documento.getInstance().Libreria;
+            _editor.DaLibreriaOption.DropDownItems.Clear();
+            foreach (PersisterMapper<ImmagineFissa> el in libreria.ImmaginiFisse)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = el.Element.Nome;
+                item.Tag = el.Element;
+                _editor.DaLibreriaOption.DropDownItems.Add(item);
+                item.Click += OnLibreriaItemClick;
+            }
+
+            _editor.DaLibreriaOption.DropDownItems.Add(new ToolStripSeparator());
+
+            foreach (PersisterMapper<Animazione> el in libreria.Animazioni)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = el.Element.Nome;
+                item.Tag = el.Element;
+                _editor.DaLibreriaOption.DropDownItems.Add(item);
+                item.Click += OnLibreriaItemClick;
+            }
+        }
+        private void OnLibreriaItemClick(object sender, EventArgs args)
+        {
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            Elemento e = (Elemento)item.Tag;
+            AggiuntaElemento(e);
+        }
+
+        public void OnSave(object sender, EventArgs args)
+        {
+            if (null == _sequenza.Nome || "" == _sequenza.Nome)
+            {
+                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
+                if (null == nome) return;
+                _sequenza.Nome = nome;
+            }
+            Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
         }
         #endregion
     }

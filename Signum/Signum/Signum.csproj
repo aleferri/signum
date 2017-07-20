@@ -82,7 +82,7 @@
     <Compile Include="Model\IValutatoreInformazione.cs" />
     <Compile Include="Model\ILibreria.cs" />
     <Compile Include="Model\Libreria.cs" />
-    <Compile Include="Model\MementoWrapper.cs" />
+    <Compile Include="Model\PersisterMapper.cs" />
     <Compile Include="Model\ProgrammazioneGiornaliera.cs" />
     <Compile Include="Model\ProgrammazioneSettimanale.cs" />
     <Compile Include="Model\Sequenza.cs" />

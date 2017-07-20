@@ -14,10 +14,8 @@ namespace Signum.Presentation
 {
     [NameTagAttribute("Animazione", typeof(Animazione))]
     class AnimazioneEditorPresenter : ElementoEditorPresenter
-    {
-        public override event EventHandler EditorChange;
-
-        private readonly AnimazioneEditor _animationEditor;
+    { 
+        private readonly AnimazioneEditor _editor;
         private Animazione _animazione;
         private readonly Modello _modello;
 
@@ -25,28 +23,28 @@ namespace Signum.Presentation
 
         public AnimazioneEditorPresenter(Modello modello)
         {
-            _animationEditor = new AnimazioneEditor();
-            _animationEditor.Dock = DockStyle.Fill;
-            _animationEditor.Pannello.CreateControl();
+            _editor = new AnimazioneEditor();
+            _editor.Dock = DockStyle.Fill;
+            _editor.Pannello.CreateControl();
 
             _draggedTabIndex = -1;
 
             InstallHandlers();
-            SetEditor(_animationEditor);
+            SetEditor(_editor);
             _modello = modello;
-            CaricaElemento(new MementoWrapper<Elemento>(new Animazione(10)));
+            CaricaElemento(new PersisterMapper<Elemento>(new Animazione(10)));
             AddFrame();
         }
 
         private void InstallHandlers()
         {
-            _animationEditor.Pannello.Selected += OnTabChanged;
-            _animationEditor.Pannello.MouseDown += OnMouseDown;
-            _animationEditor.Pannello.MouseMove += OnMouseMove;
-            _animationEditor.Pannello.MouseUp += OnMouseUp;
-            _animationEditor.EliminaOption.Click += OnEliminaClick;
-            _animationEditor.MoveRightOption.Click += OnMoveRightClick;
-            _animationEditor.MoveLeftOption.Click += OnMoveLeftClick;
+            _editor.Pannello.Selected += OnTabChanged;
+            _editor.Pannello.MouseDown += OnMouseDown;
+            _editor.Pannello.MouseMove += OnMouseMove;
+            _editor.Pannello.MouseUp += OnMouseUp;
+            _editor.EliminaOption.Click += OnEliminaClick;
+            _editor.MoveRightOption.Click += OnMoveRightClick;
+            _editor.MoveLeftOption.Click += OnMoveLeftClick;
         }
         private TabPage CreateTab(int n)
         {
@@ -56,34 +54,35 @@ namespace Signum.Presentation
         }
         private TabPage CreateTab(int n, Frame frame)
         {
-            TabPage nuovaTab = new TabPage();
-            nuovaTab.Text = String.Format("Frame {0}", n);
             FrameEditorPresenter fp = new FrameEditorPresenter(frame, _modello);
             fp.Editor.Dock = DockStyle.Fill;
+            TabPage nuovaTab = new TabPage()
+            {
+                Text = String.Format("Frame {0}", n),
+                Tag = fp
+            };
             nuovaTab.Controls.Add(fp.Editor);
-            nuovaTab.Tag = fp;
-            fp.FrameChange += OnFrameChange;
             return nuovaTab;
         }
         private void AddFrame()
         {      
-            TabPage nuovaTab = CreateTab(_animationEditor.Pannello.TabCount);
-            _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabCount - 1, nuovaTab);
-            _animationEditor.Pannello.SelectedTab = nuovaTab;
+            TabPage nuovaTab = CreateTab(_editor.Pannello.TabCount);
+            _editor.Pannello.TabPages.Insert(_editor.Pannello.TabCount - 1, nuovaTab);
+            _editor.Pannello.SelectedTab = nuovaTab;
         }
         private void AddFrame(Frame frame)
         {
-            TabPage nuovaTab = CreateTab(_animationEditor.Pannello.TabPages.Count, frame);
-            _animationEditor.Pannello.TabPages.Insert(_animationEditor.Pannello.TabPages.Count - 1, nuovaTab);
-            _animationEditor.Pannello.SelectedTab = nuovaTab;
+            TabPage nuovaTab = CreateTab(_editor.Pannello.TabPages.Count, frame);
+            _editor.Pannello.TabPages.Insert(_editor.Pannello.TabPages.Count - 1, nuovaTab);
+            _editor.Pannello.SelectedTab = nuovaTab;
         }
         private void NameTabs()
         {
-            foreach (TabPage tab in _animationEditor.Pannello.TabPages)
+            foreach (TabPage tab in _editor.Pannello.TabPages)
             {
-                if (tab != _animationEditor.TabAggiungi)
+                if (tab != _editor.TabAggiungi)
                 {
-                    tab.Text = String.Format("Frame {0}", _animationEditor.Pannello.TabPages.IndexOf(tab) + 1);
+                    tab.Text = String.Format("Frame {0}", _editor.Pannello.TabPages.IndexOf(tab) + 1);
                 }
             }
         }
@@ -91,27 +90,22 @@ namespace Signum.Presentation
         {
             int offset = left ? -1 : 1;
 
-            TabPage tab = _animationEditor.Pannello.TabPages[tabIndex];
-            _animationEditor.Pannello.TabPages.Remove(tab);
-            _animationEditor.Pannello.TabPages.Insert(tabIndex + offset, tab);
-            _animationEditor.Pannello.SelectedTab = tab;
+            TabPage tab = _editor.Pannello.TabPages[tabIndex];
+            _editor.Pannello.TabPages.Remove(tab);
+            _editor.Pannello.TabPages.Insert(tabIndex + offset, tab);
+            _editor.Pannello.SelectedTab = tab;
 
             Frame moving = _animazione.Frames[tabIndex];
             _animazione.Frames.Remove(moving);
             _animazione.Frames.Insert(tabIndex + offset, moving);
         }
-        private void CreateMemento()
-        {
-            Wrapper.AddStep(_animazione);
-            CaricaElemento(Wrapper);
-        }
         private bool IsMouseHoverSelected(Point point)
         {
-            return _animationEditor.Pannello.GetTabRect(_animationEditor.Pannello.SelectedIndex).Contains(point);
+            return _editor.Pannello.GetTabRect(_editor.Pannello.SelectedIndex).Contains(point);
         }
         private int GetTabIndexByPoint(Point point)
         {
-            TabControl tabControl = _animationEditor.Pannello;
+            TabControl tabControl = _editor.Pannello;
             for (int i = 0; i < tabControl.TabPages.Count; i++)
             {
                 TabPage page = tabControl.TabPages[i];
@@ -120,46 +114,45 @@ namespace Signum.Presentation
             }
             return -1;
         }
-        public override void CaricaElemento(MementoWrapper<Elemento> element)
+
+        public override void CaricaElemento(PersisterMapper<Elemento> element)
         {
-            Animazione animazione = element.Memento as Animazione;
-            Wrapper = element;
+            Animazione animazione = element.Element as Animazione;
+            Mapper = element;
             _animazione = animazione ?? throw new ArgumentException("Elemento non compatibile con l'editor delle animazioni");
-            _animationEditor.Pannello.TabPages.Clear();
-            _animationEditor.Pannello.TabPages.Add(_animationEditor.TabAggiungi);
+            _editor.Pannello.TabPages.Clear();
+            _editor.Pannello.TabPages.Add(_editor.TabAggiungi);
             foreach(Frame f in _animazione.Frames)
             {
                 AddFrame(f);
             }
-            _animationEditor.FramerateNumeric.Value = _animazione.FrameRate;
-            EditorChange?.Invoke(this, EventArgs.Empty);
+            _editor.FramerateNumeric.Value = _animazione.FrameRate;
         }
 
         #region EventHandlers
         private void OnTabChanged(object sender, TabControlEventArgs args)
         {
-            if (_animationEditor.Pannello.SelectedTab == _animationEditor.TabAggiungi)
+            if (_editor.Pannello.SelectedTab == _editor.TabAggiungi)
             {
-                _animazione.Frames.Add(new Frame(_modello.Size));
-                CreateMemento();
+                AddFrame();
             }
-            int sIndex = _animationEditor.Pannello.SelectedIndex; 
-            _animationEditor.MoveRightOption.Enabled = sIndex < _animationEditor.Pannello.TabCount - 2;
-            _animationEditor.MoveLeftOption.Enabled = sIndex > 0;
+            int sIndex = _editor.Pannello.SelectedIndex; 
+            _editor.MoveRightOption.Enabled = sIndex < _editor.Pannello.TabCount - 2;
+            _editor.MoveLeftOption.Enabled = sIndex > 0;
             
         }
         private void OnMouseDown(object sender, MouseEventArgs args)
         {
             if (IsMouseHoverSelected(new Point(args.X, args.Y)) && args.Button == MouseButtons.Left)
             {
-                _draggedTabIndex = _animationEditor.Pannello.SelectedIndex;
+                _draggedTabIndex = _editor.Pannello.SelectedIndex;
             }
         }
         private void OnMouseMove(object sender, MouseEventArgs args)
         {
             if (0 > _draggedTabIndex) return;
             int currentHoverIndex = GetTabIndexByPoint(new Point(args.X, args.Y));
-            if (currentHoverIndex != _draggedTabIndex && currentHoverIndex >= 0 && currentHoverIndex != _animationEditor.Pannello.TabCount - 1)
+            if (currentHoverIndex != _draggedTabIndex && currentHoverIndex >= 0 && currentHoverIndex != _editor.Pannello.TabCount - 1)
             {
                 Move(_draggedTabIndex - currentHoverIndex > 0, _draggedTabIndex);
                 _draggedTabIndex = currentHoverIndex;
@@ -167,39 +160,35 @@ namespace Signum.Presentation
         }
         private void OnMouseUp(object sender, MouseEventArgs args)
         {
-            if(_draggedTabIndex >= 0) NameTabs();
+            if (_draggedTabIndex >= 0)
+            {
+                NameTabs();
+            }
             _draggedTabIndex = -1;
             if (args.Button == MouseButtons.Right)
             {
                 if (IsMouseHoverSelected(new Point(args.X, args.Y)))
                 {
-                    _animationEditor.TabContextMenu.Show(_animationEditor.Pannello, args.X, args.Y);
+                    _editor.TabContextMenu.Show(_editor.Pannello, args.X, args.Y);
                 }
             }
         }
         private void OnEliminaClick(object sender, EventArgs args)
         {
-            _animazione.Frames.RemoveAt(_animationEditor.Pannello.SelectedIndex);
-            _animationEditor.Pannello.TabPages.Remove(_animationEditor.Pannello.SelectedTab);
-            CreateMemento();
+            int index = _editor.Pannello.SelectedIndex;
+            _animazione.Frames.RemoveAt(index);
+            _editor.Pannello.TabPages.RemoveAt(index);
             NameTabs();
         }
-        public void OnMoveRightClick(object sender, EventArgs args)
+        private void OnMoveRightClick(object sender, EventArgs args)
         {
-            Move(false, _animationEditor.Pannello.SelectedIndex);
+            Move(false, _editor.Pannello.SelectedIndex);
             NameTabs();
         }
-        public void OnMoveLeftClick(object sender, EventArgs args)
+        private void OnMoveLeftClick(object sender, EventArgs args)
         {
-            Move(true, _animationEditor.Pannello.SelectedIndex);
+            Move(true, _editor.Pannello.SelectedIndex);
             NameTabs();
-        }
-
-        private void OnFrameChange(object sender, EventArgs args)
-        {
-            int index = _animationEditor.Pannello.SelectedIndex;
-            CreateMemento();
-            _animationEditor.Pannello.SelectedIndex = index;
         }
         #endregion
     }
