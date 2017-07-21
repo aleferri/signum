@@ -15,6 +15,22 @@ namespace Signum.Model
     {
 
         public static readonly uint MAX_DURATION = 60 * 60 * 24;
+        private static Sequenza defaultSequenza;
+
+        public static Sequenza Default => (Sequenza)defaultSequenza.Copy();
+
+        static Sequenza()
+        {
+            Documento.getInstance().ModelChanged += OnModelChange;
+            OnModelChange(null, new ModelEventArgs(Documento.getInstance().ModelloRiferimento));
+        }
+
+        private static void OnModelChange(object sender, ModelEventArgs args)
+        {
+            defaultSequenza = new Sequenza();
+            defaultSequenza.Nome = "<sequenza>";
+            defaultSequenza.AggiungiElemento(Elemento.Default, 30);
+        }
 
         private string _nome;
         private List<KeyValuePair<Elemento, uint>> _elementi;

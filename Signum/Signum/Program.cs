@@ -20,9 +20,10 @@ namespace Signum
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Modello modello = ModelPane.showModelDialog();
+            if (null == modello) Environment.Exit(1);
 
-            Documento.getInstance().ModelloRiferimento = ModelPane.showModelDialog();
-            if (null == Documento.getInstance().ModelloRiferimento) Environment.Exit(1);
+            Documento.getInstance().ModelloRiferimento = modello;
 
             MainForm form = new MainForm();
             MainContainerPresenter presenter = new MainContainerPresenter(form.MainContainer);

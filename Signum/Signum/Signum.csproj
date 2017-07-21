@@ -104,6 +104,7 @@
     <Compile Include="Presentation\EditorsHandling\IEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\FrameEditorPresenter.cs" />
     <Compile Include="Presentation\MainContainerPresenter.cs" />
+    <Compile Include="Presentation\ProgrammazioneGiornalieraEditorPresenter.cs" />
     <Compile Include="Presentation\SequenzaEditorPresenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,6 +131,12 @@
     </Compile>
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProgrammazioneGiornalieraEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\ProgrammazioneGiornalieraEditor.Designer.cs">
+      <DependentUpon>ProgrammazioneGiornalieraEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SequenzaEditor.cs">
       <SubType>UserControl</SubType>
@@ -167,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ProgrammazioneGiornalieraEditor.resx">
+      <DependentUpon>ProgrammazioneGiornalieraEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SequenzaEditor.resx">
       <DependentUpon>SequenzaEditor.cs</DependentUpon>
