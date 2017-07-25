@@ -49,6 +49,7 @@ namespace Signum.Model
         public Sequenza()
         {
             _elementi = new List<KeyValuePair<Elemento, uint>>();
+            AggiungiElemento(Elemento.Default, 1);
         }
         public void AggiungiElemento(Elemento elemento, uint durata)
         {

@@ -44,6 +44,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this._durataUpDown = new System.Windows.Forms.NumericUpDown();
+            this._rinominaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this._splitContainer)).BeginInit();
             this._splitContainer.Panel1.SuspendLayout();
             this._splitContainer.Panel2.SuspendLayout();
@@ -90,26 +91,27 @@
             this._elementoContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._eliminaToolStripMenuItem,
             this._spostaSuToolStripMenuItem,
-            this._spostaGiuToolStripMenuItem});
+            this._spostaGiuToolStripMenuItem,
+            this._rinominaToolStripMenuItem});
             this._elementoContextMenu.Name = "_elementoContextMenu";
-            this._elementoContextMenu.Size = new System.Drawing.Size(131, 70);
+            this._elementoContextMenu.Size = new System.Drawing.Size(135, 92);
             // 
             // _eliminaToolStripMenuItem
             // 
             this._eliminaToolStripMenuItem.Name = "_eliminaToolStripMenuItem";
-            this._eliminaToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this._eliminaToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this._eliminaToolStripMenuItem.Text = "Elimina";
             // 
             // _spostaSuToolStripMenuItem
             // 
             this._spostaSuToolStripMenuItem.Name = "_spostaSuToolStripMenuItem";
-            this._spostaSuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this._spostaSuToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this._spostaSuToolStripMenuItem.Text = "Sposta Su";
             // 
             // _spostaGiuToolStripMenuItem
             // 
             this._spostaGiuToolStripMenuItem.Name = "_spostaGiuToolStripMenuItem";
-            this._spostaGiuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this._spostaGiuToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this._spostaGiuToolStripMenuItem.Text = "Sposta Giù";
             // 
             // flowLayoutPanel1
@@ -128,7 +130,7 @@
             this._daLibreriaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(250, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(202, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -162,6 +164,7 @@
             // 
             this._nomeField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._nomeField.Enabled = false;
             this._nomeField.Location = new System.Drawing.Point(212, 18);
             this._nomeField.Name = "_nomeField";
             this._nomeField.Size = new System.Drawing.Size(280, 20);
@@ -204,6 +207,12 @@
             0,
             0});
             // 
+            // _rinominaToolStripMenuItem
+            // 
+            this._rinominaToolStripMenuItem.Name = "_rinominaToolStripMenuItem";
+            this._rinominaToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this._rinominaToolStripMenuItem.Text = "Rinomina...";
+            // 
             // SequenzaEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,5 +253,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem _aggiungiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _daLibreriaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _rinominaToolStripMenuItem;
     }
 }

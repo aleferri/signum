@@ -42,16 +42,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this._nomeField = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this._startPicker = new System.Windows.Forms.DateTimePicker();
-            this._toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this._startPicker = new Signum.View.Utils.TimePicker();
             this.label3 = new System.Windows.Forms.Label();
-            this._endPicker = new System.Windows.Forms.DateTimePicker();
+            this._endPicker = new Signum.View.Utils.TimePicker();
+            this._toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this._labelMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._nuovaSequenzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._aggiungiSequenzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this._eliminaSequenzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this._rinominaSequenzaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._sequenzaFlowTop.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this._sequenzaFlowBottom.SuspendLayout();
             this._editorContainer.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this._labelMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // _sequenzaFlowTop
@@ -172,6 +179,7 @@
             // 
             this._nomeField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this._nomeField.Enabled = false;
             this._nomeField.Location = new System.Drawing.Point(109, 3);
             this._nomeField.Name = "_nomeField";
             this._nomeField.Size = new System.Drawing.Size(150, 20);
@@ -188,18 +196,18 @@
             // 
             // _startPicker
             // 
-            this._startPicker.CustomFormat = "HH:mm";
-            this._startPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this._startPicker.CanGoDown = true;
+            this._startPicker.CanGoUp = true;
+            this._startPicker.InitValue = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
             this._startPicker.Location = new System.Drawing.Point(371, 3);
+            this._startPicker.MinuteInterval = 1;
             this._startPicker.Name = "_startPicker";
-            this._startPicker.ShowUpDown = true;
-            this._startPicker.Size = new System.Drawing.Size(86, 20);
-            this._startPicker.TabIndex = 2;
-            this._startPicker.Value = new System.DateTime(2017, 7, 21, 0, 0, 0, 0);
+            this._startPicker.Size = new System.Drawing.Size(120, 20);
+            this._startPicker.TabIndex = 6;
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(463, 0);
+            this.label3.Location = new System.Drawing.Point(497, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 25);
             this.label3.TabIndex = 5;
@@ -208,14 +216,54 @@
             // 
             // _endPicker
             // 
-            this._endPicker.CustomFormat = "HH:mm";
-            this._endPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this._endPicker.Location = new System.Drawing.Point(569, 3);
+            this._endPicker.CanGoDown = true;
+            this._endPicker.CanGoUp = true;
+            this._endPicker.InitValue = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            this._endPicker.Location = new System.Drawing.Point(603, 3);
+            this._endPicker.MinuteInterval = 1;
             this._endPicker.Name = "_endPicker";
-            this._endPicker.ShowUpDown = true;
-            this._endPicker.Size = new System.Drawing.Size(86, 20);
-            this._endPicker.TabIndex = 4;
-            this._endPicker.Value = new System.DateTime(2017, 7, 21, 0, 0, 0, 0);
+            this._endPicker.Size = new System.Drawing.Size(120, 20);
+            this._endPicker.TabIndex = 7;
+            // 
+            // _labelMenuStrip
+            // 
+            this._labelMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._nuovaSequenzaToolStripMenuItem,
+            this._aggiungiSequenzaToolStripMenuItem,
+            this.toolStripSeparator1,
+            this._eliminaSequenzaToolStripMenuItem,
+            this._rinominaSequenzaToolStripMenuItem});
+            this._labelMenuStrip.Name = "_labelMenuStrip";
+            this._labelMenuStrip.Size = new System.Drawing.Size(179, 98);
+            // 
+            // _nuovaSequenzaToolStripMenuItem
+            // 
+            this._nuovaSequenzaToolStripMenuItem.Name = "_nuovaSequenzaToolStripMenuItem";
+            this._nuovaSequenzaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this._nuovaSequenzaToolStripMenuItem.Text = "Nuova Sequenza";
+            // 
+            // _aggiungiSequenzaToolStripMenuItem
+            // 
+            this._aggiungiSequenzaToolStripMenuItem.Name = "_aggiungiSequenzaToolStripMenuItem";
+            this._aggiungiSequenzaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this._aggiungiSequenzaToolStripMenuItem.Text = "Aggiungi Sequenza";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
+            // 
+            // _eliminaSequenzaToolStripMenuItem
+            // 
+            this._eliminaSequenzaToolStripMenuItem.Name = "_eliminaSequenzaToolStripMenuItem";
+            this._eliminaSequenzaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this._eliminaSequenzaToolStripMenuItem.Text = "Elimina Sequenza";
+            // 
+            // _rinominaSequenzaToolStripMenuItem
+            // 
+            this._rinominaSequenzaToolStripMenuItem.Name = "_rinominaSequenzaToolStripMenuItem";
+            this._rinominaSequenzaToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this._rinominaSequenzaToolStripMenuItem.Text = "Rinomina Sequenza";
             // 
             // ProgrammazioneGiornalieraEditor
             // 
@@ -233,6 +281,7 @@
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this._labelMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -253,8 +302,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox _nomeField;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker _startPicker;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker _endPicker;
+        private Utils.TimePicker _startPicker;
+        private Utils.TimePicker _endPicker;
+        private System.Windows.Forms.ContextMenuStrip _labelMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem _nuovaSequenzaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _aggiungiSequenzaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem _eliminaSequenzaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem _rinominaSequenzaToolStripMenuItem;
     }
 }

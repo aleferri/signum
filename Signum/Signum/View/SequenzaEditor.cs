@@ -16,6 +16,7 @@ namespace Signum.View
         public ToolStripMenuItem EliminaOption => _eliminaToolStripMenuItem;
         public ToolStripMenuItem MoveUpOption => _spostaSuToolStripMenuItem;
         public ToolStripMenuItem MoveDownOption => _spostaGiuToolStripMenuItem;
+        public ToolStripMenuItem RenameOption => _rinominaToolStripMenuItem;
 
         public SequenzaEditor()
         {

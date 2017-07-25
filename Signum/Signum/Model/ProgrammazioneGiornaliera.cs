@@ -10,7 +10,7 @@ namespace Signum.Model
 
     public class ProgrammazioneGiornaliera : ICopiable<ProgrammazioneGiornaliera>
     {
-        private static readonly Sequenza SEQUENZA_DUMMY = new Sequenza();
+        public static readonly Sequenza SEQUENZA_DUMMY = new Sequenza();
 
         public static readonly int QUARTERS_IN_DAY = 4 * 24;
         public static readonly int QUARTER_DURATION = 15 * 60;
@@ -58,6 +58,9 @@ namespace Signum.Model
                 return result;
             }
         }
+
+        public Sequenza this[uint index] => _sequenze[index];
+        public Sequenza this[int index] => _sequenze[index];
 
         public ProgrammazioneGiornaliera()
         {
@@ -120,13 +123,13 @@ namespace Signum.Model
                 return false;
             }
             bool accepted = true;
-            for (uint i = f.StartQuarter; i < f.EndQuarter + 1; i++)
+            for (uint i = f.StartQuarter; i < f.EndQuarter; i++)
             {
                 accepted &= SEQUENZA_DUMMY == _sequenze[i];
             }
             if (accepted)
             {
-                for (uint i = f.StartQuarter; i < f.EndQuarter + 1; i++)
+                for (uint i = f.StartQuarter; i < f.EndQuarter; i++)
                 {
                     _sequenze[i] = s;
                 }
@@ -145,7 +148,7 @@ namespace Signum.Model
             for(int i = 0; i < _sequenze.Length; i++)
             {
                 if(_sequenze[i] == s && -1 == sQuarter) sQuarter = i;
-                if (_sequenze[i] == s && (-1 == eQuarter || -1 != sQuarter)) eQuarter = i;
+                if (_sequenze[i] == s && (-1 == eQuarter || -1 != sQuarter)) eQuarter = i + 1;
                 if (-1 != sQuarter && -1 != eQuarter && _sequenze[i] != s) break;
             }
 

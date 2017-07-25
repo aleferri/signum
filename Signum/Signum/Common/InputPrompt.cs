@@ -41,7 +41,7 @@ namespace Signum.Common
             return upPanel;
         }
 
-        public static string ShowInputDialog(string message, string title, string ok, string cancel)
+        public static string ShowInputDialog(string message, string title, string ok, string cancel, string content)
         {
             using (InputDialog form = new InputDialog())
             {
@@ -49,8 +49,9 @@ namespace Signum.Common
                 form.Cancel.Text = cancel;
                 form.MessageLabel.Text = message;
                 form.Text = title;
+                form.InputField.Text = content;
                 DialogResult result = form.ShowDialog();
-                if(result != DialogResult.OK || result == DialogResult.OK && form.InputField.Text == "")
+                if (result != DialogResult.OK || result == DialogResult.OK && form.InputField.Text == "")
                 {
                     return null;
                 }
@@ -58,15 +59,19 @@ namespace Signum.Common
                 return form.InputField.Text;
             }
         }
+        public static string ShowInputDialog(string message, string title, string ok, string cancel)
+        {
+            return ShowInputDialog(message, title, ok, cancel, "");
+        }
 
         public static string ShowInputDialog(string message, string title)
         {
-            return ShowInputDialog(message, title, "OK", "Cancel");
+            return ShowInputDialog(message, title, "OK", "Cancel", "");
         }
 
         public static string ShowInputDialog(string message)
         {
-            return ShowInputDialog(message, "Input", "OK", "Cancel");
+            return ShowInputDialog(message, "Input", "OK", "Cancel", "");
         }
     }
 }

@@ -33,7 +33,6 @@ namespace Signum.Presentation
             _editorFactory = Documento.getInstance().EditorFactory;
             _editor.Dock = DockStyle.Fill;
             Sequenza s = new Sequenza();
-            s.AggiungiElemento(Elemento.Default, 1);
             CaricaSequenza(new PersisterMapper<Sequenza>(s));
 
             _draggedElementIndex = -1;
@@ -67,6 +66,7 @@ namespace Signum.Presentation
             _editor.EliminaOption.Click += OnEliminaClick;
             _editor.MoveUpOption.Click += OnUpClick;
             _editor.MoveDownOption.Click += OnDownClick;
+            _editor.RenameOption.Click += OnRinominaClick;
             foreach(ToolStripMenuItem item in _editor.AggiungiOption.DropDownItems)
             {
                 item.Click += OnNuovoClick;
@@ -200,6 +200,19 @@ namespace Signum.Presentation
         private void OnDownClick(object sender, EventArgs args)
         {
             Move(false, _editor.Lista.SelectedIndex);
+        }
+        private void OnRinominaClick(object sender, EventArgs args)
+        {
+            int index = _editor.Lista.SelectedIndex;
+            Elemento e = _sequenza[index];
+            string newName = InputPrompt.ShowInputDialog("Rinomina l'elemento selezionato", "Rinomina", "OK", "Annulla", e.Nome);
+            if (null == newName) return;
+            e.Nome = newName;
+            if (index == _currentElemento.ID)
+            {
+                _editor.NomeField.Text = newName;
+            }
+            FillList();
         }
         private void OnLibreriaChange(object sender, EventArgs args)
         {

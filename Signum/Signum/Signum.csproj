@@ -150,6 +150,12 @@
     <Compile Include="View\Utils\DoubleBufferControl.Designer.cs">
       <DependentUpon>DoubleBufferControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Utils\TimePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Utils\TimePicker.Designer.cs">
+      <DependentUpon>TimePicker.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Common\InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Utils\DoubleBufferControl.resx">
       <DependentUpon>DoubleBufferControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Utils\TimePicker.resx">
+      <DependentUpon>TimePicker.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
