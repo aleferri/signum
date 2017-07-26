@@ -1,15 +1,11 @@
 ﻿using Signum.Presentation.EditorsHandling;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Signum.Model;
 using System.Windows.Forms;
 using Signum.View;
 using ModelManaging;
 using System.Drawing;
-using Signum.View.Utils;
 using Signum.Common;
 
 namespace Signum.Presentation
@@ -23,7 +19,7 @@ namespace Signum.Presentation
         private IEditorPresenter _sequenzaEditor;
         private PersisterMapper<ProgrammazioneGiornaliera> _wrapper;
         private Sequenza _currentSequenza;
-
+        private int _selectedLabel;
 
         public Control Editor => _editor;
 
@@ -33,14 +29,17 @@ namespace Signum.Presentation
             _editor.Dock = DockStyle.Fill;          
             _editor.EndPicker.MinuteInterval = _editor.StartPicker.MinuteInterval = ProgrammazioneGiornaliera.QUARTER_DURATION / 60;
             ProgrammazioneGiornaliera progr = new ProgrammazioneGiornaliera();
-            progr.InserisciSequenza(Sequenza.Default, new FasciaOraria(0, 4));
+            progr.InserisciSequenza(Sequenza.Default, new FasciaOraria(0, 96));
             CaricaProgrammazione(new PersisterMapper<ProgrammazioneGiornaliera>(progr));
             SetEventHandlers();
+            OnLibreriaChange(null, EventArgs.Empty);
             VisualizzaEditorPer(progr.Sequenze.ElementAt(0));
+            _selectedLabel = -1;
         }
 
         private void SetEventHandlers()
         {
+            Documento.getInstance().LibreriaChanged += OnLibreriaChange;
             _editor.StartPicker.ValueChanged += OnPickerChange;
             _editor.EndPicker.ValueChanged += OnPickerChange;
             _editor.Labels.ToList().ForEach(l => l.MouseUp += OnLabelMouseUp);
@@ -90,8 +89,8 @@ namespace Signum.Presentation
             _editor.NomeField.Text = s.Nome;
             FasciaOraria fo = _wrapper.Element.GetFasciaOrariaOf(s);
             _currentSequenza = s;
-            _editor.StartPicker.InitValue = new DateTime(1970, 1, 1, fo.StartHourEquivalent(), fo.StartMinuteEquivalent(), 0);
-            _editor.EndPicker.InitValue = new DateTime(1970, 1, 1, fo.EndHourEquivalent(), fo.EndMinuteEquivalent(), 0);
+            _editor.StartPicker.InitValue = fo.StartToDateTime();
+            _editor.EndPicker.InitValue = fo.EndToDateTime();
             ControllaPickers(fo);
         }
         private void UpdateLabels()
@@ -134,7 +133,7 @@ namespace Signum.Presentation
         {
             Label clicked = (Label)sender;
             Sequenza s = clicked.Tag as Sequenza;
-            if (null == s) throw new ArgumentException("Il tag della label selezionata non è una sequenza");
+            if (null == s) return;
             VisualizzaEditorPer(s);
         }
         private void OnLabelMouseUp(object sender, MouseEventArgs args)
@@ -143,14 +142,15 @@ namespace Signum.Presentation
             {
                 Label label = (Label)sender;
                 bool isEmpty = null == label.Tag;
+                _selectedLabel = _editor.Labels.ToList().IndexOf(label);
+
                 _editor.EliminaSequenzaOption.Enabled = !isEmpty;
                 _editor.EliminaSequenzaOption.Tag = label.Tag;
                 _editor.RinominaSequenzaOption.Enabled = !isEmpty;
                 _editor.RinominaSequenzaOption.Tag = label.Tag;
                 _editor.NuovaSequenzaOption.Enabled = isEmpty;
-                _editor.NuovaSequenzaOption.Tag = _editor.Labels.ToList().IndexOf(label);
+                _editor.NuovaSequenzaOption.Tag = _selectedLabel;
                 _editor.AggiungiSequenzaOption.Enabled = isEmpty;
-
                 _editor.LabelMenuStrip.Show(label, args.X, args.Y);
             }
         }
@@ -191,6 +191,17 @@ namespace Signum.Presentation
             VisualizzaEditorPer(s);
             UpdateLabels();
         }
+        private void OnAggiungiSequenzaClick(object sender, EventArgs args)
+        {
+            if (0 > _selectedLabel) return;
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            Sequenza s = item.Tag as Sequenza;
+            if(null == s) throw new ArgumentException("Tag nullo nella lista delle sequenze da libreria");
+            _wrapper.Element.InserisciSequenza(s, new FasciaOraria((uint)_selectedLabel, (uint)++_selectedLabel));
+            VisualizzaEditorPer(s);
+            UpdateLabels();
+            _selectedLabel = -1;
+        }
         private void OnPickerChange(object sender, EventArgs args)
         {
             DateTime start = _editor.StartPicker.Value;
@@ -199,6 +210,18 @@ namespace Signum.Presentation
             _wrapper.Element.UpdateFasciaOraria(_currentSequenza, fo);
             UpdateLabels();
             ControllaPickers(fo);
+        }
+        private void OnLibreriaChange(object sender, EventArgs args)
+        {
+            _editor.AggiungiSequenzaOption.DropDownItems.Clear();
+            foreach(PersisterMapper<Sequenza> s in Documento.getInstance().Libreria.Sequenze)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = s.Element.Nome;
+                item.Tag = s.Element;
+                item.Click += OnAggiungiSequenzaClick;
+                _editor.AggiungiSequenzaOption.DropDownItems.Add(item);
+            }
         }
 
         public void OnSave(object sender, EventArgs args)

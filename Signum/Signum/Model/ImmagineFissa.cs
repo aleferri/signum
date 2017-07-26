@@ -23,7 +23,7 @@ namespace Signum.Model
         {
             defaultImage = new ImmagineFissa(new Frame(args.NuovoModello.Size));
             defaultImage.Nome = "<immagine fissa>";
-            defaultImage.InformazioneAssociata = new InformazioneTestuale("");
+            defaultImage.InformazioneAssociata = new InformazioneDataOra();
         }
 
         private readonly Frame _frame;

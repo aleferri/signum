@@ -4,12 +4,7 @@ using Signum.Model;
 using Signum.Presentation.EditorsHandling;
 using Signum.View;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Signum.Presentation
@@ -32,8 +27,7 @@ namespace Signum.Presentation
             _editor = new SequenzaEditor();
             _editorFactory = Documento.getInstance().EditorFactory;
             _editor.Dock = DockStyle.Fill;
-            Sequenza s = new Sequenza();
-            CaricaSequenza(new PersisterMapper<Sequenza>(s));
+            CaricaSequenza(new PersisterMapper<Sequenza>(Sequenza.Default));
 
             _draggedElementIndex = -1;
 

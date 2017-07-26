@@ -11,7 +11,8 @@ namespace Signum.Model
 
         public static FasciaOraria FromDateTime(DateTime start, DateTime end)
         {
-            return new FasciaOraria((uint)(start.Hour * 60 / 15 + start.Minute / 15), (uint)(end.Hour * 60 / 15 + end.Minute / 15));
+            uint endQuarter = end.Day == 2 && end.Hour == 0 ? 96 : (uint)(end.Hour * 60 / 15 + end.Minute / 15);
+            return new FasciaOraria((uint)(start.Hour * 60 / 15 + start.Minute / 15), endQuarter);
         }
 
         private readonly uint _startQuarter;
@@ -43,6 +44,15 @@ namespace Signum.Model
         public int EndMinuteEquivalent()
         {
             return (int)_endQuarter * 15 % 60;
+        }
+        public DateTime StartToDateTime()
+        {
+           return new DateTime(1970, 1, 1, StartHourEquivalent(), StartMinuteEquivalent(), 0);
+        }
+        public DateTime EndToDateTime()
+        {
+            bool is24 = 24 == EndHourEquivalent();
+            return new DateTime(1970, 1, is24 ? 2 : 1, is24 ? 0 : EndHourEquivalent(), EndMinuteEquivalent(), 0);
         }
         public override string ToString()
         {

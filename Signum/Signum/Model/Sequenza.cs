@@ -17,7 +17,7 @@ namespace Signum.Model
         public static readonly uint MAX_DURATION = 60 * 60 * 24;
         private static Sequenza defaultSequenza;
 
-        public static Sequenza Default => (Sequenza)defaultSequenza.Copy();
+        public static Sequenza Default => defaultSequenza.Copy();
 
         static Sequenza()
         {
@@ -49,7 +49,6 @@ namespace Signum.Model
         public Sequenza()
         {
             _elementi = new List<KeyValuePair<Elemento, uint>>();
-            AggiungiElemento(Elemento.Default, 1);
         }
         public void AggiungiElemento(Elemento elemento, uint durata)
         {
