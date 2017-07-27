@@ -226,7 +226,13 @@ namespace Signum.Presentation
 
         public void OnSave(object sender, EventArgs args)
         {
-            throw new NotImplementedException();
+            if (null == _wrapper.Element.Nome || "" == _wrapper.Element.Nome)
+            {
+                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per la programmazione", "Nuova Programmazione", "Salva", "Annulla");
+                if (null == nome) return;
+                _wrapper.Element.Nome = nome;
+            }
+            Documento.getInstance().Libreria.AggiungiProgrGiornaliera(_wrapper);
         }
         #endregion
     }

@@ -121,7 +121,23 @@ namespace Signum.Model
         }
         public void AggiungiProgrGiornaliera(PersisterMapper<ProgrammazioneGiornaliera> progrGiornaliera)
         {
-            throw new NotImplementedException();
+            string nomeFile = _base + progrGiornaliera.Element.Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".prg";
+            if(progrGiornaliera.ID >= 0 && progrGiornaliera.ID < _progrGiornaliere.Count)
+            {
+                _progrGiornaliere.RemoveAt(progrGiornaliera.ID);
+                _progrGiornaliere.Insert(progrGiornaliera.ID, progrGiornaliera.Element);
+            }
+            else
+            {
+                if (!Overwrite(nomeFile)) return;
+                _progrGiornaliere.Add(progrGiornaliera.Element);
+            }
+
+            //using(BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
+            {
+                MessageBox.Show(null, "Hai salvato una programmazione giornaliera, anche se non su filesystem ancora :D", ":D");
+            }
+
             LibreriaChange?.Invoke(this, EventArgs.Empty);
         }
         public void AggiungiSequenza(PersisterMapper<Sequenza> sequenza)

@@ -161,6 +161,7 @@ namespace Signum.Model
             {
                 p.AggiungiSequenza(s);
             }
+            p.Nome = Nome;
             return p;
         }
     }

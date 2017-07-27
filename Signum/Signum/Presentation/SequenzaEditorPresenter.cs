@@ -243,7 +243,7 @@ namespace Signum.Presentation
         {
             if (null == _sequenza.Nome || "" == _sequenza.Nome)
             {
-                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Ok", "Annulla");
+                string nome = InputPrompt.ShowInputDialog("Inserisci il nome per il nuovo elemento", "Nuovo Elemento", "Salva", "Annulla");
                 if (null == nome) return;
                 _sequenza.Nome = nome;
             }
