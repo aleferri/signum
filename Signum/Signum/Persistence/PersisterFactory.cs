@@ -13,6 +13,8 @@ namespace Signum.Persistence
         public readonly static byte IMMAGINE_FISSA = Convert.ToByte(PersisterTypes.IMMAGINE_FISSA);
         public readonly static byte ANIMAZIONE = Convert.ToByte(PersisterTypes.ANIMAZIONE);
         public readonly static byte SEQUENZA = Convert.ToByte(PersisterTypes.SEQUENZA);
+        public readonly static byte PROGRAMMAZIONE_GIORNALIERA = Convert.ToByte(PersisterTypes.PROGRAMMAZIONE_GIORNALIERA);
+        public readonly static byte PROGRAMMAZIONE_SETTIMANALE = Convert.ToByte(PersisterTypes.PROGRAMMAZIONE_SETTIMANALE);
 
         private static IPersister[] _persisters;
 
@@ -24,6 +26,8 @@ namespace Signum.Persistence
             _persisters[IMMAGINE_FISSA] = new ImmagineFissaPersister();
             _persisters[ANIMAZIONE] = new AnimazionePersister();
             _persisters[SEQUENZA] = new SequenzaPersister();
+            _persisters[PROGRAMMAZIONE_GIORNALIERA] = new SequenzaPersister();
+            _persisters[PROGRAMMAZIONE_SETTIMANALE] = new SequenzaPersister();
         }
 
         #region legacy_support

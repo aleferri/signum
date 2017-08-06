@@ -58,7 +58,7 @@ namespace Signum.Model
                 return result;
             }
         }
-
+       
         public Sequenza this[uint index] => _sequenze[index];
         public Sequenza this[int index] => _sequenze[index];
 
@@ -104,7 +104,10 @@ namespace Signum.Model
             }
             return accepted;
         }
-
+        public int Count()
+        {
+            return _sequenze.Count();
+        }
         public void Remove(Sequenza s)
         {
             for (int i = 0; i < _sequenze.Length; i++)
