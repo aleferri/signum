@@ -32,7 +32,7 @@ namespace Signum.Persistence
             {
                 type = br.ReadString();
                 pg = persister.Retrieve(br);
-                result.SetProgrammazione(pg, (DayOfWeek)dow);
+                result[(DayOfWeek)dow] = pg;
                 dow = br.ReadInt32();
             }
             // Out
@@ -54,10 +54,10 @@ namespace Signum.Persistence
             ProgrammazioneGiornaliera pg;
             foreach(DayOfWeek dow in Enum.GetValues(typeof(DayOfWeek)))
             {
-                pg = elem.GetProgrammazione(dow);
+                pg = elem[dow];
                 if (pg == null) continue;
                 bw.Write((int)dow);
-                persister.Save(elem.GetProgrammazione(dow), bw);
+                persister.Save(elem[dow], bw);
             }
             bw.Write(-1);
         }

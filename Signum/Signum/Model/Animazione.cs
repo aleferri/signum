@@ -62,6 +62,7 @@ namespace Signum.Model
             result.Nome = Nome;
             return result;
         }
+
         public override string ToString()
         {
             return String.Format("Animazione -> \"{0}", InformazioneAssociata.Accept(new ValutatoreInformazione()));

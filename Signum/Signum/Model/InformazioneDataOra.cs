@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,10 @@ namespace Signum.Model
         public IInformazione Copy()
         {
             return new InformazioneDataOra();
+        }
+        object ICopiable.Copy()
+        {
+            return Copy();
         }
     }
 }

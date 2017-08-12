@@ -15,5 +15,10 @@ namespace Signum.Model
         void AggiungiElemento(PersisterMapper<Elemento> elemento);
         void AggiungiSequenza(PersisterMapper<Sequenza> sequenza);
         void AggiungiProgrGiornaliera(PersisterMapper<ProgrammazioneGiornaliera> progrGiornaliera);
+
+        void EliminaImmagineFissa(int index);
+        void EliminaAnimazione(int index);
+        void EliminaSequenza(int index);
+        void EliminaProgrGiornaliera(int index);
     }
 }

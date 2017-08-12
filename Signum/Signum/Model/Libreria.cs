@@ -133,9 +133,9 @@ namespace Signum.Model
                 _progrGiornaliere.Add(progrGiornaliera.Element);
             }
 
-            //using(BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
+            using(BinaryWriter bw = new BinaryWriter(new FileStream(nomeFile, FileMode.Create)))
             {
-                MessageBox.Show(null, "Hai salvato una programmazione giornaliera, anche se non su filesystem ancora :D", ":D");
+                PersisterFactory.GetPersister(progrGiornaliera.Element.GetType()).Save(progrGiornaliera.Element, bw);
             }
 
             LibreriaChange?.Invoke(this, EventArgs.Empty);
@@ -161,7 +161,62 @@ namespace Signum.Model
             }
 
             LibreriaChange?.Invoke(this, EventArgs.Empty);
+        }
 
+        public void EliminaImmagineFissa(int index)
+        {
+            string nomeFile = _base + _immaginiFisse[index].Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".elem";
+            try
+            {
+                File.Delete(nomeFile);
+            }
+            catch
+            {
+            }
+            _immaginiFisse.RemoveAt(index);
+            LibreriaChange?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void EliminaAnimazione(int index)
+        {
+            string nomeFile = _base + _animazioni[index].Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".elem";
+            try
+            {
+                File.Delete(nomeFile);
+            }
+            catch
+            {
+            }
+            _animazioni.RemoveAt(index);
+            LibreriaChange?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void EliminaSequenza(int index)
+        {
+            string nomeFile = _base + _sequenze[index].Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".seq";
+            try
+            {
+                File.Delete(nomeFile);
+            }
+            catch
+            {
+            }
+            _sequenze.RemoveAt(index);
+            LibreriaChange?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void EliminaProgrGiornaliera(int index)
+        {
+            string nomeFile = _base + _progrGiornaliere[index].Nome + "_" + Documento.getInstance().ModelloRiferimento.ToString() + ".prg";
+            try
+            {
+                File.Delete(nomeFile);
+            }
+            catch
+            {
+            }
+            _progrGiornaliere.RemoveAt(index);
+            LibreriaChange?.Invoke(this, EventArgs.Empty);
         }
     }
 }

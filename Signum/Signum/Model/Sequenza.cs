@@ -106,6 +106,10 @@ namespace Signum.Model
             _elementi.ForEach(e => s.AggiungiElemento(e.Key.Copy(), e.Value));
             return s;
         } 
+        object ICopiable.Copy()
+        {
+            return Copy();
+        }
 
         public IList GetList()
         {

@@ -167,5 +167,9 @@ namespace Signum.Model
             p.Nome = Nome;
             return p;
         }
+        object ICopiable.Copy()
+        {
+            return Copy();
+        }
     }
 }
