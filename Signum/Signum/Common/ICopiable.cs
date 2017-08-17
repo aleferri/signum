@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Signum.Common
 {
-    public interface ICopiable<T>
+    public interface ICopiable
     {
-        T Copy();
+        object Copy();
+    }
+
+    public interface ICopiable<T> : ICopiable
+    {
+        new T Copy();
     }
 }

@@ -24,9 +24,13 @@ namespace Signum.Model
         {
             _informazione = new InformazioneDataOra();
         }
+
         public abstract override string ToString();
         public abstract Elemento Copy();
-
+        object ICopiable.Copy()
+        {
+            return Copy();
+        }
     }
 
     public class ElementoDummy : Elemento
@@ -43,7 +47,6 @@ namespace Signum.Model
         {
             return DUMMY;
         }
-
         public override string ToString()
         {
             return "Nessun Elemento";

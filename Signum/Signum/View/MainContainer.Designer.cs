@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._nuovoProgettoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,11 +43,14 @@
             this._salvaTooltipButton = new System.Windows.Forms.ToolStripButton();
             this._outerSplitContainer = new System.Windows.Forms.SplitContainer();
             this._libreriaTreeView = new System.Windows.Forms.TreeView();
+            this._contextMenuTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this._eliminaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).BeginInit();
             this._outerSplitContainer.Panel1.SuspendLayout();
             this._outerSplitContainer.SuspendLayout();
+            this._contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -175,11 +179,25 @@
             // 
             // _libreriaTreeView
             // 
+            this._libreriaTreeView.ContextMenuStrip = this._contextMenuTreeView;
             this._libreriaTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._libreriaTreeView.Location = new System.Drawing.Point(0, 0);
             this._libreriaTreeView.Name = "_libreriaTreeView";
             this._libreriaTreeView.Size = new System.Drawing.Size(131, 553);
             this._libreriaTreeView.TabIndex = 0;
+            // 
+            // _contextMenuTreeView
+            // 
+            this._contextMenuTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._eliminaToolStripMenuItem});
+            this._contextMenuTreeView.Name = "_contextMenuTreeView";
+            this._contextMenuTreeView.Size = new System.Drawing.Size(114, 26);
+            // 
+            // _eliminaToolStripMenuItem
+            // 
+            this._eliminaToolStripMenuItem.Name = "_eliminaToolStripMenuItem";
+            this._eliminaToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this._eliminaToolStripMenuItem.Text = "Elimina";
             // 
             // MainContainer
             // 
@@ -197,6 +215,7 @@
             this._outerSplitContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._outerSplitContainer)).EndInit();
             this._outerSplitContainer.ResumeLayout(false);
+            this._contextMenuTreeView.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,5 +237,7 @@
         private System.Windows.Forms.ToolStripMenuItem _cambiaModelloDiRiferimentoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _modificaToolStripMenuItem;
         private System.Windows.Forms.TreeView _libreriaTreeView;
+        private System.Windows.Forms.ContextMenuStrip _contextMenuTreeView;
+        private System.Windows.Forms.ToolStripMenuItem _eliminaToolStripMenuItem;
     }
 }

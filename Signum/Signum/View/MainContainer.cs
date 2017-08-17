@@ -13,6 +13,7 @@ namespace Signum.View
         public ToolStripMenuItem MenuModifica => _modificaToolStripMenuItem;
         public ToolStripMenuItem NuovoMenu => _nuovoProgettoToolStripMenuItem;
         public ToolStripItem[] SaveItems => new ToolStripItem[] { _salvaToolStripMenuItem, _salvaTooltipButton };
+        public ToolStripItem Elimina => _eliminaToolStripMenuItem;
 
         public MainContainer()
         {

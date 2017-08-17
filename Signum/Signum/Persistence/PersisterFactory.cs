@@ -26,8 +26,8 @@ namespace Signum.Persistence
             _persisters[IMMAGINE_FISSA] = new ImmagineFissaPersister();
             _persisters[ANIMAZIONE] = new AnimazionePersister();
             _persisters[SEQUENZA] = new SequenzaPersister();
-            _persisters[PROGRAMMAZIONE_GIORNALIERA] = new SequenzaPersister();
-            _persisters[PROGRAMMAZIONE_SETTIMANALE] = new SequenzaPersister();
+            _persisters[PROGRAMMAZIONE_GIORNALIERA] = new ProgrammazioneGiornalieraPersister();
+            _persisters[PROGRAMMAZIONE_SETTIMANALE] = new ProgrammazioneSettimanalePersister();
         }
 
         #region legacy_support

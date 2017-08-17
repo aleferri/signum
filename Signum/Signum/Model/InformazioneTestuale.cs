@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signum.Common;
+using System;
 
 namespace Signum.Model
 {
@@ -21,6 +22,10 @@ namespace Signum.Model
         public IInformazione Copy()
         {
             return new InformazioneTestuale(String.Copy(_value));
+        }
+        object ICopiable.Copy()
+        {
+            return Copy();
         }
     }
 }

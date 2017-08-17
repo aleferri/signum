@@ -9,8 +9,7 @@ namespace Signum.Presentation.EditorsHandling
     abstract class ElementoEditorPresenter : IEditorPresenter
     {
         private ElementEditor _editor;
-        private PersisterMapper<Elemento> _wrapper;
-
+        private PersisterMapper<Elemento> _wrapper; 
         protected PersisterMapper<Elemento> Mapper
         {
             get => _wrapper;
