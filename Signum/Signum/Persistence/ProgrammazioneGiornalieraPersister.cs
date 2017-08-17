@@ -60,11 +60,14 @@ namespace Signum.Persistence
             // Sequenze
             SequenzaPersister persister = new SequenzaPersister();
             FasciaOraria fo;
-            bw.Write(elem.Count());
+            Sequenza sq;
+            bw.Write(elem.Count()-elem.nDummy());
             for (int i = 0; i < elem.Count(); i++)
             {
-                persister.Save(elem[i], bw);
-                fo = elem.GetFasciaOrariaOf(elem[i]);
+                sq = elem[i];
+                if (sq == ProgrammazioneGiornaliera.SEQUENZA_DUMMY) continue;
+                persister.Save(sq, bw);
+                fo = elem.GetFasciaOrariaOf(sq);
                 bw.Write(fo.StartQuarter);
                 bw.Write(fo.EndQuarter);
             }

@@ -108,6 +108,15 @@ namespace Signum.Model
         {
             return _sequenze.Count();
         }
+        public int nDummy()
+        {
+            int res = 0;
+            foreach(Sequenza sq in _sequenze)
+            {
+                if (sq == SEQUENZA_DUMMY) res++;
+            }
+            return res;
+        }
         public void Remove(Sequenza s)
         {
             for (int i = 0; i < _sequenze.Length; i++)
