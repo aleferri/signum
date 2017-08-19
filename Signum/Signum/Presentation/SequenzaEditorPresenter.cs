@@ -27,7 +27,9 @@ namespace Signum.Presentation
             _editor = new SequenzaEditor();
             _editorFactory = Documento.getInstance().EditorFactory;
             _editor.Dock = DockStyle.Fill;
-            CaricaSequenza(new PersisterMapper<Sequenza>(Sequenza.Default));
+            Sequenza s = new Sequenza();
+            s.AggiungiElemento(Elemento.Default, 30);
+            CaricaSequenza(new PersisterMapper<Sequenza>(s));
 
             _draggedElementIndex = -1;
 

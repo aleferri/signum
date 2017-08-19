@@ -136,16 +136,17 @@ namespace Signum.Presentation
             _mainContainer.RightPanel.Controls.Clear();
             foreach (ToolStripItem item in _mainContainer.SaveItems)
             {
-                item.Enabled = true;
+                item.Enabled = false;
             }
         }
         private void OnLibreriaDoubleClick(object sender, MouseEventArgs args)
         {
             TreeNode clicked = _mainContainer.LibreriaView.GetNodeAt(new System.Drawing.Point(args.X, args.Y));
             if (null == clicked.Tag) return;
-            PersisterMapper obj = ((PersisterMapper)clicked.Tag).Copy();
+            PersisterMapper obj = (clicked.Tag as PersisterMapper);
+            if (null == obj) return;
             IEditorPresenter presenter = ChangePresenter(obj.Element.GetType());
-            presenter.CaricaModello(obj);
+            presenter.CaricaModello(obj.Copy());
         }
         private void OnLibreriaClick(object sender, MouseEventArgs args)
         {
@@ -168,6 +169,7 @@ namespace Signum.Presentation
         private void OnNewClick(object sender, EventArgs args)
         {
             ToolStripItem source = (ToolStripItem)sender;
+            if (null == source) return;
             ChangePresenter((Type)source.Tag);
         }
         #endregion
