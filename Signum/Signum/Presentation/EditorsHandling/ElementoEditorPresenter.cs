@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace Signum.Presentation.EditorsHandling
 {
+    /// <summary>
+    /// Classe base per gli elementi del modello
+    /// </summary>
     abstract class ElementoEditorPresenter : IEditorPresenter
     {
         private ElementEditor _editor;
@@ -63,7 +66,12 @@ namespace Signum.Presentation.EditorsHandling
             Mapper.Element.InformazioneAssociata = check ? (IInformazione)new InformazioneDataOra() : new InformazioneTestuale(_editor.InfoBox.Text);
         }
 
-        public void OnInfoBoxChanged(object sender, EventArgs args)
+        /// <summary>
+        /// EventHandler che gestisce cambiamenti nell'infobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnInfoBoxChanged(object sender, EventArgs args)
         {
             Mapper.Element.InformazioneAssociata = new InformazioneTestuale(_editor.InfoBox.Text);
         }
@@ -76,6 +84,7 @@ namespace Signum.Presentation.EditorsHandling
                 Mapper.Element.Nome = nome;
             }
             Documento.getInstance().Libreria.AggiungiElemento(Mapper);
+            MessageBox.Show(null, "Salvataggio terminato", "Successo");
         }
         #endregion
     }

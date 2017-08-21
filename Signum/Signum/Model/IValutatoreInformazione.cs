@@ -8,8 +8,17 @@ namespace Signum.Model
 {
     public interface IValutatoreInformazione<T>
     {
+        /// <summary>
+        /// Visita una informazione testuale
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         T Visit(InformazioneTestuale info);
-
+        /// <summary>
+        /// Visita una informazione data e ora
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         T Visit(InformazioneDataOra info);
     }
 }

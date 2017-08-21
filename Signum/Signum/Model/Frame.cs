@@ -50,13 +50,20 @@ namespace Signum.Model
         {
         }
 
+        /// <summary>
+        /// Restituisce un array di byte contenente le informazioni bit per bit sulla matrice di LED
+        /// </summary>
+        /// <returns></returns>
         public byte[] ToByteArray()
         {
             byte[] result = new byte[(_bitmap.Count - 1) / 8 + 1];
             _bitmap.CopyTo(result, 0);
             return result;
         }
-
+        /// <summary>
+        /// Restituisce un array di booleani contenente le informazioni sulla matrice di LED
+        /// </summary>
+        /// <returns></returns>
         public bool[] ToBoolArray()
         {
             bool[] result = new bool[_bitmap.Count];

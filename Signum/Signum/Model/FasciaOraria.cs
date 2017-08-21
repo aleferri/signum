@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Signum.Model
 {
@@ -29,26 +25,50 @@ namespace Signum.Model
             _endQuarter = endQuarter;
         }
 
+        /// <summary>
+        /// Restituisce l'ora dell'orario equivalente del punto d'inizio
+        /// </summary>
+        /// <returns></returns>
         public int StartHourEquivalent()
         {
             return (int)_startQuarter * 15 / 60;
         }
+        /// <summary>
+        /// Restituisce i minuti dell'orario equivalente del punto d'inizio
+        /// </summary>
+        /// <returns></returns>
         public int StartMinuteEquivalent()
         {
             return (int)_startQuarter * 15 % 60;
         }
+        /// <summary>
+        /// Restituisce l'ora dell'orario equivalente del punto di fine
+        /// </summary>
+        /// <returns></returns>
         public int EndHourEquivalent()
         {
             return (int)_endQuarter * 15 / 60;
         }
+        /// <summary>
+        /// Restituisce i minuti dell'orario equivalente del punto di fine
+        /// </summary>
+        /// <returns></returns>
         public int EndMinuteEquivalent()
         {
             return (int)_endQuarter * 15 % 60;
         }
+        /// <summary>
+        /// Restituisce un DateTime riportante l'equivalente temporale del punto d'inizio. La data non ha alcun significato
+        /// </summary>
+        /// <returns></returns>
         public DateTime StartToDateTime()
         {
            return new DateTime(1970, 1, 1, StartHourEquivalent(), StartMinuteEquivalent(), 0);
         }
+        /// <summary>
+        /// Restituisce un DateTime riportante l'equivalente temporale del punto di fine. La data non ha alcun significato
+        /// </summary>
+        /// <returns></returns>
         public DateTime EndToDateTime()
         {
             bool is24 = 24 == EndHourEquivalent();

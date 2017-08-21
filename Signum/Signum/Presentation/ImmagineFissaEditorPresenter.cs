@@ -16,6 +16,10 @@ namespace Signum.Presentation
             CaricaElemento(new PersisterMapper<Elemento>(new ImmagineFissa(new Frame(modello.Size))));
         }
 
+        /// <summary>
+        /// Dato il persisterMapper di un elemento, se esso è un'immagine fissa verrà caricato nell'editor.
+        /// </summary>
+        /// <param name="element"></param>
         public override void CaricaElemento(PersisterMapper<Elemento> element)
         {
             ImmagineFissa immagine = element.Element as ImmagineFissa;

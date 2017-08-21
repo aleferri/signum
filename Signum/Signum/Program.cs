@@ -3,9 +3,6 @@ using Signum.Model;
 using Signum.Presentation;
 using Signum.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Signum
@@ -20,7 +17,7 @@ namespace Signum
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Modello modello = ModelPane.showModelDialog();
+            Modello modello = ModelPane.ShowModelDialog();
             if (null == modello) Environment.Exit(1);
 
             Documento.getInstance().ModelloRiferimento = modello;

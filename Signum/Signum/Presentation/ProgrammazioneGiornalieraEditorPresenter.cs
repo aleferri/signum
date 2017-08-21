@@ -117,11 +117,19 @@ namespace Signum.Presentation
                 _wrapper.Element[fo.EndQuarter] == ProgrammazioneGiornaliera.SEQUENZA_DUMMY;
         }
 
+        /// <summary>
+        /// Carica nell'editor una programmazione giornaliera
+        /// </summary>
+        /// <param name="progr"></param>
         public void CaricaProgrammazione(PersisterMapper<ProgrammazioneGiornaliera> progr)
         {
             _wrapper = progr;
             UpdateLabels();
         }
+        /// <summary>
+        /// Carica nell'editor l'oggetto contenuto nel PersisterMapper, se è una programmazione giornaliera
+        /// </summary>
+        /// <param name="oggettoModello"></param>
         public void CaricaModello(PersisterMapper oggettoModello)
         {
             PersisterMapper<ProgrammazioneGiornaliera> tmp = oggettoModello as PersisterMapper<ProgrammazioneGiornaliera>;
@@ -233,6 +241,7 @@ namespace Signum.Presentation
                 _wrapper.Element.Nome = nome;
             }
             Documento.getInstance().Libreria.AggiungiProgrGiornaliera(_wrapper);
+            MessageBox.Show(null, "Salvataggio terminato", "Successo");
         }
         #endregion
     }

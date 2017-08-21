@@ -115,6 +115,10 @@ namespace Signum.Presentation
             return -1;
         }
 
+        /// <summary>
+        /// Dato il PersisterMapper di un Elemento, se esso è un'animazione verrà caricato nell'editor
+        /// </summary>
+        /// <param name="element"></param>
         public override void CaricaElemento(PersisterMapper<Elemento> element)
         {
             Animazione animazione = element.Element as Animazione;

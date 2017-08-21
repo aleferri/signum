@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Signum.Model
 {
+    /// <summary>
+    /// Wrapper usato per incapsulare un oggetto renderlo disponibile per gli editor tramite copia, con indicazione di un id che ne identifichi la persistenza
+    /// </summary>
     public abstract class PersisterMapper : ICopiable<PersisterMapper>
     {
         public int ID { get; }
@@ -31,6 +34,9 @@ namespace Signum.Model
         }
     }
 
+    /// <summary>
+    /// Wrapper usato per incapsulare un oggetto derivato da ICopiable renderlo disponibile per gli editor tramite copia, con indicazione di un id che ne identifichi la persistenza
+    /// </summary>
     public class PersisterMapper<W> : PersisterMapper, ICopiable<PersisterMapper<W>> where W : ICopiable<W>
     {
         private readonly W _element;

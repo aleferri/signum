@@ -18,6 +18,9 @@ namespace ModelManaging
             _modelli = TrovaModelli(Assembly.GetExecutingAssembly());
         }
 
+        /// <summary>
+        /// Usato per recuperare tramite reflection tutti i possibili modelli (derivano da Modello).
+        /// </summary>
         private IEnumerable<ModelDescriptor> TrovaModelli(Assembly targetAssembly)
         {
             List<ModelDescriptor> modelli = new List<ModelDescriptor>();
@@ -33,6 +36,9 @@ namespace ModelManaging
             return modelli;
         }
 
+        /// <summary>
+        /// Dato un modello, restituisce il ModelDescriptor relativo.
+        /// </summary>
         public ModelDescriptor GetFromModello(Modello modello)
         {
             Type t = modello.GetType();

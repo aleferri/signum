@@ -35,22 +35,32 @@ namespace ModelManaging
             }
         }
 
+        /// <summary>
+        /// Inizializza il controllo applicando gli event handler e popolando combobox e tabelle
+        /// </summary>
         private void InitializeControl()
         {
             ModelDialog.Combo.SelectionChangeCommitted += OnComboChanging;
             ModelDialog.Combo.DisplayMember = "Nome";
             ModelDialog.PreviewButton.Click += OnPreviewClicked;
             ModelDialog.OkButton.Click += OnPreviewClicked;
-            ModelDialog.PreviewPanel.Paint += new PaintEventHandler(Preview);
+            ModelDialog.PreviewPanel.Paint += Preview;
             PopulateCombo(_gestoreModelli.Descrittori);
             PopulateTable(_control.SelectedModel);
         }
 
+        /// <summary>
+        /// Popola la combobox contenente i nomi dei vari possibili modelli.
+        /// </summary>
         private void PopulateCombo(IEnumerable<ModelDescriptor> modelli)
         {
             ModelDialog.Combo.DataSource = modelli.ToList();
         }
 
+        /// <summary>
+        /// Popola la tabella che deve contenere tutti i controlli il cui compito è 
+        /// quello di valorizzare i parametri del rispettivo costruttore.
+        /// </summary>
         private void PopulateTable(ModelDescriptor model)
         {
             ConstructorInfo []ctorInfo = model.Tipo.GetConstructors();
@@ -77,11 +87,17 @@ namespace ModelManaging
             }
         }
 
+        /// <summary>
+        /// Costruisce un oggetto di tipo modello a partire dal Type e dagli argomenti da passare al costruttore.
+        /// </summary>
         private Modello CostruisciModello(Type selectedModelType, object[] args)
         {
             return (Modello)Activator.CreateInstance(selectedModelType, BindingFlags.CreateInstance, null, args, CultureInfo.CurrentCulture);
         }
 
+        /// <summary>
+        /// Itera sui controlli nel TablePanel e usa il loro contenuto per costruire gli argomenti da passare al costruttore del modello.
+        /// </summary>
         private object[] CalcolaArgomenti()
         {
             IEnumerable<NumericUpDown> nUpDowns = ModelDialog.TablePanel.Controls.OfType<NumericUpDown>();

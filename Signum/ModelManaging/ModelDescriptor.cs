@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ModelManaging
 {
+    /// <summary>
+    /// Contiene indicazioni su nome e Type di uno specifico modello
+    /// </summary>
     internal class ModelDescriptor
     {
         private readonly string _nome;

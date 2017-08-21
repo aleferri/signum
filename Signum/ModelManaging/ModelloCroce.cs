@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelManaging
 {
@@ -21,18 +17,18 @@ namespace ModelManaging
             }
         }
 
-        public ModelloCroce(int wingX, int centerX, int wingY, int centerY):
-            base(wingX * 2 + centerX, wingY * 2 + centerY)
+        public ModelloCroce(int braccioX, int larghezzaX, int braccioY, int larghezzaY):
+            base(braccioX * 2 + larghezzaX, braccioY * 2 + larghezzaY)
         {
-            if(0 == centerX || 0 == centerY || 0 == wingX || 0 == wingY)
+            if(0 == larghezzaX || 0 == larghezzaY || 0 == braccioX || 0 == braccioY)
             {
                 throw new ArgumentException("Non sono ammesse dimensioni nulle");
             }
 
-            _centerX = centerX;
-            _centerY = centerY;
-            _wingX = wingX;
-            _wingY = wingY;
+            _centerX = larghezzaX;
+            _centerY = larghezzaY;
+            _wingX = braccioX;
+            _wingY = braccioY;
         }
 
         public override string ToString()

@@ -41,6 +41,15 @@ namespace Signum.Common
             return upPanel;
         }
 
+        /// <summary>
+        /// Visualizza il dialogo (modale) per l'input di una stringa, poi ne ritorna l'eventuale risultato.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
+        /// <param name="ok"></param>
+        /// <param name="cancel"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         public static string ShowInputDialog(string message, string title, string ok, string cancel, string content)
         {
             using (InputDialog form = new InputDialog())
@@ -59,16 +68,33 @@ namespace Signum.Common
                 return form.InputField.Text;
             }
         }
+        /// <summary>
+        /// Visualizza il dialogo (modale) per l'input di una stringa, poi ne ritorna l'eventuale risultato.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
+        /// <param name="ok"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
         public static string ShowInputDialog(string message, string title, string ok, string cancel)
         {
             return ShowInputDialog(message, title, ok, cancel, "");
         }
-
+        /// <summary>
+        /// Visualizza il dialogo (modale) per l'input di una stringa, poi ne ritorna l'eventuale risultato.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public static string ShowInputDialog(string message, string title)
         {
             return ShowInputDialog(message, title, "OK", "Cancel", "");
         }
-
+        /// <summary>
+        /// Visualizza il dialogo (modale) per l'input di una stringa, poi ne ritorna l'eventuale risultato.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public static string ShowInputDialog(string message)
         {
             return ShowInputDialog(message, "Input", "OK", "Cancel", "");

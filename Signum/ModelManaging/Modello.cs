@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelManaging
 {
+    /// <summary>
+    /// Classe base per la gestione dei Modelli di'insegna. Ogni classe da questa derivante identifica un diverso modello
+    /// </summary>
     public abstract class Modello
     {
         private readonly Size _rectangularSize;

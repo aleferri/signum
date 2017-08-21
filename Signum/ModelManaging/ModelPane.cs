@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace ModelManaging
 {
     public class ModelPane
     {
-        public static Modello showModelDialog()
+        /// <summary>
+        /// Visualizza il dialogo (modale) per la scelta del modello per poi ritornarne il risultato.
+        /// </summary>
+        public static Modello ShowModelDialog()
         {
             ModelDialog md = new ModelDialog();
             ModelControlPresenter presenter = new ModelControlPresenter(md);
@@ -24,7 +22,10 @@ namespace ModelManaging
             }
         }
 
-        public static Modello showModelDialog(Modello precedente)
+        /// <summary>
+        /// Visualizza il dialogo (modale) per la scelta del modello caricando i dati del modello precedente, per poi ritornarne il risultato.
+        /// </summary>
+        public static Modello ShowModelDialog(Modello precedente)
         {
             ModelDialog md = new ModelDialog();
             ModelControlPresenter presenter = new ModelControlPresenter(md, precedente);

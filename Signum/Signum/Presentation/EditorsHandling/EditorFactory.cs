@@ -57,11 +57,21 @@ namespace Signum.Presentation.EditorsHandling
             }
         }
 
+        /// <summary>
+        /// Dato il modello e il tipo dell'oggetto da modellare, restituisce un'istanza dell'editor corretto per quel tipo di oggetto
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="modello"></param>
+        /// <returns></returns>
         public IEditorPresenter GetEditorHandler(Type type, Modello modello)
         {
             return (IEditorPresenter) Activator.CreateInstance(_editorHandlers[type], new object[] { modello });
         }
-
+        /// <summary>
+        /// Dato il nome dell'oggetto da modellare, viene restitoito il tipo di quell'oggetto
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public Type GetTagFromName(string name)
         {
             return null == name ? null : (from KeyValuePair<string, Type> kvp

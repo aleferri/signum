@@ -61,7 +61,7 @@ namespace Signum.Model
         public EditorFactory EditorFactory { get; }
         public ILibreria Libreria => _libreria;
 
-        protected Documento()
+        private Documento()
         {
             EditorFactory = new EditorFactory();
         }

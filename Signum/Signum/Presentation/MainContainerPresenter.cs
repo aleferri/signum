@@ -132,7 +132,7 @@ namespace Signum.Presentation
         }
         private void OnModelChangeClick(object sender, EventArgs args)
         {
-            Documento.getInstance().ModelloRiferimento = ModelPane.showModelDialog(Documento.getInstance().ModelloRiferimento) ?? Documento.getInstance().ModelloRiferimento;
+            Documento.getInstance().ModelloRiferimento = ModelPane.ShowModelDialog(Documento.getInstance().ModelloRiferimento) ?? Documento.getInstance().ModelloRiferimento;
             _mainContainer.RightPanel.Controls.Clear();
             foreach (ToolStripItem item in _mainContainer.SaveItems)
             {

@@ -250,6 +250,7 @@ namespace Signum.Presentation
                 _sequenza.Nome = nome;
             }
             Documento.getInstance().Libreria.AggiungiSequenza(_wrapper);
+            MessageBox.Show(null, "Salvataggio terminato", "Successo");
         }
         #endregion
     }
