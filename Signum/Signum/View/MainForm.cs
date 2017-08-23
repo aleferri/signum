@@ -29,5 +29,11 @@ namespace Signum.View
         {
             _modelLabel.Text = Documento.getInstance().ModelloRiferimento.ToString();
         }
+
+        private void _mainContainer_Load(object sender, EventArgs args)
+        {
+
+        }
+
     }
 }

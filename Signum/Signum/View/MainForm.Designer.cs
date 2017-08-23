@@ -41,6 +41,7 @@
             this._mainContainer.Name = "_mainContainer";
             this._mainContainer.Size = new System.Drawing.Size(1416, 712);
             this._mainContainer.TabIndex = 0;
+            this._mainContainer.Load += new System.EventHandler(this._mainContainer_Load);
             // 
             // _statusStrip
             // 

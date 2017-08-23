@@ -49,10 +49,12 @@ namespace Signum.Model
         {
             return ((ICopiable <ImmagineFissa>)this).Copy();
         }
+
         ImmagineFissa ICopiable<ImmagineFissa>.Copy()
         {
             return new ImmagineFissa(_frame.Copy(), InformazioneAssociata.Copy(), Nome);
         }
+
         public override string ToString()
         {
             return String.Format("Immagine fissa -> \"{0}\"", InformazioneAssociata.Accept(new ValutatoreInformazione()));
