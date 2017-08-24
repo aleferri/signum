@@ -25,7 +25,7 @@ namespace Signum.Model
         {
             defaultProgrammazioneGiornaliera = new ProgrammazioneGiornaliera();
             defaultProgrammazioneGiornaliera.Nome = "<Programmazione Giornaliera>";
-            defaultProgrammazioneGiornaliera.AggiungiSequenza(Sequenza.Default);
+            defaultProgrammazioneGiornaliera.InserisciSequenza(Sequenza.Default, new FasciaOraria(0, 96));
         }
 
         public static readonly int QUARTERS_IN_DAY = 4 * 24;
@@ -88,38 +88,6 @@ namespace Signum.Model
             validCache = false;
         }
 
-        private bool AggiungiSequenza(Sequenza s)
-        {
-            int required = s.Count;
-            uint start = 0;
-            int count = 0;
-            bool accepted = false;
-            for (uint i = 0; i < _sequenze.Length; i++)
-            {
-                if (SEQUENZA_DUMMY == _sequenze[i])
-                {
-                    count++;
-                    if (count == required)
-                    {
-                        accepted = true;
-                        break;
-                    }
-                }
-                else
-                {
-                    count = 0;
-                    start = i + 1;
-                }
-            }
-            if (accepted)
-            {
-                for (uint i = start; i < start + count; i++)
-                {
-                    _sequenze[i] = s;
-                }
-            }
-            return accepted;
-        }
         public int Count()
         {
             return _sequenze.Count();
@@ -187,7 +155,7 @@ namespace Signum.Model
             ProgrammazioneGiornaliera p = new ProgrammazioneGiornaliera();
             foreach(Sequenza s in _sequenze)
             {
-                p.AggiungiSequenza(s);
+                p.InserisciSequenza(s.Copy(), GetFasciaOrariaOf(s));
             }
             p.Nome = Nome;
             return p;
