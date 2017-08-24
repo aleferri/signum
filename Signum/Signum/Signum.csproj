@@ -136,7 +136,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ProgrammazioneEditor.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\ProgrammazioneEditor.Designer.cs">
       <DependentUpon>ProgrammazioneEditor.cs</DependentUpon>
