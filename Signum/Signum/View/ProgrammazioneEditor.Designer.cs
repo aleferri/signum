@@ -33,21 +33,22 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBox10 = new System.Windows.Forms.ComboBox();
+            this._venCombo = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.comboBox14 = new System.Windows.Forms.ComboBox();
+            this._lunCombo = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
+            this._marCombo = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.comboBox12 = new System.Windows.Forms.ComboBox();
+            this._merCombo = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.comboBox11 = new System.Windows.Forms.ComboBox();
+            this._gioCombo = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this._sabCombo = new System.Windows.Forms.ComboBox();
+            this._domCombo = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.nuovaProgrammazioneGiornalieraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuovaProgrammazioneGiornaliera = new System.Windows.Forms.ToolStripMenuItem();
+            this._sottoEditorPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -61,6 +62,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this._sottoEditorPanel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -98,19 +100,19 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.comboBox10);
+            this.panel3.Controls.Add(this._venCombo);
             this.panel3.Controls.Add(this.label9);
-            this.panel3.Controls.Add(this.comboBox14);
+            this.panel3.Controls.Add(this._lunCombo);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label11);
-            this.panel3.Controls.Add(this.comboBox13);
+            this.panel3.Controls.Add(this._marCombo);
             this.panel3.Controls.Add(this.label12);
-            this.panel3.Controls.Add(this.comboBox12);
+            this.panel3.Controls.Add(this._merCombo);
             this.panel3.Controls.Add(this.label13);
-            this.panel3.Controls.Add(this.comboBox11);
+            this.panel3.Controls.Add(this._gioCombo);
             this.panel3.Controls.Add(this.label14);
-            this.panel3.Controls.Add(this.comboBox9);
-            this.panel3.Controls.Add(this.comboBox8);
+            this.panel3.Controls.Add(this._sabCombo);
+            this.panel3.Controls.Add(this._domCombo);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
@@ -126,13 +128,13 @@
             this.label8.TabIndex = 76;
             this.label8.Text = "Domenica";
             // 
-            // comboBox10
+            // _venCombo
             // 
-            this.comboBox10.FormattingEnabled = true;
-            this.comboBox10.Location = new System.Drawing.Point(144, 263);
-            this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(121, 21);
-            this.comboBox10.TabIndex = 66;
+            this._venCombo.FormattingEnabled = true;
+            this._venCombo.Location = new System.Drawing.Point(144, 263);
+            this._venCombo.Name = "_venCombo";
+            this._venCombo.Size = new System.Drawing.Size(121, 21);
+            this._venCombo.TabIndex = 66;
             // 
             // label9
             // 
@@ -143,13 +145,13 @@
             this.label9.TabIndex = 75;
             this.label9.Text = "Sabato";
             // 
-            // comboBox14
+            // _lunCombo
             // 
-            this.comboBox14.FormattingEnabled = true;
-            this.comboBox14.Location = new System.Drawing.Point(144, 155);
-            this.comboBox14.Name = "comboBox14";
-            this.comboBox14.Size = new System.Drawing.Size(121, 21);
-            this.comboBox14.TabIndex = 61;
+            this._lunCombo.FormattingEnabled = true;
+            this._lunCombo.Location = new System.Drawing.Point(144, 155);
+            this._lunCombo.Name = "_lunCombo";
+            this._lunCombo.Size = new System.Drawing.Size(121, 21);
+            this._lunCombo.TabIndex = 61;
             // 
             // label10
             // 
@@ -169,13 +171,13 @@
             this.label11.TabIndex = 73;
             this.label11.Text = "Giovedì";
             // 
-            // comboBox13
+            // _marCombo
             // 
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Location = new System.Drawing.Point(144, 182);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(121, 21);
-            this.comboBox13.TabIndex = 63;
+            this._marCombo.FormattingEnabled = true;
+            this._marCombo.Location = new System.Drawing.Point(144, 182);
+            this._marCombo.Name = "_marCombo";
+            this._marCombo.Size = new System.Drawing.Size(121, 21);
+            this._marCombo.TabIndex = 63;
             // 
             // label12
             // 
@@ -186,13 +188,13 @@
             this.label12.TabIndex = 72;
             this.label12.Text = "Mercoledì";
             // 
-            // comboBox12
+            // _merCombo
             // 
-            this.comboBox12.FormattingEnabled = true;
-            this.comboBox12.Location = new System.Drawing.Point(144, 209);
-            this.comboBox12.Name = "comboBox12";
-            this.comboBox12.Size = new System.Drawing.Size(121, 21);
-            this.comboBox12.TabIndex = 64;
+            this._merCombo.FormattingEnabled = true;
+            this._merCombo.Location = new System.Drawing.Point(144, 209);
+            this._merCombo.Name = "_merCombo";
+            this._merCombo.Size = new System.Drawing.Size(121, 21);
+            this._merCombo.TabIndex = 64;
             // 
             // label13
             // 
@@ -203,13 +205,13 @@
             this.label13.TabIndex = 71;
             this.label13.Text = "Martedì";
             // 
-            // comboBox11
+            // _gioCombo
             // 
-            this.comboBox11.FormattingEnabled = true;
-            this.comboBox11.Location = new System.Drawing.Point(144, 236);
-            this.comboBox11.Name = "comboBox11";
-            this.comboBox11.Size = new System.Drawing.Size(121, 21);
-            this.comboBox11.TabIndex = 65;
+            this._gioCombo.FormattingEnabled = true;
+            this._gioCombo.Location = new System.Drawing.Point(144, 236);
+            this._gioCombo.Name = "_gioCombo";
+            this._gioCombo.Size = new System.Drawing.Size(121, 21);
+            this._gioCombo.TabIndex = 65;
             // 
             // label14
             // 
@@ -220,38 +222,46 @@
             this.label14.TabIndex = 70;
             this.label14.Text = "Lunedì";
             // 
-            // comboBox9
+            // _sabCombo
             // 
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Location = new System.Drawing.Point(144, 290);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(121, 21);
-            this.comboBox9.TabIndex = 67;
+            this._sabCombo.FormattingEnabled = true;
+            this._sabCombo.Location = new System.Drawing.Point(144, 290);
+            this._sabCombo.Name = "_sabCombo";
+            this._sabCombo.Size = new System.Drawing.Size(121, 21);
+            this._sabCombo.TabIndex = 67;
             // 
-            // comboBox8
+            // _domCombo
             // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Location = new System.Drawing.Point(144, 317);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(121, 21);
-            this.comboBox8.TabIndex = 68;
+            this._domCombo.FormattingEnabled = true;
+            this._domCombo.Location = new System.Drawing.Point(144, 317);
+            this._domCombo.Name = "_domCombo";
+            this._domCombo.Size = new System.Drawing.Size(121, 21);
+            this._domCombo.TabIndex = 68;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuovaProgrammazioneGiornalieraToolStripMenuItem});
+            this.nuovaProgrammazioneGiornaliera});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(329, 48);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // nuovaProgrammazioneGiornalieraToolStripMenuItem
+            // nuovaProgrammazioneGiornaliera
             // 
-            this.nuovaProgrammazioneGiornalieraToolStripMenuItem.Name = "nuovaProgrammazioneGiornalieraToolStripMenuItem";
-            this.nuovaProgrammazioneGiornalieraToolStripMenuItem.Size = new System.Drawing.Size(54, 44);
-            this.nuovaProgrammazioneGiornalieraToolStripMenuItem.Text = "Nuova";
+            this.nuovaProgrammazioneGiornaliera.Name = "nuovaProgrammazioneGiornaliera";
+            this.nuovaProgrammazioneGiornaliera.Size = new System.Drawing.Size(54, 44);
+            this.nuovaProgrammazioneGiornaliera.Text = "Nuova";
+            // 
+            // _sottoEditorPanel
+            // 
+            this._sottoEditorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._sottoEditorPanel.Location = new System.Drawing.Point(338, 3);
+            this._sottoEditorPanel.Name = "_sottoEditorPanel";
+            this._sottoEditorPanel.Size = new System.Drawing.Size(329, 600);
+            this._sottoEditorPanel.TabIndex = 1;
             // 
             // ProgrammazioneEditor
             // 
@@ -277,21 +287,22 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox10;
+        private System.Windows.Forms.ComboBox _venCombo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox14;
+        private System.Windows.Forms.ComboBox _lunCombo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox13;
+        private System.Windows.Forms.ComboBox _marCombo;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboBox12;
+        private System.Windows.Forms.ComboBox _merCombo;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox comboBox11;
+        private System.Windows.Forms.ComboBox _gioCombo;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox comboBox9;
-        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.ComboBox _sabCombo;
+        private System.Windows.Forms.ComboBox _domCombo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem nuovaProgrammazioneGiornalieraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nuovaProgrammazioneGiornaliera;
+        private System.Windows.Forms.Panel _sottoEditorPanel;
     }
 }

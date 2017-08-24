@@ -192,6 +192,7 @@ namespace Signum.Presentation
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
             int index = (int)item.Tag;
             Sequenza s = new Sequenza();
+            s.AggiungiElemento(Elemento.Default, 10);
             string name = InputPrompt.ShowInputDialog("Inserisci un nome per la nuova sequenza","Nuova sequenza","OK","annulla");
             if (null == name) return;
             s.Nome = name;
