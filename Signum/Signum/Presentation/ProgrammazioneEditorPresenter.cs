@@ -75,7 +75,11 @@ namespace Signum.Presentation
 
         private void OnNuovaProgrammazioneGiornaliera()
         {
-            string name = InputPrompt.ShowInputDialog("Come si chiama?", "Come si chiama?", "OK", "Annulla");
+            string name = InputPrompt.ShowInputDialog("Inserisci il nome per la nuova programmazione", "Nome", "OK", "Annulla");
+            if(null == name || "" == name)
+            {
+                return;
+            }
             ProgrammazioneGiornaliera p = new ProgrammazioneGiornaliera();
             p.Nome = name;
             _inSandbox.Add(p);

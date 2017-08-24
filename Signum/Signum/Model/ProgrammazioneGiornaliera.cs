@@ -11,6 +11,22 @@ namespace Signum.Model
     public class ProgrammazioneGiornaliera : ICopiable<ProgrammazioneGiornaliera>
     {
         public static readonly Sequenza SEQUENZA_DUMMY = new Sequenza();
+        private static ProgrammazioneGiornaliera defaultProgrammazioneGiornaliera;
+
+        public static ProgrammazioneGiornaliera Default => defaultProgrammazioneGiornaliera.Copy();
+
+        static ProgrammazioneGiornaliera()
+        {
+            Documento.getInstance().ModelChanged += OnModelChange;
+            OnModelChange(null, new ModelEventArgs(Documento.getInstance().ModelloRiferimento));
+        }
+
+        private static void OnModelChange(object sender, ModelEventArgs args)
+        {
+            defaultProgrammazioneGiornaliera = new ProgrammazioneGiornaliera();
+            defaultProgrammazioneGiornaliera.Nome = "<Programmazione Giornaliera>";
+            defaultProgrammazioneGiornaliera.AggiungiSequenza(Sequenza.Default);
+        }
 
         public static readonly int QUARTERS_IN_DAY = 4 * 24;
         public static readonly int QUARTER_DURATION = 15 * 60;
