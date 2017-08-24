@@ -16,7 +16,7 @@ namespace Signum.Presentation
 
         public event EventHandler NuovaProgrammazioneGiornaliera;
         private readonly ProgrammazioneEditor _editor;
-        private ISet<ProgrammazioneGiornaliera> _inSandbox;
+        private IDictionary<string, ProgrammazioneGiornaliera> _inSandbox;
         private readonly EditorFactory _eFactory;
 
         public Control Editor => _editor;
@@ -26,7 +26,7 @@ namespace Signum.Presentation
             _eFactory = eFactory;
             _editor = new ProgrammazioneEditor();
             _editor.Dock = DockStyle.Fill;
-            _inSandbox = new HashSet<ProgrammazioneGiornaliera>();
+            _inSandbox = new Dictionary<string, ProgrammazioneGiornaliera>();
             UpdateCombo();
             RegisterCombo();
         }
@@ -66,7 +66,10 @@ namespace Signum.Presentation
             {
                 throw new Exception("Vedi sopra, e comunque come è possibile?");
             }
-            _inSandbox.Add(prog.Element);
+            if (!_inSandbox.ContainsKey(prog.Element.Nome) && !_inSandbox.ContainsKey(prog.Element.Nome + "{Sandbox}"))
+            {
+                _inSandbox.Add(prog.Element.Nome + "{Sandbox}", prog.Element);
+            }
             var editor = _eFactory.GetEditorHandler(typeof(ProgrammazioneGiornaliera), Documento.getInstance().ModelloRiferimento);
             editor.CaricaModello(prog);
             _editor.SottoEditorControl.Controls.Clear();
@@ -82,7 +85,7 @@ namespace Signum.Presentation
             }
             ProgrammazioneGiornaliera p = new ProgrammazioneGiornaliera();
             p.Nome = name;
-            _inSandbox.Add(p);
+            _inSandbox.Add(name, p);
             UpdateCombo();
             NuovaProgrammazioneGiornaliera(p, EventArgs.Empty);
         }
