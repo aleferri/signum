@@ -15,11 +15,8 @@ namespace Signum.Presentation
     {
 
         public event EventHandler NuovaProgrammazioneGiornaliera;
-
         private readonly ProgrammazioneEditor _editor;
-
         private ISet<ProgrammazioneGiornaliera> _inSandbox;
-
         private readonly EditorFactory _eFactory;
 
         public Control Editor => _editor;

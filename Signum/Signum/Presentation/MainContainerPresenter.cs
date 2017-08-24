@@ -20,8 +20,8 @@ namespace Signum.Presentation
 
         private readonly MainContainer _mainContainer;
         private readonly EditorFactory _editorFactory;
-        private IEditorPresenter _currentEditorHandler;
-        private ProgrammazioneEditorPresenter _progettoPresenter;
+        private IEditorPresenter _currentEditorHandler = null;
+        private ProgrammazioneEditorPresenter _progettoPresenter = null;
         private Dictionary<Type, Deleter> _deleters;
 
         public MainContainerPresenter(MainContainer mainContainer)
@@ -85,6 +85,13 @@ namespace Signum.Presentation
                 node.Nodes.Add(sNode);
             }
         }
+        private bool Conferma()
+        {
+            if (null != _currentEditorHandler || null != _progettoPresenter) {
+                return DialogResult.Yes == MessageBox.Show(null, "I dati non salvati verranno persi: sei sicuro?", "Attenzione", MessageBoxButtons.YesNo);
+            }
+            return true;
+        }
         private void FillProgrammazioniGiornaliereNode(TreeNode node)
         {
             foreach (PersisterMapper<ProgrammazioneGiornaliera> p in Documento.getInstance().Libreria.ProgrGiornaliere)
@@ -96,49 +103,55 @@ namespace Signum.Presentation
         }
         private IEditorPresenter ChangePresenter(Type modelType)
         {
-            _mainContainer.MenuModifica.Enabled = false;
-            IEditorPresenter old = _currentEditorHandler;
-            _currentEditorHandler = _editorFactory.GetEditorHandler(modelType, Documento.getInstance().ModelloRiferimento);
-            _mainContainer.RightPanel.Controls.Clear();
-            _mainContainer.RightPanel.Controls.Add(_currentEditorHandler.Editor);
-            foreach (ToolStripItem item in _mainContainer.SaveItems)
+            if (Conferma())
             {
-                item.Enabled = true;
-                if (null != old)
+                _mainContainer.MenuModifica.Enabled = false;
+                IEditorPresenter old = _currentEditorHandler;
+                _currentEditorHandler = _editorFactory.GetEditorHandler(modelType, Documento.getInstance().ModelloRiferimento);
+                _mainContainer.RightPanel.Controls.Clear();
+                _mainContainer.RightPanel.Controls.Add(_currentEditorHandler.Editor);
+                foreach (ToolStripItem item in _mainContainer.SaveItems)
                 {
-                    item.Click -= old.OnSave;
+                    item.Enabled = true;
+                    if (null != old)
+                    {
+                        item.Click -= old.OnSave;
+                    }
+                    if (null != _progettoPresenter)
+                    {
+                        item.Click -= _progettoPresenter.OnSave;
+                    }
+                    item.Click += _currentEditorHandler.OnSave;
                 }
-                if (null != _progettoPresenter)
-                {
-                    item.Click -= _progettoPresenter.OnSave;
-                }
-                item.Click += _currentEditorHandler.OnSave;
-            }
-            _progettoPresenter = null;
+                _progettoPresenter = null;
+            }          
             return _currentEditorHandler;
         }
 
         #region EventHandlers
         private void OnNuovoProgettoClick(object sender, EventArgs args)
         {
-            _progettoPresenter = new ProgrammazioneEditorPresenter(_editorFactory);
-            _mainContainer.RightPanel.Controls.Clear();
-            _mainContainer.RightPanel.Controls.Add(_progettoPresenter.Editor);
-            foreach (ToolStripItem item in _mainContainer.SaveItems)
+            if (Conferma())
             {
-                item.Enabled = true;
-                if (null != _currentEditorHandler)
+                _progettoPresenter = new ProgrammazioneEditorPresenter(_editorFactory);
+                _mainContainer.RightPanel.Controls.Clear();
+                _mainContainer.RightPanel.Controls.Add(_progettoPresenter.Editor);
+                foreach (ToolStripItem item in _mainContainer.SaveItems)
                 {
-                    item.Click -= _currentEditorHandler.OnSave;
+                    item.Enabled = true;
+                    if (null != _currentEditorHandler)
+                    {
+                        item.Click -= _currentEditorHandler.OnSave;
+                    }
+                    if (null != _progettoPresenter)
+                    {
+                        item.Click -= _progettoPresenter.OnSave;
+                    }
+                    item.Click += _progettoPresenter.OnSave;
                 }
-                if (null != _progettoPresenter)
-                {
-                    item.Click -= _progettoPresenter.OnSave;
-                }
-                item.Click += _progettoPresenter.OnSave;
+                _currentEditorHandler = null;
+                _mainContainer.MenuModifica.Enabled = true;
             }
-            _currentEditorHandler = null;
-            _mainContainer.MenuModifica.Enabled = true;
         }
         private void OnLibreriaChange(object sender, EventArgs args)
         {
