@@ -32,6 +32,11 @@ namespace Signum.Model
         {
             return Copy();
         }
+
+        public override string ToString()
+        {
+            return Element.ToString();
+        }
     }
 
     /// <summary>

@@ -17,6 +17,8 @@ namespace Signum.View
 
         public ComboBox[] Days => _days;
 
+        public ToolStripMenuItem Nuovo => _nuovaProgrammazioneGiornaliera;
+
         public Control SottoEditorControl => _sottoEditorPanel;
 
         public ProgrammazioneEditor()

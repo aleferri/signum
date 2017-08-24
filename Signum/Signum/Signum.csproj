@@ -106,6 +106,7 @@
     <Compile Include="Presentation\EditorsHandling\IEditorPresenter.cs" />
     <Compile Include="Presentation\EditorsHandling\FrameEditorPresenter.cs" />
     <Compile Include="Presentation\MainContainerPresenter.cs" />
+    <Compile Include="Presentation\ProgrammazioneEditorPresenter.cs" />
     <Compile Include="Presentation\ProgrammazioneGiornalieraEditorPresenter.cs" />
     <Compile Include="Presentation\SequenzaEditorPresenter.cs" />
     <Compile Include="Program.cs" />
@@ -188,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ProgrammazioneEditor.resx">
+      <DependentUpon>ProgrammazioneEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ProgrammazioneGiornalieraEditor.resx">
       <DependentUpon>ProgrammazioneGiornalieraEditor.cs</DependentUpon>

@@ -21,6 +21,7 @@ namespace Signum.Presentation
         private readonly MainContainer _mainContainer;
         private readonly EditorFactory _editorFactory;
         private IEditorPresenter _currentEditorHandler;
+        private ProgrammazioneEditorPresenter _progettoPresenter;
         private Dictionary<Type, Deleter> _deleters;
 
         public MainContainerPresenter(MainContainer mainContainer)
@@ -34,6 +35,7 @@ namespace Signum.Presentation
             _mainContainer.CambiaModelloButton.Click += OnModelChangeClick;
             _mainContainer.LibreriaView.MouseDoubleClick += OnLibreriaDoubleClick;
             _mainContainer.LibreriaView.MouseClick += OnLibreriaClick;
+            _mainContainer.NuovoProgetto.Click += OnNuovoProgettoClick;
             Documento.getInstance().LibreriaChanged += OnLibreriaChange;
 
         }
@@ -94,6 +96,7 @@ namespace Signum.Presentation
         }
         private IEditorPresenter ChangePresenter(Type modelType)
         {
+            _mainContainer.MenuModifica.Enabled = false;
             IEditorPresenter old = _currentEditorHandler;
             _currentEditorHandler = _editorFactory.GetEditorHandler(modelType, Documento.getInstance().ModelloRiferimento);
             _mainContainer.RightPanel.Controls.Clear();
@@ -105,12 +108,38 @@ namespace Signum.Presentation
                 {
                     item.Click -= old.OnSave;
                 }
+                if (null != _progettoPresenter)
+                {
+                    item.Click -= _progettoPresenter.OnSave;
+                }
                 item.Click += _currentEditorHandler.OnSave;
             }
+            _progettoPresenter = null;
             return _currentEditorHandler;
         }
 
         #region EventHandlers
+        private void OnNuovoProgettoClick(object sender, EventArgs args)
+        {
+            _progettoPresenter = new ProgrammazioneEditorPresenter(_editorFactory);
+            _mainContainer.RightPanel.Controls.Clear();
+            _mainContainer.RightPanel.Controls.Add(_progettoPresenter.Editor);
+            foreach (ToolStripItem item in _mainContainer.SaveItems)
+            {
+                item.Enabled = true;
+                if (null != _currentEditorHandler)
+                {
+                    item.Click -= _currentEditorHandler.OnSave;
+                }
+                if (null != _progettoPresenter)
+                {
+                    item.Click -= _progettoPresenter.OnSave;
+                }
+                item.Click += _progettoPresenter.OnSave;
+            }
+            _currentEditorHandler = null;
+            _mainContainer.MenuModifica.Enabled = true;
+        }
         private void OnLibreriaChange(object sender, EventArgs args)
         {
             TreeNodeCollection nodes = _mainContainer.LibreriaView.Nodes;

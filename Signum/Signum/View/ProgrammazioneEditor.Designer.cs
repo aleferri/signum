@@ -30,7 +30,6 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this._venCombo = new System.Windows.Forms.ComboBox();
@@ -46,21 +45,22 @@
             this.label14 = new System.Windows.Forms.Label();
             this._sabCombo = new System.Windows.Forms.ComboBox();
             this._domCombo = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.nuovaProgrammazioneGiornaliera = new System.Windows.Forms.ToolStripMenuItem();
+            this._nuovaProgrammazioneGiornaliera = new System.Windows.Forms.ToolStripMenuItem();
             this._sottoEditorPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this._sottoEditorPanel, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -68,13 +68,6 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(670, 606);
             this.tableLayoutPanel1.TabIndex = 44;
             // 
@@ -87,15 +80,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(329, 600);
             this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.menuStrip1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 552);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(329, 48);
-            this.panel2.TabIndex = 61;
             // 
             // panel3
             // 
@@ -238,22 +222,31 @@
             this._domCombo.Size = new System.Drawing.Size(121, 21);
             this._domCombo.TabIndex = 68;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.menuStrip1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 552);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(329, 48);
+            this.panel2.TabIndex = 61;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nuovaProgrammazioneGiornaliera});
+            this._nuovaProgrammazioneGiornaliera});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(329, 48);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // nuovaProgrammazioneGiornaliera
+            // _nuovaProgrammazioneGiornaliera
             // 
-            this.nuovaProgrammazioneGiornaliera.Name = "nuovaProgrammazioneGiornaliera";
-            this.nuovaProgrammazioneGiornaliera.Size = new System.Drawing.Size(54, 44);
-            this.nuovaProgrammazioneGiornaliera.Text = "Nuova";
+            this._nuovaProgrammazioneGiornaliera.Name = "_nuovaProgrammazioneGiornaliera";
+            this._nuovaProgrammazioneGiornaliera.Size = new System.Drawing.Size(54, 44);
+            this._nuovaProgrammazioneGiornaliera.Text = "Nuova";
             // 
             // _sottoEditorPanel
             // 
@@ -272,10 +265,10 @@
             this.Size = new System.Drawing.Size(670, 606);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -302,7 +295,7 @@
         private System.Windows.Forms.ComboBox _domCombo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem nuovaProgrammazioneGiornaliera;
+        private System.Windows.Forms.ToolStripMenuItem _nuovaProgrammazioneGiornaliera;
         private System.Windows.Forms.Panel _sottoEditorPanel;
     }
 }
