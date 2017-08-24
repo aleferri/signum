@@ -11,9 +11,11 @@ namespace Signum.View
         public ToolStripButton ForwardButton => _rightArrowButton;
         public ToolStripMenuItem CambiaModelloButton => _cambiaModelloDiRiferimentoToolStripMenuItem;
         public ToolStripMenuItem MenuModifica => _modificaToolStripMenuItem;
-        public ToolStripMenuItem NuovoMenu => _nuovoProgettoToolStripMenuItem;
+        public ToolStripMenuItem NuovoMenu => _nuovoToolStripMenuItem;
         public ToolStripItem[] SaveItems => new ToolStripItem[] { _salvaToolStripMenuItem, _salvaTooltipButton };
         public ToolStripItem Elimina => _eliminaToolStripMenuItem;
+        public ToolStripItem NuovoProgetto => _nuovoProgettoToolStripMenuItem;
+        public ToolStripItem ApriProgetto => _apriProgettoToolStripMenuItem;
 
         public MainContainer()
         {
