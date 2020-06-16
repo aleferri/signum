@@ -1,4 +1,2 @@
 # signum
-Signum
-
-AHAHAAHAHHAHAAHAHAH
+Progetto Signum
